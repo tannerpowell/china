@@ -7,10 +7,10 @@ import path from "node:path";
 import { execSync } from "node:child_process";
 
 const INPUT_DIRS = [
-  "/Users/tp/Projects/China Island Grill/china-island-redesign/data/gallery_upscale",
-  "/Users/tp/Projects/China Island Grill/china-island-redesign/data/gallery_generated"
+  path.join(process.cwd(), "data", "gallery_upscale"),
+  path.join(process.cwd(), "data", "gallery_generated")
 ];
-const OUTPUT_DIR = "/Users/tp/Projects/China Island Grill/china-island-redesign/data/gallery_final";
+const OUTPUT_DIR = path.join(process.cwd(), "data", "gallery_final");
 const QUALITY = 85;
 
 const TITLE_OVERRIDES = {

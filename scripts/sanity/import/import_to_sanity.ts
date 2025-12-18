@@ -54,7 +54,9 @@ async function main() {
       try {
         const asset = await uploadImage(img.localPath);
         images.push({ _type: "image", asset: { _type: "reference", _ref: asset._id } });
-      } catch {}
+      } catch (err) {
+        console.warn(`Failed to upload image ${img.localPath}:`, err instanceof Error ? err.message : err);
+      }
     }
 
     await upsert({

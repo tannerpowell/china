@@ -6,7 +6,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-const GALLERY_DIR = "/Users/tp/Projects/China Island Grill/china-island-redesign/data/gallery_optimized";
+const GALLERY_DIR = path.join(process.cwd(), "data", "gallery_optimized");
 
 // Menu items from Sanity (copied from query results)
 const menuItems = [

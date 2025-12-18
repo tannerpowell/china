@@ -5,9 +5,11 @@ import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe, type StripeElementsOptions } from '@stripe/stripe-js';
 
 // Load Stripe outside of component to avoid recreating on every render
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
-);
+const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+if (!publishableKey) {
+  throw new Error('Missing NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY environment variable');
+}
+const stripePromise = loadStripe(publishableKey);
 
 interface StripeProviderProps {
   children: ReactNode;

@@ -34,8 +34,8 @@ export function main() {
       const id = `mod_${slug}`;
       if (!modMap.has(id)) {
         const selectionType = g.selectionType === "multi" ? "multi" : "single";
-        const options = (g.options || []).map((o: any) => ({
-          id: `opt_${slugify(o.label) || "option"}`,
+        const options = (g.options || []).map((o: any, idx: number) => ({
+          id: `opt_${slugify(o.label || `option_${idx}`) || "option"}`,
           label: o.label,
           priceDelta: Number(o.priceDelta ?? 0)
         }));

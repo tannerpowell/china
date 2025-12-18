@@ -2,7 +2,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
 import Stripe from 'stripe';
 
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
+const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+if (!webhookSecret) {
+  throw new Error('Missing STRIPE_WEBHOOK_SECRET environment variable');
+}
 
 export async function POST(request: NextRequest) {
   const body = await request.text();

@@ -15,7 +15,7 @@ if (!projectId || !token) {
 }
 
 const client = createClient({ projectId, dataset, apiVersion, token, useCdn: false });
-const GALLERY_DIR = "/Users/tp/Projects/China Island Grill/china-island-redesign/data/gallery_final";
+const GALLERY_DIR = path.join(process.cwd(), "data", "gallery_final");
 const DRY_RUN = process.env.DRY_RUN === "1";
 
 // New dishes to upload (round 2)

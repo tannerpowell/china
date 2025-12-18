@@ -19,7 +19,7 @@ if (!projectId || !token) {
 
 const client = createClient({ projectId, dataset, apiVersion, token, useCdn: false });
 
-const GALLERY_DIR = "/Users/tp/Projects/China Island Grill/china-island-redesign/data/gallery_final";
+const GALLERY_DIR = path.join(process.cwd(), "data", "gallery_final");
 const MANIFEST_PATH = path.join(GALLERY_DIR, "_manifest.json");
 const MAPPING_PATH = path.join(GALLERY_DIR, "_slug_mapping.json");
 const DRY_RUN = process.env.DRY_RUN === "1";
@@ -135,7 +135,7 @@ async function main() {
       await sleep(200);
     } catch (err) {
       console.log("  ✗ Error:", err.message);
-      results.errors.push({ slug, error: err.message });
+      results.errors.push({ slug: imageSlug, error: err.message });
     }
   }
 
