@@ -1,0 +1,15 @@
+{
+  "name": "china-island-redesign",
+  "private": true,
+  "packageManager": "pnpm@9.0.0",
+  "scripts": {
+    "scrape": "pnpm --filter @ci/scrape scrape",
+    "normalize": "pnpm --filter @ci/scrape normalize",
+    "import:sanity": "pnpm --filter @ci/sanity import",
+    "dev": "pnpm --filter @ci/web dev"
+  },
+  "devDependencies": {
+    "sharp": "^0.34.5",
+    "tsx": "^4.21.0"
+  }
+}

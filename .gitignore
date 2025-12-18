@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+.next/
+out/
+dist/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Generated data (large/binary)
+data/raw/responses/
+data/images/
+data/raw/*.partial.json
+data/gallery_out/
+data/gallery/
+data/gallery_upscale/
+data/gallery_generated/
+data/gallery_generated_round2/
+data/nano-banana-batch-kit/.env
+data/nano-banana-batch-kit/runs/
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Test artifacts
+playwright-report/
+test-results/
