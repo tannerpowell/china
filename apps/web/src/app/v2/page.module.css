@@ -206,6 +206,15 @@
   color: #4c8f48;
 }
 
+.infoStatusClosed {
+  color: var(--color-ink-muted, #8A8583);
+}
+
+.infoStatusClosed .statusDot {
+  background: var(--color-ink-muted, #8A8583);
+  animation: none;
+}
+
 .statusDot {
   width: 8px;
   height: 8px;

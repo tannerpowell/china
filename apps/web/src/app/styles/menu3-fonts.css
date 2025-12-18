@@ -11,10 +11,10 @@
    ============================================ */
 
 :root {
-  /* Font families */
-  --font-menu-display: 'Sen', system-ui, -apple-system, sans-serif;
-  --font-menu-body: 'Sen', system-ui, -apple-system, sans-serif;
-  --font-menu-ui: 'Sen', system-ui, -apple-system, sans-serif;
+  /* Font families - uses --font-sen from next/font in layout.tsx */
+  --font-menu-display: var(--font-sen), 'Sen', system-ui, -apple-system, sans-serif;
+  --font-menu-body: var(--font-sen), 'Sen', system-ui, -apple-system, sans-serif;
+  --font-menu-ui: var(--font-sen), 'Sen', system-ui, -apple-system, sans-serif;
   --font-menu-mono: 'SF Mono', 'Menlo', 'Monaco', 'Consolas', monospace;
 }
 

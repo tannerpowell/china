@@ -9,7 +9,7 @@ import { createClient } from "@sanity/client";
 
 const projectId = process.env.SANITY_PROJECT_ID;
 const dataset = process.env.SANITY_DATASET ?? "production";
-const apiVersion = process.env.SANITY_API_VERSION ?? "2025-01-01";
+const apiVersion = process.env.SANITY_API_VERSION ?? "2025-12-01";
 const token = process.env.SANITY_TOKEN;
 
 if (!projectId || !token) {

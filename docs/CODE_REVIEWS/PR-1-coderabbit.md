@@ -25,7 +25,7 @@
 | M1 | `apps/web/.env.example` | 2 | Replace actual project ID with placeholder | ✅ Fixed |
 | M2 | `apps/web/vercel.json` | 3 | Fix buildCommand to use pnpm | ✅ Fixed |
 | M3 | `apps/web/src/lib/sanity.ts` | 61 | GROQ injection risk - use parameterized queries | ✅ Fixed |
-| M4 | `apps/web/src/app/globals.css` | 1 | Use next/font instead of @import | ⏭️ Skipped (breaking change) |
+| M4 | `apps/web/src/app/globals.css` | 1 | Use next/font instead of @import | ✅ Fixed |
 | M5 | `apps/web/src/app/styles/menu3-fonts.css` | 51 | WCAG contrast (#888888 -> #767676) | ✅ Fixed |
 | M6 | `apps/web/src/lib/menu-sanity.ts` | 49 | Module-level caching in serverless | ⏭️ Noted (future improvement) |
 | M7 | `apps/web/scripts/screenshot-test.mjs` | 36 | Code duplication with .ts version | ⏭️ Skipped (intentional) |
@@ -47,9 +47,9 @@
 |---|------|------|-------|--------|
 | N1 | `apps/web/src/app/location/page.tsx` | 9 | Add `noopener` to rel attribute | ✅ Fixed |
 | N2 | `apps/web/src/app/order/page.tsx` | 9 | Add `noopener` to rel attribute | ✅ Fixed |
-| N3 | `scripts/sanity/utils/sanityClient.ts` | 4-7 | Use more recent API version date | ⏭️ Skipped (valid) |
+| N3 | `scripts/sanity/utils/sanityClient.ts` | 4-7 | Use more recent API version date | ✅ Fixed |
 | N4 | `docs/IMAGE_SYNC_PLAN.md` | 50 | Fix malformed table row | ✅ Fixed |
-| N5 | `apps/web/src/app/v2/page.tsx` | 66-69 | Hardcoded "Open Now" is misleading | ⏭️ Noted (future improvement) |
+| N5 | `apps/web/src/app/v2/page.tsx` | 66-69 | Hardcoded "Open Now" is misleading | ✅ Fixed |
 | N6 | `scripts/sanity/import/upload_images.ts` | 65-76 | Partial match found but never used | ✅ Fixed |
 | N7 | `scripts/scrape/discover_endpoints.ts` | 42 | Silent error swallowing | ✅ Fixed |
 | N8 | `apps/web/src/components/Header.module.css` | 136 | Missing animation definition | ✅ Fixed |
@@ -74,11 +74,8 @@
 ## Notes
 
 ### Skipped Items (with justification)
-- **M4 (next/font)**: Would require significant refactoring of layout.tsx and font loading. Current @import approach works and can be optimized later.
 - **M6 (serverless caching)**: This is a known limitation. Full solution requires ISR or webhook-based invalidation. Noted for future sprint.
 - **M7 (duplicate test files)**: Both .mjs and .ts versions kept intentionally for different execution contexts.
-- **N3 (API version)**: 2025-01-01 is a valid Sanity API version date.
-- **N5 (Open Now)**: Implementing real hours logic is out of scope for initial MVP.
 
 ### Fixed in commit ae7fc18
 - C1-C4: All hardcoded paths and variable bug
@@ -101,6 +98,11 @@
 - M11: Used execFileSync to prevent shell injection
 - M13: Fixed slug type mismatch in upload_images.ts
 
+### Fixed in follow-up pass
+- M4: Migrated to next/font (removed @import, added Sen font via next/font/google)
+- N3: Updated Sanity API version to 2025-12-01 (4 files)
+- N5: Implemented dynamic open/closed status based on business hours
+
 ---
 
 ## Final Status
@@ -108,8 +110,8 @@
 | Category | Total | Fixed | Skipped | Remaining |
 |----------|-------|-------|---------|-----------|
 | Critical | 4 | 4 | 0 | 0 |
-| Major | 17 | 14 | 3 | 0 |
-| Minor | 13 | 11 | 2 | 0 |
+| Major | 17 | 15 | 2 | 0 |
+| Minor | 13 | 13 | 0 | 0 |
 | Nitpick | 52 | - | - | Low priority |
 
 **All actionable issues have been addressed.**

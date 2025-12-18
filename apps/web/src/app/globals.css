@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Sen:wght@400;700;800&display=swap');
-
 :root {
   /* Chinese Food Club Colors */
   --bg: #ffffff;
@@ -51,7 +49,7 @@ html {
 }
 
 body {
-  font-family: 'Sen', sans-serif;
+  font-family: var(--font-sen), 'Sen', system-ui, -apple-system, sans-serif;
   font-weight: 700;
   background: var(--bg);
   color: var(--text);

@@ -3,8 +3,34 @@
 import Link from "next/link";
 import { ArrowRight, MapPin, Phone, Clock } from "lucide-react";
 import styles from "./page.module.css";
+import { useMemo } from "react";
+
+// Hours: Mon-Sat 11am-9pm, Sun 12pm-8pm
+function getOpenStatus(): { isOpen: boolean; label: string } {
+  const now = new Date();
+  const day = now.getDay(); // 0 = Sunday, 1-6 = Mon-Sat
+  const hour = now.getHours();
+  const minutes = now.getMinutes();
+  const currentTime = hour + minutes / 60;
+
+  const isSunday = day === 0;
+  const openHour = isSunday ? 12 : 11;
+  const closeHour = isSunday ? 20 : 21; // 8pm = 20, 9pm = 21
+
+  if (currentTime >= openHour && currentTime < closeHour) {
+    return { isOpen: true, label: "Open Now" };
+  }
+
+  // Calculate when we open next
+  if (currentTime < openHour) {
+    return { isOpen: false, label: `Opens at ${isSunday ? "12pm" : "11am"}` };
+  }
+
+  return { isOpen: false, label: "Closed" };
+}
 
 export default function Home() {
+  const openStatus = useMemo(() => getOpenStatus(), []);
   return (
     <div className={styles.page}>
       {/* Hero Section */}
@@ -63,9 +89,9 @@ export default function Home() {
               Mon–Sat: 11am–9pm<br />
               Sunday: 12pm–8pm
             </p>
-            <span className={styles.infoStatus}>
+            <span className={`${styles.infoStatus} ${openStatus.isOpen ? "" : styles.infoStatusClosed}`}>
               <span className={styles.statusDot} />
-              Open Now
+              {openStatus.label}
             </span>
           </div>
 
