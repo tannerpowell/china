@@ -85,7 +85,7 @@
 
 ### Fixed in final nitpick pass
 - N1, N2: Added `noopener` to external links
-- N4: Fixed malformed markdown table
+- N4: Fixed malformed Markdown table
 - N6: Partial match now used in upload_images.ts
 - N7: Error logging in discover_endpoints.ts
 - N8: Added scaleIn keyframes animation
