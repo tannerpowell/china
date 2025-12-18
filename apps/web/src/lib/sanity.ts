@@ -45,7 +45,7 @@ export const queries = {
     options
   }`,
 
-  itemsByCategory: (categoryId: string) => `*[_type == "menuItem" && category._ref == "${categoryId}"] | order(likes desc) {
+  itemsByCategory: `*[_type == "menuItem" && category._ref == $categoryId] | order(likes desc) {
     _id,
     sourceItemId,
     name,
@@ -128,5 +128,5 @@ export async function fetchModifierGroups(): Promise<SanityModifierGroup[]> {
 }
 
 export async function fetchItemsByCategory(categoryId: string): Promise<SanityMenuItem[]> {
-  return sanityClient.fetch(queries.itemsByCategory(categoryId));
+  return sanityClient.fetch(queries.itemsByCategory, { categoryId });
 }

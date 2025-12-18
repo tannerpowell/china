@@ -35,7 +35,7 @@ function transformModifierGroup(group: SanityModifierGroup): ModifierGroup {
     selectionType: group.selectionType,
     min: group.min,
     max: group.max,
-    options: group.options.map(opt => ({
+    options: (group.options || []).map(opt => ({
       id: opt.id,
       label: opt.label,
       priceDelta: opt.priceDelta,
