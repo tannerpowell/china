@@ -155,7 +155,7 @@ async function main() {
       log(`Item ${i + 1}/${index.length} id=${entry.itemId}`);
 
       // Fetch the API directly
-      const apiUrl = `http://www.chinaislandasiangrill.com/order/?type=addtocart&mid=${entry.itemId}&rid=${RID}&country=us&domain=chinaislandasiangrill.com&${Math.random()}&`;
+      const apiUrl = `http://www.chinaislandasiangrill.com/order/?type=addtocart&mid=${entry.itemId}&rid=${RID}&country=us&domain=chinaislandasiangrill.com&_cb=${Date.now()}`;
       const response = await page.request.get(apiUrl);
 
       if (response.ok()) {

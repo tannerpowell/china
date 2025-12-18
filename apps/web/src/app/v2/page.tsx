@@ -6,14 +6,26 @@ import styles from "./page.module.css";
 import { useMemo } from "react";
 
 // Hours: Mon-Sat 11am-9pm, Sun 12pm-8pm
-function getOpenStatus(): { isOpen: boolean; label: string } {
-  const now = new Date();
-  const day = now.getDay(); // 0 = Sunday, 1-6 = Mon-Sat
-  const hour = now.getHours();
-  const minutes = now.getMinutes();
-  const currentTime = hour + minutes / 60;
+// Uses restaurant's local timezone (defaults to America/Chicago)
+const RESTAURANT_TIMEZONE = process.env.NEXT_PUBLIC_RESTAURANT_TIMEZONE || "America/Chicago";
 
-  const isSunday = day === 0;
+function getOpenStatus(): { isOpen: boolean; label: string } {
+  // Get current time in restaurant's timezone
+  const now = new Date();
+  const formatter = new Intl.DateTimeFormat("en-US", {
+    timeZone: RESTAURANT_TIMEZONE,
+    hour: "numeric",
+    minute: "numeric",
+    weekday: "short",
+    hour12: false,
+  });
+  const parts = formatter.formatToParts(now);
+  const weekday = parts.find(p => p.type === "weekday")?.value || "";
+  const hour = parseInt(parts.find(p => p.type === "hour")?.value || "0", 10);
+  const minute = parseInt(parts.find(p => p.type === "minute")?.value || "0", 10);
+  const currentTime = hour + minute / 60;
+
+  const isSunday = weekday === "Sun";
   const openHour = isSunday ? 12 : 11;
   const closeHour = isSunday ? 20 : 21; // 8pm = 20, 9pm = 21
 
@@ -28,6 +40,8 @@ function getOpenStatus(): { isOpen: boolean; label: string } {
 
   return { isOpen: false, label: "Closed" };
 }
+
+const RESTAURANT_PHONE = process.env.NEXT_PUBLIC_RESTAURANT_PHONE || "";
 
 export default function Home() {
   const openStatus = useMemo(() => getOpenStatus(), []);
@@ -104,10 +118,14 @@ export default function Home() {
               Questions? Call us or<br />
               order by phone
             </p>
-            <a href="tel:+1234567890" className={styles.infoLink}>
-              Call to Order
-              <ArrowRight size={14} />
-            </a>
+            {RESTAURANT_PHONE ? (
+              <a href={`tel:${RESTAURANT_PHONE}`} className={styles.infoLink}>
+                Call to Order
+                <ArrowRight size={14} />
+              </a>
+            ) : (
+              <span className={styles.infoLink}>Phone not configured</span>
+            )}
           </div>
         </div>
       </section>
