@@ -39,7 +39,10 @@ export function main() {
           label: o.label,
           priceDelta: Number(o.priceDelta ?? 0)
         }));
-        modMap.set(id, { id, title, selectionType, min: 0, max: selectionType === "multi" ? options.length : 1, options });
+        // Extract min/max from raw data if available, or infer based on business rules
+        const min = g.min ?? (g.required ? 1 : 0);
+        const max = g.max ?? (selectionType === "multi" ? options.length : 1);
+        modMap.set(id, { id, title, selectionType, min, max, options });
       }
     }
   }
@@ -63,7 +66,7 @@ export function main() {
       slug,
       categoryId,
       basePrice: it?.modal?.basePrice ?? null,
-      description: null,
+      description: it?.modal?.description ?? null,
       likes: it?.modal?.likes ?? null,
       tags: guessTags(it),
       images,

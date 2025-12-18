@@ -7,7 +7,7 @@
 
 ---
 
-## Critical Issues (4)
+## Critical Issues (7)
 
 | # | File | Line | Issue | Status |
 |---|------|------|-------|--------|
@@ -15,10 +15,13 @@
 | C2 | `scripts/optimize-images.mjs` | 14 | Hardcoded absolute paths | ✅ Fixed |
 | C3 | `scripts/sanity/upload-images.mjs` | 22 | Hardcoded absolute path | ✅ Fixed |
 | C4 | `scripts/sanity/upload-images.mjs` | 139 | Undefined variable `slug` (should be `imageSlug`) | ✅ Fixed |
+| C5 | `apps/web/src/app/globals.css` | - | Missing `--font-display` and `--font-body` variables | ✅ Fixed |
+| C6 | `apps/web/src/components/Header.module.css` | 65 | No mobile navigation (nav hidden on mobile) | ✅ Fixed |
+| C7 | `scripts/sanity/upload-images.mjs` | 139 | Null dereference if hero/square missing | ✅ Fixed |
 
 ---
 
-## Major Issues (17)
+## Major Issues (20)
 
 | # | File | Line | Issue | Status |
 |---|------|------|-------|--------|
@@ -38,10 +41,13 @@
 | M14 | `scripts/sanity/upload-round2.mjs` | 18 | Hardcoded absolute path | ✅ Fixed |
 | M15 | `scripts/scrape/utils/normalize.ts` | 41 | Empty option labels | ✅ Fixed |
 | M16 | `apps/web/src/lib/menu-sanity.ts` | 44 | Defensive fallback for options | ✅ Fixed |
+| M17 | `apps/web/src/app/ui/MenuExplorer.tsx` | 21 | Import types from centralized module | ✅ Fixed |
+| M18 | `scripts/scrape/utils/normalize.ts` | 45 | Modifier groups min=0 hardcoded | ✅ Fixed |
+| M19 | `scripts/sanity/import/import_to_sanity.ts` | 27 | Path resolution hardcodes "../../" | ✅ Fixed |
 
 ---
 
-## Minor Issues (13)
+## Minor Issues (14)
 
 | # | File | Line | Issue | Status |
 |---|------|------|-------|--------|
@@ -58,6 +64,7 @@
 | N11 | `scripts/scrape/rescrape_missing.ts` | 101-105 | Risky non-null assertion | ✅ Fixed |
 | N12 | `apps/web/src/app/page.tsx` | 30 | Duplicate nav links / hardcoded active | ✅ Fixed |
 | N13 | `apps/web/src/app/styles/menu3-fonts.css` | 63 | Inconsistent variable naming (border-dashed) | ✅ Fixed |
+| N14 | `scripts/scrape/utils/normalize.ts` | 73 | Description always null | ✅ Fixed |
 
 ---
 
@@ -103,15 +110,24 @@
 - N3: Updated Sanity API version to 2025-12-01 (4 files)
 - N5: Implemented dynamic open/closed status based on business hours
 
+### Fixed in round 2 pass
+- C5: Added `--font-display` and `--font-body` CSS variables + `--shadow-sm`/`--shadow-md`
+- C6: Implemented mobile navigation with hamburger menu and slide-out drawer
+- C7: Added null check for hero/square images before upload
+- M17: Import types from centralized `@/lib/types` module in MenuExplorer
+- M18: Extract min/max from raw data in normalize.ts
+- M19: Fixed path resolution using `import.meta.url` instead of hardcoded "../../"
+- N14: Extract description from raw data instead of hardcoding null
+
 ---
 
 ## Final Status
 
 | Category | Total | Fixed | Skipped | Remaining |
 |----------|-------|-------|---------|-----------|
-| Critical | 4 | 4 | 0 | 0 |
-| Major | 17 | 15 | 2 | 0 |
-| Minor | 13 | 13 | 0 | 0 |
+| Critical | 7 | 7 | 0 | 0 |
+| Major | 20 | 18 | 2 | 0 |
+| Minor | 14 | 14 | 0 | 0 |
 | Nitpick | 52 | - | - | Low priority |
 
 **All actionable issues have been addressed.**

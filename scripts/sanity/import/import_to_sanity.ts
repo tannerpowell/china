@@ -1,14 +1,21 @@
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import "dotenv/config";
 import { sanity } from "../utils/sanityClient.js";
 
+// Compute project root from script location (scripts/sanity/import/ -> project root)
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const PROJECT_ROOT = path.resolve(__dirname, "../../..");
+
 function readNormalized(): any {
   const paths = [
+    path.resolve(PROJECT_ROOT, "apps/web/src/data/menu.normalized.json"),
+    path.resolve(PROJECT_ROOT, "data/normalized/menu.normalized.json"),
+    path.resolve(PROJECT_ROOT, "scripts/scrape/data/normalized/menu.normalized.json"),
+    // Fallback to cwd-based paths for backwards compatibility
     path.resolve(process.cwd(), "apps/web/src/data/menu.normalized.json"),
-    path.resolve(process.cwd(), "../../data/normalized/menu.normalized.json"),
     path.resolve(process.cwd(), "data/normalized/menu.normalized.json"),
-    path.resolve(process.cwd(), "scripts/scrape/data/normalized/menu.normalized.json"),
   ];
   const p = paths.find(p => fs.existsSync(p));
   if (!p) throw new Error("Could not find menu.normalized.json");
@@ -20,7 +27,8 @@ async function upsert(doc: any) {
 }
 
 async function uploadImage(localPath: string) {
-  const abs = path.isAbsolute(localPath) ? localPath : path.resolve(process.cwd(), "../../", localPath);
+  // Resolve relative paths from project root (where data/ directory lives)
+  const abs = path.isAbsolute(localPath) ? localPath : path.resolve(PROJECT_ROOT, localPath);
   const stream = fs.createReadStream(abs);
   const filename = path.basename(abs);
   return sanity.assets.upload("image", stream, { filename });

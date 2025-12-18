@@ -105,6 +105,13 @@ async function main() {
     }
 
     try {
+      // Validate both crops exist
+      if (!data.hero || !data.square) {
+        console.log("  ⚠ Missing hero or square image, skipping");
+        results.notFound.push(imageSlug);
+        continue;
+      }
+
       // Upload hero image
       const heroPath = path.join(GALLERY_DIR, data.hero.filename);
       console.log("  Uploading hero...");

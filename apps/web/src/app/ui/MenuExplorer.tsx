@@ -1,27 +1,10 @@
 "use client";
 import { useMemo, useState } from "react";
+import type { Category, MenuItem, MenuData } from "@/lib/types";
 import data from "@/data/menu.normalized.json";
 
-interface MenuItem {
-  id: string;
-  name: string;
-  categoryId?: string;
-  basePrice?: number;
-  tags?: { spicy?: boolean; vegetarian?: boolean; popular?: boolean };
-}
-
-interface Category {
-  id: string;
-  title: string;
-}
-
-interface NormalizedMenu {
-  categories?: Category[];
-  items?: MenuItem[];
-}
-
 export default function MenuExplorer() {
-  const normalized = data as NormalizedMenu;
+  const normalized = data as MenuData;
   const [q, setQ] = useState("");
   const [onlySpicy, setOnlySpicy] = useState(false);
   const [onlyVeg, setOnlyVeg] = useState(false);
