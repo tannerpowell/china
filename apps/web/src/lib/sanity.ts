@@ -3,12 +3,15 @@ import { createClient } from '@sanity/client';
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'o2zvhwfq';
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production';
 const apiVersion = process.env.NEXT_PUBLIC_SANITY_API_VERSION || '2025-12-01';
+// CDN is faster but may have slight delay for fresh content
+// Set NEXT_PUBLIC_SANITY_USE_CDN=true to enable if on a plan that includes it
+const useCdn = process.env.NEXT_PUBLIC_SANITY_USE_CDN === 'true';
 
 export const sanityClient = createClient({
   projectId,
   dataset,
   apiVersion,
-  useCdn: true, // Use CDN for faster reads in production
+  useCdn,
 });
 
 // GROQ Queries
