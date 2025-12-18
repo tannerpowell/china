@@ -1,0 +1,318 @@
+/* Chinese Food Club inspired checkout */
+.main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 24px;
+  min-height: 100vh;
+}
+
+.loading,
+.empty,
+.success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  text-align: center;
+}
+
+.success h1,
+.empty h1 {
+  font-size: 28px;
+  color: var(--red);
+  margin-bottom: 8px;
+}
+
+.successIcon {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  background: var(--green);
+  color: white;
+  border-radius: 50%;
+  margin-bottom: 16px;
+}
+
+.successNote {
+  color: #666;
+  margin-top: 8px;
+}
+
+.backLink {
+  margin-top: 24px;
+  padding: 10px 24px;
+  border: 2px solid var(--green);
+  border-radius: 100px;
+  color: var(--green);
+  transition: all 0.2s ease;
+}
+
+.backLink:hover {
+  background: var(--green);
+  color: white;
+}
+
+.back {
+  display: inline-block;
+  margin-bottom: 24px;
+  color: var(--red);
+  font-size: 14px;
+}
+
+.back:hover {
+  text-decoration: underline;
+}
+
+/* Grid */
+.grid {
+  display: grid;
+  gap: 40px;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Section */
+.sectionTitle {
+  font-size: 24px;
+  color: var(--red);
+  margin: 0;
+}
+
+.dottedRule {
+  border-top: 2px dashed var(--red);
+  margin: 8px 0 20px;
+}
+
+/* Summary */
+.summary {
+  order: 1;
+}
+
+@media (min-width: 768px) {
+  .summary {
+    order: 0;
+  }
+}
+
+.items {
+  margin-bottom: 20px;
+}
+
+.item {
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+.itemHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.itemName {
+  font-size: 15px;
+  color: var(--green);
+}
+
+.removeBtn {
+  font-size: 18px;
+  color: #999;
+  padding: 0 4px;
+}
+
+.removeBtn:hover {
+  color: var(--red);
+}
+
+.itemMods {
+  font-size: 12px;
+  font-weight: 400;
+  color: #666;
+  margin-top: 4px;
+}
+
+.itemMods span::after {
+  content: ", ";
+}
+
+.itemMods span:last-child::after {
+  content: "";
+}
+
+.itemFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.qtyControls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.qtyControls button {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  background: white;
+  border: 2px solid var(--green);
+  border-radius: 50%;
+  color: var(--green);
+}
+
+.qtyControls button:hover {
+  background: var(--green);
+  color: white;
+}
+
+.qtyControls span {
+  min-width: 20px;
+  text-align: center;
+}
+
+.itemPrice {
+  color: var(--text);
+}
+
+/* Totals */
+.totals {
+  padding-top: 16px;
+  border-top: 2px dashed var(--red);
+}
+
+.totalRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+  font-size: 14px;
+  font-weight: 400;
+  color: #666;
+}
+
+.totalFinal {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Form */
+.formSection {
+  order: 0;
+}
+
+@media (min-width: 768px) {
+  .formSection {
+    order: 1;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.field label {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 14px;
+  font-family: inherit;
+  font-weight: 400;
+  background: white;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--green);
+}
+
+.field textarea {
+  resize: vertical;
+}
+
+/* Order Type */
+.orderType {
+  display: flex;
+  gap: 8px;
+}
+
+.orderType button {
+  flex: 1;
+  padding: 12px;
+  font-size: 14px;
+  background: white;
+  border: 2px solid var(--green);
+  border-radius: 100px;
+  color: var(--green);
+  transition: all 0.15s ease;
+}
+
+.orderType button:hover {
+  background: rgba(73, 158, 75, 0.1);
+}
+
+.orderType button.active {
+  background: var(--green);
+  color: white;
+}
+
+/* Payment Note */
+.paymentNote {
+  padding: 16px;
+  background: rgba(247, 65, 64, 0.05);
+  border: 2px dashed var(--red);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 400;
+  color: #666;
+  text-align: center;
+}
+
+/* Submit */
+.submitBtn {
+  padding: 16px;
+  font-size: 16px;
+  background: var(--red);
+  color: white;
+  border-radius: 100px;
+  transition: background 0.2s ease;
+}
+
+.submitBtn:hover:not(:disabled) {
+  background: var(--red-hover);
+}
+
+.submitBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
