@@ -1,0 +1,13 @@
+{
+  "name": "@ci/sanity",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "import": "tsx import/import_to_sanity.ts"
+  },
+  "dependencies": {
+    "@sanity/client": "^6.23.0",
+    "dotenv": "^16.4.5",
+    "tsx": "^4.16.2"
+  }
+}

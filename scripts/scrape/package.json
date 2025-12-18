@@ -1,0 +1,15 @@
+{
+  "name": "@ci/scrape",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "discover": "tsx discover_endpoints.ts",
+    "scrape": "tsx scrape_menu.ts",
+    "normalize": "tsx utils/normalize.ts"
+  },
+  "dependencies": {
+    "playwright": "^1.57.0",
+    "cheerio": "^1.1.2",
+    "tsx": "^4.21.0"
+  }
+}
