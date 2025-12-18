@@ -2,8 +2,26 @@
 import { useMemo, useState } from "react";
 import data from "@/data/menu.normalized.json";
 
+interface MenuItem {
+  id: string;
+  name: string;
+  categoryId?: string;
+  basePrice?: number;
+  tags?: { spicy?: boolean; vegetarian?: boolean; popular?: boolean };
+}
+
+interface Category {
+  id: string;
+  title: string;
+}
+
+interface NormalizedMenu {
+  categories?: Category[];
+  items?: MenuItem[];
+}
+
 export default function MenuExplorer() {
-  const normalized = data as any;
+  const normalized = data as NormalizedMenu;
   const [q, setQ] = useState("");
   const [onlySpicy, setOnlySpicy] = useState(false);
   const [onlyVeg, setOnlyVeg] = useState(false);
@@ -14,7 +32,7 @@ export default function MenuExplorer() {
 
   const filtered = useMemo(() => {
     const qq = q.trim().toLowerCase();
-    return items.filter((it: any) => {
+    return items.filter((it) => {
       if (qq && !(it.name || "").toLowerCase().includes(qq)) return false;
       if (onlySpicy && !it.tags?.spicy) return false;
       if (onlyVeg && !it.tags?.vegetarian) return false;
@@ -24,7 +42,7 @@ export default function MenuExplorer() {
   }, [items, q, onlySpicy, onlyVeg, onlyPopular]);
 
   const byCat = useMemo(() => {
-    const m = new Map<string, any[]>();
+    const m = new Map<string, MenuItem[]>();
     for (const it of filtered) {
       const key = it.categoryId || "cat_uncategorized";
       const arr = m.get(key) ?? [];
@@ -38,7 +56,7 @@ export default function MenuExplorer() {
     <div style={{ display: "grid", gridTemplateColumns: "340px 1fr", gap: 28 }}>
       <aside style={{ position: "sticky", top: 24, alignSelf: "start" }}>
         <h1 style={{ marginTop: 0, marginBottom: 8 }}>Menu</h1>
-        <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search…" style={input} />
+        <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search…" aria-label="Search menu items" style={input} />
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 10 }}>
           <Chip label="Spicy" active={onlySpicy} onClick={() => setOnlySpicy(v => !v)} />
           <Chip label="Vegetarian" active={onlyVeg} onClick={() => setOnlyVeg(v => !v)} />
@@ -47,7 +65,7 @@ export default function MenuExplorer() {
         <div style={{ marginTop: 16 }}>
           <div style={{ fontSize: 12, color: "var(--muted)", marginBottom: 8 }}>Jump to</div>
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-            {categories.map((c: any) => <a key={c.id} href={`#${c.id}`} style={pill}>{c.title}</a>)}
+            {categories.map((c) => <a key={c.id} href={`#${c.id}`} style={pill}>{c.title}</a>)}
           </div>
         </div>
       </aside>
@@ -59,7 +77,7 @@ export default function MenuExplorer() {
           </div>
         ) : null}
 
-        {categories.map((c: any) => {
+        {categories.map((c) => {
           const group = byCat.get(c.id) ?? [];
           if (!group.length) return null;
           return (
@@ -67,7 +85,7 @@ export default function MenuExplorer() {
               <h2 style={{ marginBottom: 8 }}>{c.title}</h2>
               <div style={{ borderTop: "2px dotted var(--ornament)", marginBottom: 10 }} />
               <div style={{ display: "grid", gap: 10 }}>
-                {group.map((it: any) => (
+                {group.map((it) => (
                   <div key={it.id} style={row}>
                     <div>
                       <div style={{ fontWeight: 700 }}>{it.name}</div>

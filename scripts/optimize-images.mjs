@@ -4,7 +4,7 @@
 
 import fs from "node:fs";
 import path from "node:path";
-import { execSync } from "node:child_process";
+import { execFileSync } from "node:child_process";
 
 const INPUT_DIRS = [
   path.join(process.cwd(), "data", "gallery_upscale"),
@@ -84,7 +84,7 @@ async function main() {
       const title = slugToTitle(slug);
 
       try {
-        execSync("sips -s format jpeg -s formatOptions " + QUALITY + " \"" + inputPath + "\" --out \"" + outputPath + "\"", { stdio: "pipe" });
+        execFileSync("sips", ["-s", "format", "jpeg", "-s", "formatOptions", String(QUALITY), inputPath, "--out", outputPath], { stdio: "pipe" });
         const stats = fs.statSync(outputPath);
         manifest.images.push({ filename: outputFile, slug, title, cropType, sizeKB: Math.round(stats.size / 1024), source: path.basename(inputDir) });
         processed++;

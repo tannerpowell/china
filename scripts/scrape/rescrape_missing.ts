@@ -97,9 +97,10 @@ function parsePriceCell(priceHtml: string): PriceInfo {
 
   // Fallback: find any price
   const anyPrice = text.match(/\$\s*([0-9]+(?:\.[0-9]{1,2})?)/);
+  const priceMatch = simplePrice ?? anyPrice;
 
   return {
-    basePrice: (simplePrice || anyPrice) ? Number((simplePrice || anyPrice)![1]) : null,
+    basePrice: priceMatch ? Number(priceMatch[1]) : null,
     sizeVariants: null,
     optionVariants: null
   };

@@ -39,7 +39,9 @@ async function main() {
         }
       }
       captured.push(entry);
-    } catch {}
+    } catch (err) {
+      log("Response handler error:", res.url(), err instanceof Error ? err.message : err);
+    }
   });
 
   log("Opening menu:", MENU_URL);

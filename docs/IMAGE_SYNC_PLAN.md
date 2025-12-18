@@ -47,7 +47,7 @@ These have matching images in `/data/gallery_optimized/`:
 | Mongolian Stir-Fry | beef--mongolian-beef |
 | Sesame | chicken--sesame-chicken |
 | Sichuan String Beans | specialties--string-beans-chicken |
-| + Combination/Lunch variants sharing above images |
+| *Note* | Combination/Lunch variants share above images |
 
 ### Skippable Items (33)
 - **Drinks (8)**: Product photos of branded drinks not needed

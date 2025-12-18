@@ -92,6 +92,7 @@ async function main() {
   ensureDir("data/images");
 
   const browser = await chromium.launch({ headless: true });
+  try {
   const page = await browser.newPage();
 
   log("Opening menu:", MENU_URL);
@@ -178,7 +179,9 @@ async function main() {
 
   writeJson("data/raw/menu_capture.full.json", { menuUrl: MENU_URL, cartUrl: CART_URL, items: captures });
   log("Wrote full capture.");
-  await browser.close();
+  } finally {
+    await browser.close();
+  }
 }
 
 main().catch((e) => { console.error(e); process.exit(1); });

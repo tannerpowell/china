@@ -6,7 +6,7 @@ export default function OrderPage() {
       <h1 style={{ marginTop: 0 }}>Order</h1>
       <p style={{ color: "var(--muted)" }}>Ordering currently links out while we replace checkout.</p>
       <div style={{ display: "grid", gap: 10 }}>
-        <a href={orderUrl} target="_blank" rel="noreferrer" style={btnPrimary}>Order Online</a>
+        <a href={orderUrl} target="_blank" rel="noopener noreferrer" style={btnPrimary}>Order Online</a>
         {phone ? <a href={`tel:${phone}`} style={btnSecondary}>Call for Takeout</a> : null}
       </div>
     </main>

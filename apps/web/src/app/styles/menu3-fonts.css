@@ -60,7 +60,7 @@
   --menu3-preview-bg: rgba(42, 37, 34, 0.02);
   --menu3-card-bg: #ffffff;
   --menu3-border: rgba(42, 37, 34, 0.06);
-  --menu3-border-dashed: 2px solid rgba(42, 37, 34, 0.12);
+  --menu3-border-dashed: 2px dashed rgba(42, 37, 34, 0.12);
   --menu3-text: #2A2522;
   --menu3-text-secondary: #4A4543;
   --menu3-text-muted: #8A8583;

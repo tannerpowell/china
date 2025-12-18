@@ -22,7 +22,7 @@ export default function Home() {
             <Link href="/menu" className={styles.navLink}>
               Menu
             </Link>
-            <Link href="/menu" className={`${styles.navLink} ${styles.navLinkActive}`}>
+            <Link href="/order" className={styles.navLink}>
               Order Online
             </Link>
             <Link href="/location" className={styles.navLink}>

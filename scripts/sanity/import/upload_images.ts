@@ -30,14 +30,14 @@ function extractItemSlugFromFilename(filename: string): string | null {
 
 async function main() {
   // Get all menu items from Sanity
-  const items = await sanity.fetch<MenuItemDoc[]>(`*[_type == "menuItem"] { _id, name, "slug": slug.current, category }`);
+  const items = await sanity.fetch<MenuItemDoc[]>(`*[_type == "menuItem"] { _id, name, slug, category }`);
   console.log(`Found ${items.length} menu items in Sanity`);
 
   // Create a map of slug -> item for quick lookup
   const slugToItem = new Map<string, MenuItemDoc>();
   for (const item of items) {
-    if (item.slug) {
-      slugToItem.set(item.slug, item);
+    if (item.slug?.current) {
+      slugToItem.set(item.slug.current, item);
     }
   }
 
@@ -63,7 +63,7 @@ async function main() {
   let failed = 0;
 
   for (const [slug, imageFiles] of imagesBySlug) {
-    const item = slugToItem.get(slug);
+    let item = slugToItem.get(slug);
     if (!item) {
       // Try partial match
       const partialMatch = Array.from(slugToItem.entries()).find(([s]) =>
@@ -71,8 +71,10 @@ async function main() {
       );
       if (partialMatch) {
         console.log(`Partial match: ${slug} -> ${partialMatch[0]}`);
+        item = partialMatch[1];
+      } else {
+        continue;
       }
-      continue;
     }
 
     matched++;
