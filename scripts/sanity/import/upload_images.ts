@@ -67,7 +67,8 @@ async function main() {
 
   let uploaded = 0;
   let matched = 0;
-  let failed = 0;
+  let uploadFailed = 0;
+  let patchFailed = 0;
 
   for (const [slug, imageFiles] of imagesBySlug) {
     let item = slugToItem.get(slug);
@@ -102,7 +103,7 @@ async function main() {
         uploaded++;
       } catch (err) {
         console.error(`  Failed to upload ${imageFile}:`, err);
-        failed++;
+        uploadFailed++;
       }
     }
 
@@ -112,6 +113,7 @@ async function main() {
         console.log(`  Updated ${item.name} with ${uploadedImages.length} images`);
       } catch (err) {
         console.error(`  Failed to update ${item.name}:`, err);
+        patchFailed++;
       }
     }
   }
@@ -119,7 +121,8 @@ async function main() {
   console.log(`\n--- Summary ---`);
   console.log(`Items matched: ${matched}`);
   console.log(`Images uploaded: ${uploaded}`);
-  console.log(`Failed uploads: ${failed}`);
+  console.log(`Upload failures: ${uploadFailed}`);
+  console.log(`Patch failures: ${patchFailed}`);
 }
 
 main().catch((e) => { console.error(e); process.exit(1); });
