@@ -10,7 +10,7 @@
 
 import { chromium } from "playwright";
 import * as cheerio from "cheerio";
-import { writeJson, readJson, ensureDir } from "./utils/storage.js";
+import { writeJson, ensureDir } from "./utils/storage.js";
 import type { ModifierOption, ModifierGroup } from "./scrape_item_modal.js";
 
 const MENU_URL = "http://www.chinaislandasiangrill.com/menu.asp";

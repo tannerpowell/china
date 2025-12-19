@@ -97,7 +97,7 @@ async function main() {
         const asset = await uploadImage(localPath);
         uploadedImages.push({
           _type: "image",
-          _key: `img_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+          _key: `img_${Date.now()}_${Math.random().toString(36).slice(2, 11)}`,
           asset: { _type: "reference", _ref: asset._id }
         });
         uploaded++;
