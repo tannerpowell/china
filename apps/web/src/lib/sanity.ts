@@ -88,6 +88,30 @@ export const queries = {
     order
   }`,
 
+  menuItemById: `*[_type == "menuItem" && _id == $id][0] {
+    _id,
+    sourceItemId,
+    name,
+    "slug": slug.current,
+    basePrice,
+    description,
+    likes,
+    tags,
+    "categoryId": category._ref,
+    "modifierGroupIds": modifierGroups[]._ref,
+    "images": images[].asset->url,
+    order
+  }`,
+
+  modifierGroupById: `*[_type == "modifierGroup" && _id == $id][0] {
+    _id,
+    title,
+    selectionType,
+    min,
+    max,
+    options
+  }`,
+
   restaurantSettings: `*[_type == "restaurantSettings"][0] {
     name,
     phone,
