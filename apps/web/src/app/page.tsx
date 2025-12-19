@@ -1,7 +1,10 @@
-"use client";
-
+import Image from "next/image";
 import Link from "next/link";
 import styles from "./page.module.css";
+
+// Restaurant configuration from environment
+const phone = process.env.NEXT_PUBLIC_RESTAURANT_PHONE;
+const hours = process.env.NEXT_PUBLIC_RESTAURANT_HOURS || "Mon–Sat: 11am–9pm | Sun: 12pm–8pm";
 
 export default function Home() {
   return (
@@ -9,11 +12,13 @@ export default function Home() {
       {/* Fixed Left Panel */}
       <aside className={styles.leftPanel}>
         <div className={styles.intro}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src="/logo.png"
             alt="China Island Asian Grill"
             className={styles.logo}
+            width={200}
+            height={200}
+            priority
           />
           <h1 className={styles.title}>China Island</h1>
           <p className={styles.subtitle}>Asian Grill</p>
@@ -32,14 +37,17 @@ export default function Home() {
 
           <p className={styles.blurb}>
             Fresh Asian cuisine made with care. We offer dine-in, takeout, and delivery options for all your favorite dishes.
-            <br /><br />
-            <a href="tel:+1234567890" className={styles.aboutLink}>Call to Order</a>
+            {phone && (
+              <>
+                <br /><br />
+                <a href={`tel:${phone}`} className={styles.aboutLink}>Call to Order</a>
+              </>
+            )}
           </p>
 
           <div className={styles.hours}>
             <strong>Hours</strong><br />
-            Mon–Sat: 11am–9pm<br />
-            Sun: 12pm–8pm
+            {hours}
           </div>
         </div>
       </aside>

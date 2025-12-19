@@ -1,5 +1,22 @@
 :root {
-  /* Chinese Food Club Colors */
+  /*
+   * COLOR SYSTEM OVERVIEW
+   * =====================
+   * This project has two color palettes during the transition:
+   *
+   * 1. LEGACY COLORS (--bg, --text, --red, etc.)
+   *    Originally from Chinese Food Club template. Used by existing components.
+   *    These will be phased out as components migrate to the v2 design.
+   *
+   * 2. V2 DESIGN COLORS (--color-cream, --color-ink, etc.)
+   *    New palette for the refreshed China Island brand. Use these for new components.
+   *    Naming: --color-{name} to distinguish from legacy vars.
+   *
+   * When updating components, prefer v2 colors. Legacy colors remain for backward
+   * compatibility until all components are migrated.
+   */
+
+  /* Legacy Colors (phase out) */
   --bg: #ffffff;
   --text: #333333;
   --red: #f74140;
@@ -7,12 +24,10 @@
   --red-dark: #e22726;
   --green: #499e4b;
   --border: rgba(0, 0, 0, 0.1);
-
-  /* Style Guide Colors (for reference) */
   --ornament: rgba(213, 126, 0, 1);
   --cta: #C64A3C;
 
-  /* Modern design colors (for v2) */
+  /* V2 Design Colors (preferred) */
   --color-cream: #FAF7F1;
   --color-cream-dark: #F5F0E6;
   --color-ink: #2A2522;
@@ -145,6 +160,6 @@ img {
   height: 100%;
   pointer-events: none;
   opacity: 0.03;
-  z-index: 9999;
+  z-index: 50; /* Low z-index since pointer-events: none prevents interaction anyway */
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }

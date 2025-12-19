@@ -4,7 +4,8 @@ import type { MenuData, MenuItem, Category, ModifierGroup } from './types';
 const data = menuData as MenuData;
 
 export function getCategories(): Category[] {
-  return data.categories.sort((a, b) => a.sortOrder - b.sortOrder);
+  // Sort a copy to avoid mutating the original data
+  return [...data.categories].sort((a, b) => a.sortOrder - b.sortOrder);
 }
 
 export function getModifierGroups(): ModifierGroup[] {
@@ -63,7 +64,8 @@ const ITEM_IMAGE_OVERRIDES: Record<string, string> = {
 };
 
 export function getItemImagePath(item: MenuItem, size: 'hero' | 'square' = 'square'): string | null {
-  // Try to find matching image
+  // Extract category slug from categoryId (assumes 'cat_' prefix from normalize.ts)
+  // e.g., 'cat_soups' -> 'soups'
   const categorySlug = CATEGORY_SLUG_TO_IMAGE_PREFIX[item.categoryId.replace('cat_', '')] || item.categoryId.replace('cat_', '');
   const imageCategory = ITEM_IMAGE_OVERRIDES[item.slug] || categorySlug;
   const suffix = size === 'hero' ? '__hero_4x3.jpg' : '__square_1x1.jpg';

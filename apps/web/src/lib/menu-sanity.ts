@@ -73,10 +73,12 @@ export async function getModifierGroups(): Promise<ModifierGroup[]> {
 }
 
 export async function getItemsByCategory(categoryId: string): Promise<MenuItem[]> {
-  const items = await getMenuItems();
-  return items
-    .filter(item => item.categoryId === categoryId)
-    .sort((a, b) => b.likes - a.likes);
+  // Use server-side GROQ query for filtering instead of fetching all items
+  const sanityItems = await sanityClient.fetch<SanityMenuItem[]>(
+    queries.itemsByCategory,
+    { categoryId }
+  );
+  return sanityItems.map(transformMenuItem);
 }
 
 export async function getModifierGroup(id: string): Promise<ModifierGroup | undefined> {

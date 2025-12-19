@@ -2,9 +2,12 @@ import { NextRequest, NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
 import Stripe from 'stripe';
 
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
-if (!webhookSecret) {
-  throw new Error('Missing STRIPE_WEBHOOK_SECRET environment variable');
+function getWebhookSecret(): string {
+  const secret = process.env.STRIPE_WEBHOOK_SECRET;
+  if (!secret) {
+    throw new Error('Missing STRIPE_WEBHOOK_SECRET environment variable');
+  }
+  return secret;
 }
 
 export async function POST(request: NextRequest) {
@@ -21,7 +24,7 @@ export async function POST(request: NextRequest) {
   let event: Stripe.Event;
 
   try {
-    event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
+    event = stripe.webhooks.constructEvent(body, signature, getWebhookSecret());
   } catch (error) {
     console.error('Webhook signature verification failed:', error);
     return NextResponse.json(
@@ -87,9 +90,5 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// Stripe webhooks should not use the default body parser
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+// Note: App Router routes automatically handle raw body access via request.text()
+// No bodyParser config needed (that was a Pages Router pattern)

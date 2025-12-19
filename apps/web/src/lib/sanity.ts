@@ -1,18 +1,43 @@
-import { createClient } from '@sanity/client';
+import { createClient, type SanityClient } from '@sanity/client';
 
-const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'o2zvhwfq';
-const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production';
-const apiVersion = process.env.NEXT_PUBLIC_SANITY_API_VERSION || '2025-12-01';
-// CDN is faster but may have slight delay for fresh content
-// Set NEXT_PUBLIC_SANITY_USE_CDN=true to enable if on a plan that includes it
-const useCdn = process.env.NEXT_PUBLIC_SANITY_USE_CDN === 'true';
+// Lazy-initialized Sanity client to avoid build-time errors
+let _client: SanityClient | null = null;
 
-export const sanityClient = createClient({
-  projectId,
-  dataset,
-  apiVersion,
-  useCdn,
-});
+function getSanityConfig() {
+  const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+  const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
+
+  if (!projectId) {
+    throw new Error('Missing NEXT_PUBLIC_SANITY_PROJECT_ID environment variable');
+  }
+
+  if (!dataset) {
+    throw new Error('Missing NEXT_PUBLIC_SANITY_DATASET environment variable');
+  }
+
+  return {
+    projectId,
+    dataset,
+    apiVersion: process.env.NEXT_PUBLIC_SANITY_API_VERSION || '2025-12-01',
+    // CDN is faster but may have slight delay for fresh content
+    useCdn: process.env.NEXT_PUBLIC_SANITY_USE_CDN === 'true',
+  };
+}
+
+function getSanityClient(): SanityClient {
+  if (!_client) {
+    _client = createClient(getSanityConfig());
+  }
+  return _client;
+}
+
+// Export a proxy that lazily initializes the client
+export const sanityClient = {
+  fetch<T>(query: string, params?: Record<string, string | number | boolean>): Promise<T> {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return getSanityClient().fetch<T>(query, params as any);
+  },
+};
 
 // GROQ Queries
 export const queries = {
@@ -117,19 +142,39 @@ export interface SanityModifierGroup {
   }[];
 }
 
-// Fetch functions
+// Fetch functions with error handling
 export async function fetchCategories(): Promise<SanityCategory[]> {
-  return sanityClient.fetch(queries.categories);
+  try {
+    return await sanityClient.fetch(queries.categories);
+  } catch (error) {
+    console.error('Failed to fetch categories from Sanity:', error);
+    throw new Error('Unable to load menu categories');
+  }
 }
 
 export async function fetchMenuItems(): Promise<SanityMenuItem[]> {
-  return sanityClient.fetch(queries.menuItems);
+  try {
+    return await sanityClient.fetch(queries.menuItems);
+  } catch (error) {
+    console.error('Failed to fetch menu items from Sanity:', error);
+    throw new Error('Unable to load menu items');
+  }
 }
 
 export async function fetchModifierGroups(): Promise<SanityModifierGroup[]> {
-  return sanityClient.fetch(queries.modifierGroups);
+  try {
+    return await sanityClient.fetch(queries.modifierGroups);
+  } catch (error) {
+    console.error('Failed to fetch modifier groups from Sanity:', error);
+    throw new Error('Unable to load modifier options');
+  }
 }
 
 export async function fetchItemsByCategory(categoryId: string): Promise<SanityMenuItem[]> {
-  return sanityClient.fetch(queries.itemsByCategory, { categoryId });
+  try {
+    return await sanityClient.fetch(queries.itemsByCategory, { categoryId });
+  } catch (error) {
+    console.error(`Failed to fetch items for category ${categoryId} from Sanity:`, error);
+    throw new Error('Unable to load category items');
+  }
 }

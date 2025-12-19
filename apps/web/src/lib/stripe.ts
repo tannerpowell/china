@@ -1,15 +1,57 @@
 import Stripe from 'stripe';
 
-// Server-side Stripe client
+// Lazy-initialized Stripe client to avoid build-time errors
+let _stripe: Stripe | null = null;
+
+function getStripeSecretKey(): string {
+  const key = process.env.STRIPE_SECRET_KEY;
+  if (!key) {
+    throw new Error('Missing STRIPE_SECRET_KEY environment variable');
+  }
+  return key;
+}
+
+function getStripePublishableKey(): string {
+  const key = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+  if (!key) {
+    throw new Error('Missing NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY environment variable');
+  }
+  return key;
+}
+
+// Server-side Stripe client (lazy initialization)
 // Only use in API routes and server components
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-12-15.clover',
-  typescript: true,
-});
+export function getStripe(): Stripe {
+  if (!_stripe) {
+    _stripe = new Stripe(getStripeSecretKey(), {
+      apiVersion: '2025-12-15.clover',
+      typescript: true,
+    });
+  }
+  return _stripe;
+}
+
+// For backward compatibility - getter that lazily initializes
+export const stripe = {
+  get webhooks() {
+    return getStripe().webhooks;
+  },
+  get paymentIntents() {
+    return getStripe().paymentIntents;
+  },
+  get customers() {
+    return getStripe().customers;
+  },
+  get refunds() {
+    return getStripe().refunds;
+  },
+};
 
 // Stripe configuration for client-side
 export const stripeConfig = {
-  publishableKey: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!,
+  get publishableKey() {
+    return getStripePublishableKey();
+  },
 };
 
 // Convert cents to dollars for display

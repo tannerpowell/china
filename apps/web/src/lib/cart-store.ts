@@ -26,7 +26,8 @@ function calculateTotals(items: CartItem[], taxRate: number): Pick<Cart, 'subtot
 
   const subtotalRounded = Math.round(subtotal * 100) / 100;
   const tax = Math.round(subtotalRounded * taxRate * 100) / 100;
-  const total = Math.round((subtotalRounded + tax) * 100) / 100;
+  // subtotalRounded and tax are already rounded to 2 decimals, so sum is exact
+  const total = subtotalRounded + tax;
 
   return { subtotal: subtotalRounded, tax, total };
 }
@@ -108,6 +109,12 @@ export const useCartStore = create<CartStore>()(
     }),
     {
       name: 'china-island-cart',
+      skipHydration: true,
     }
   )
 );
+
+// Hydrate the store on the client side
+if (typeof window !== 'undefined') {
+  useCartStore.persist.rehydrate();
+}
