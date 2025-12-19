@@ -1,7 +1,7 @@
 # TODO (Agent-driven)
 
 ## Checkpoints
-- [ ] Install deps (npm install)
+- [ ] Install deps (`npm install`)
 - [ ] Run discovery: identify the `addtocart(id)` network endpoint(s) (`npm run discover -w @ci/scrape`)
 - [ ] Run scrape across all items; persist checkpoints every 10 items
 - [ ] Validate extraction quality on 10 random items:
@@ -15,8 +15,7 @@
 - [ ] Vercel deploy doc completed
 
 ## Known inputs
-- Menu page URL: http://www.chinaislandasiangrill.com/menu.asp
-- Item link format: <a href="javascript:void(0)" onclick="addtocart(6609230)">Spicy Crispy</a>
-- Current checkout/cart URL: https://us.chinesemenu.com/order/shoppingcart.htm
+- Menu page URL: <http://www.chinaislandasiangrill.com/menu.asp>
+- Item link format: `<a href="javascript:void(0)" onclick="addtocart(6609230)">Spicy Crispy</a>`
+- Current checkout/cart URL: <https://us.chinesemenu.com/order/shoppingcart.htm>
 - Ordering is open (no login observed)
-

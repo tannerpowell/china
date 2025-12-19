@@ -1,7 +1,7 @@
 {
   "name": "china-island-redesign",
   "private": true,
-  "workspaces": ["apps/*"],
+  "workspaces": ["apps/*", "scripts/*"],
   "scripts": {
     "dev": "npm run dev -w @ci/web",
     "build": "npm run build -w @ci/web",
