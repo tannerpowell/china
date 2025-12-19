@@ -33,9 +33,13 @@ function getSanityClient(): SanityClient {
 
 // Export a proxy that lazily initializes the client
 export const sanityClient = {
-  fetch<T>(query: string, params?: Record<string, string | number | boolean>): Promise<T> {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return getSanityClient().fetch<T>(query, params as any);
+  fetch<T>(query: string, params?: Record<string, unknown>): Promise<T> {
+    const client = getSanityClient();
+    // Use separate calls to satisfy Sanity's strict overload signatures
+    if (params) {
+      return client.fetch<T>(query, params);
+    }
+    return client.fetch<T>(query);
   },
 };
 

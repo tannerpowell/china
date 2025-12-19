@@ -51,7 +51,7 @@ export const getCategories = cache(async (): Promise<Category[]> => {
     return sanityCategories.map(transformCategory);
   } catch (error) {
     console.error('Failed to fetch categories from Sanity:', error);
-    throw new Error('Unable to load menu categories');
+    throw new Error('Unable to load menu categories', { cause: error });
   }
 });
 
@@ -61,7 +61,7 @@ export const getMenuItems = cache(async (): Promise<MenuItem[]> => {
     return sanityItems.map(transformMenuItem);
   } catch (error) {
     console.error('Failed to fetch menu items from Sanity:', error);
-    throw new Error('Unable to load menu items');
+    throw new Error('Unable to load menu items', { cause: error });
   }
 });
 
@@ -71,7 +71,7 @@ export const getModifierGroups = cache(async (): Promise<ModifierGroup[]> => {
     return sanityGroups.map(transformModifierGroup);
   } catch (error) {
     console.error('Failed to fetch modifier groups from Sanity:', error);
-    throw new Error('Unable to load modifier options');
+    throw new Error('Unable to load modifier options', { cause: error });
   }
 });
 
@@ -84,7 +84,7 @@ export async function getItemsByCategory(categoryId: string): Promise<MenuItem[]
     return sanityItems.map(transformMenuItem);
   } catch (error) {
     console.error(`Failed to fetch items for category ${categoryId}:`, error);
-    throw new Error('Unable to load category items');
+    throw new Error('Unable to load category items', { cause: error });
   }
 }
 
@@ -98,7 +98,7 @@ export async function getModifierGroup(id: string): Promise<ModifierGroup | unde
     return sanityGroup ? transformModifierGroup(sanityGroup) : undefined;
   } catch (error) {
     console.error(`Failed to fetch modifier group ${id}:`, error);
-    throw new Error('Unable to load modifier group');
+    throw new Error('Unable to load modifier group', { cause: error });
   }
 }
 
@@ -112,7 +112,7 @@ export async function getItem(id: string): Promise<MenuItem | undefined> {
     return sanityItem ? transformMenuItem(sanityItem) : undefined;
   } catch (error) {
     console.error(`Failed to fetch menu item ${id}:`, error);
-    throw new Error('Unable to load menu item');
+    throw new Error('Unable to load menu item', { cause: error });
   }
 }
 
