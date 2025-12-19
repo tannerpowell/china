@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { ShoppingBag, MapPin, Phone, Menu, X } from "lucide-react";
 import { useCartStore } from "@/lib/cart-store";
 import { useEffect, useState } from "react";
@@ -41,20 +42,20 @@ export function Header({ onCartClick }: HeaderProps) {
     <header className={styles.header}>
       <div className={styles.container}>
         {/* Logo / Brand */}
-        <a href="/" className={styles.brand}>
+        <Link href="/" className={styles.brand}>
           <span className={styles.brandText}>China Island</span>
           <span className={styles.brandSubtext}>Asian Grill</span>
-        </a>
+        </Link>
 
         {/* Desktop Navigation */}
         <nav className={styles.nav}>
-          <a href="/menu" className={styles.navLink}>
+          <Link href="/menu" className={styles.navLink}>
             Menu
-          </a>
-          <a href="/location" className={styles.navLink}>
+          </Link>
+          <Link href="/location" className={styles.navLink}>
             <MapPin size={16} />
             <span>Location</span>
-          </a>
+          </Link>
           <a href={PHONE_HREF} className={styles.navLink}>
             <Phone size={16} />
             <span>Order</span>
@@ -81,6 +82,7 @@ export function Header({ onCartClick }: HeaderProps) {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-nav"
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -98,24 +100,25 @@ export function Header({ onCartClick }: HeaderProps) {
 
       {/* Mobile Navigation Drawer */}
       <nav
+        id="mobile-nav"
         className={`${styles.mobileNav} ${mobileMenuOpen ? styles.mobileNavOpen : ""}`}
         aria-hidden={!mobileMenuOpen}
       >
-        <a
+        <Link
           href="/menu"
           className={styles.mobileNavLink}
           onClick={() => setMobileMenuOpen(false)}
         >
           Menu
-        </a>
-        <a
+        </Link>
+        <Link
           href="/location"
           className={styles.mobileNavLink}
           onClick={() => setMobileMenuOpen(false)}
         >
           <MapPin size={18} />
           <span>Location</span>
-        </a>
+        </Link>
         <a
           href={PHONE_HREF}
           className={styles.mobileNavLink}

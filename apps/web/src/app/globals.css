@@ -102,13 +102,13 @@ img {
 
 /* Selection */
 ::selection {
-  background: var(--red);
+  background: var(--color-red);
   color: white;
 }
 
 /* Focus */
 :focus-visible {
-  outline: 2px solid var(--red);
+  outline: 2px solid var(--color-red);
   outline-offset: 2px;
 }
 
