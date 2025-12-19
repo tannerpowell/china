@@ -91,7 +91,7 @@ export default function MenuExplorer() {
 }
 
 function Chip(props: { label: string; active: boolean; onClick: () => void }) {
-  return <button onClick={props.onClick} style={{ ...chip, ...(props.active ? chipActive : {}) }}>{props.label}</button>;
+  return <button onClick={props.onClick} aria-pressed={props.active} style={{ ...chip, ...(props.active ? chipActive : {}) }}>{props.label}</button>;
 }
 
 const input: React.CSSProperties = { width: "100%", padding: "10px 12px", borderRadius: 12, border: "1px solid rgba(23,23,23,0.14)", background: "white" };

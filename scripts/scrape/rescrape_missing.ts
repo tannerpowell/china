@@ -11,6 +11,7 @@
 import { chromium } from "playwright";
 import * as cheerio from "cheerio";
 import { writeJson, readJson, ensureDir } from "./utils/storage.js";
+import type { ModifierOption, ModifierGroup } from "./scrape_item_modal.js";
 
 const MENU_URL = "http://www.chinaislandasiangrill.com/menu.asp";
 const RID = "301196398";
@@ -30,9 +31,6 @@ type PriceInfo = {
   sizeVariants: { size: string; price: number }[] | null;
   optionVariants: { option: string; price: number }[] | null;
 };
-
-type ModifierOption = { label: string; priceDelta: number; inputType: "radio" | "checkbox" };
-type ModifierGroup = { title: string; selectionType: "single" | "multi"; options: ModifierOption[] };
 
 type ItemPatch = {
   itemId: number;
