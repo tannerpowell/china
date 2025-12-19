@@ -16,16 +16,20 @@ This repo is designed to be **handed to a coding agent** (Codex / Claude) and ex
 ## Quick start
 ### Prereqs
 - Node 20+
-- pnpm
 
 ### Install
 ```bash
-pnpm install
+npm install
 ```
 
-### Scrape
+### Run dev server
 ```bash
-pnpm --filter @ci/scrape scrape
+npm run dev
+```
+
+### Scrape (if needed)
+```bash
+npm run scrape -w @ci/scrape
 ```
 
 Outputs:
@@ -35,7 +39,7 @@ Outputs:
 
 ### Normalize
 ```bash
-pnpm --filter @ci/scrape normalize
+npm run normalize -w @ci/scrape
 ```
 
 Outputs:
@@ -46,12 +50,7 @@ Copy `.env.example` -> `.env` and fill values.
 
 Then:
 ```bash
-pnpm --filter @ci/sanity import
-```
-
-### Web app
-```bash
-pnpm --filter @ci/web dev
+npm run import -w @ci/sanity
 ```
 
 ## Agent handoff

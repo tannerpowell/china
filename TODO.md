@@ -1,8 +1,8 @@
 # TODO (Agent-driven)
 
 ## Checkpoints
-- [ ] Install deps (pnpm install)
-- [ ] Run discovery: identify the `addtocart(id)` network endpoint(s) (`pnpm --filter @ci/scrape discover`)
+- [ ] Install deps (npm install)
+- [ ] Run discovery: identify the `addtocart(id)` network endpoint(s) (`npm run discover -w @ci/scrape`)
 - [ ] Run scrape across all items; persist checkpoints every 10 items
 - [ ] Validate extraction quality on 10 random items:
   - item name matches

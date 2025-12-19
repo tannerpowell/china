@@ -13,9 +13,9 @@
 |---------|-------|
 | Framework Preset | Next.js |
 | Root Directory | `apps/web` |
-| Build Command | `pnpm --filter @ci/web build` |
+| Build Command | `npm run build` |
 | Output Directory | `.next` (default) |
-| Install Command | `pnpm install` |
+| Install Command | `npm install` |
 
 ## Environment Variables
 
@@ -44,12 +44,12 @@
 
 ## Monorepo Configuration
 
-This is a pnpm monorepo. Vercel should auto-detect pnpm from the lockfile.
+This is an npm workspaces monorepo.
 
 If builds fail with dependency issues:
 1. Ensure `Root Directory` is set to `apps/web`
-2. Verify `Install Command` uses pnpm
-3. Check that the filter flag targets the correct package name
+2. Verify `Install Command` uses npm
+3. Check that the workspace is correctly configured
 
 ## Post-Deployment
 

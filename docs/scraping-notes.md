@@ -8,6 +8,6 @@ Primary strategy:
 - Use `discover` command to capture XHR/fetch endpoints and pivot to structured parsing if available.
 
 Commands:
-- `pnpm --filter @ci/scrape discover`
-- `pnpm --filter @ci/scrape scrape`
-- `pnpm --filter @ci/scrape normalize`
+- `npm run discover -w @ci/scrape`
+- `npm run scrape -w @ci/scrape`
+- `npm run normalize -w @ci/scrape`

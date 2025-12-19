@@ -7,14 +7,14 @@ Website redesign for China Island Asian Grill restaurant.
 - **Framework**: Next.js 16
 - **CMS**: Sanity
 - **Payments**: Stripe
-- **Package Manager**: pnpm (monorepo)
+- **Package Manager**: npm (workspaces)
 
 ## Getting Started
 
 ```bash
-pnpm install
+npm install
 cp .env.example .env  # Fill in your values
-pnpm dev
+npm run dev
 ```
 
 ## Project Structure

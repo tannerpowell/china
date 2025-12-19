@@ -7,5 +7,5 @@ If you create the Sanity project manually:
 
 Import:
 ```bash
-pnpm --filter @ci/sanity import
+npm run import -w @ci/sanity
 ```
