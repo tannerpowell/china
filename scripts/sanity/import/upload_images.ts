@@ -8,7 +8,7 @@ const GALLERY_DIR = path.resolve(process.cwd(), "apps/web/public/gallery");
 interface MenuItemDoc {
   _id: string;
   name: string;
-  slug: { current: string };
+  slug: string | null;
   category: { _ref: string };
   images?: { _type: string; asset: { _type: string; _ref: string } }[];
 }
@@ -29,15 +29,22 @@ function extractItemSlugFromFilename(filename: string): string | null {
 }
 
 async function main() {
+  // Check if gallery directory exists
+  if (!fs.existsSync(GALLERY_DIR)) {
+    console.error(`Gallery directory not found: ${GALLERY_DIR}`);
+    console.error("Please ensure the gallery images are in place before running this script.");
+    process.exit(1);
+  }
+
   // Get all menu items from Sanity
-  const items = await sanity.fetch<MenuItemDoc[]>(`*[_type == "menuItem"] { _id, name, slug, category }`);
+  const items = await sanity.fetch<MenuItemDoc[]>(`*[_type == "menuItem"] { _id, name, "slug": slug.current, category }`);
   console.log(`Found ${items.length} menu items in Sanity`);
 
   // Create a map of slug -> item for quick lookup
   const slugToItem = new Map<string, MenuItemDoc>();
   for (const item of items) {
-    if (item.slug?.current) {
-      slugToItem.set(item.slug.current, item);
+    if (item.slug) {
+      slugToItem.set(item.slug, item);
     }
   }
 

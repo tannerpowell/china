@@ -39,7 +39,7 @@ export default function MenuExplorer() {
     <div style={{ display: "grid", gridTemplateColumns: "340px 1fr", gap: 28 }}>
       <aside style={{ position: "sticky", top: 24, alignSelf: "start" }}>
         <h1 style={{ marginTop: 0, marginBottom: 8 }}>Menu</h1>
-        <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search…" aria-label="Search menu items" style={input} />
+        <input type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search…" aria-label="Search menu items" style={input} />
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 10 }}>
           <Chip label="Spicy" active={onlySpicy} onClick={() => setOnlySpicy(v => !v)} />
           <Chip label="Vegetarian" active={onlyVeg} onClick={() => setOnlyVeg(v => !v)} />
@@ -56,7 +56,7 @@ export default function MenuExplorer() {
       <section>
         {!categories.length ? (
           <div style={{ padding: 16, background: "white", border: "1px solid rgba(23,23,23,0.14)", borderRadius: 12 }}>
-            No categories found yet. Run scraper + normalize.
+            No menu items available at the moment. Please check back later.
           </div>
         ) : null}
 

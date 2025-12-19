@@ -239,7 +239,7 @@ async function main() {
     try {
       await sleep(1000); // 1 second delay between requests
 
-      const apiUrl = `http://www.chinaislandasiangrill.com/order/?type=addtocart&mid=${itemId}&rid=${RID}&country=us&domain=chinaislandasiangrill.com&${Math.random()}&`;
+      const apiUrl = `http://www.chinaislandasiangrill.com/order/?type=addtocart&mid=${itemId}&rid=${RID}&country=us&domain=chinaislandasiangrill.com&cache=${Math.random()}`;
       const response = await page.request.get(apiUrl, { timeout: 10000 });
 
       if (response.ok()) {
@@ -257,8 +257,9 @@ async function main() {
       } else {
         console.log(`    Modal: HTTP ${response.status()}`);
       }
-    } catch (e: any) {
-      console.log(`    Modal: Error - ${e.message?.slice(0, 50)}`);
+    } catch (e: unknown) {
+      const message = e instanceof Error ? e.message : String(e);
+      console.log(`    Modal: Error - ${message.slice(0, 50)}`);
     }
 
     // Create size modifier group if we have size variants

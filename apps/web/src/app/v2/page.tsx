@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { ArrowRight, MapPin, Phone, Clock } from "lucide-react";
 import styles from "./page.module.css";
-import { useMemo } from "react";
+import { useState, useEffect } from "react";
 
 // Hours: Mon-Sat 11am-9pm, Sun 12pm-8pm
 // Uses restaurant's local timezone (defaults to America/Chicago)
@@ -44,7 +44,16 @@ function getOpenStatus(): { isOpen: boolean; label: string } {
 const RESTAURANT_PHONE = process.env.NEXT_PUBLIC_RESTAURANT_PHONE || "";
 
 export default function Home() {
-  const openStatus = useMemo(() => getOpenStatus(), []);
+  const [openStatus, setOpenStatus] = useState(() => getOpenStatus());
+
+  // Update open status every minute to handle opening/closing time changes
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setOpenStatus(getOpenStatus());
+    }, 60_000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className={styles.page}>
       {/* Hero Section */}
@@ -63,7 +72,7 @@ export default function Home() {
               View Menu
               <ArrowRight size={18} />
             </Link>
-            <Link href="/menu" className={styles.secondaryButton}>
+            <Link href="/order" className={styles.secondaryButton}>
               Order Online
             </Link>
           </div>
