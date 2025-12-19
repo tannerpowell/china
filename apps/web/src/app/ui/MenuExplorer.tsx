@@ -90,6 +90,33 @@ export default function MenuExplorer() {
             </div>
           );
         })}
+
+        {/* Render uncategorized items if any exist */}
+        {(() => {
+          const uncategorized = byCat.get("cat_uncategorized") ?? [];
+          if (!uncategorized.length) return null;
+          return (
+            <div id="cat_uncategorized" style={{ marginBottom: 24 }}>
+              <h2 style={{ marginBottom: 8 }}>Other Items</h2>
+              <div style={{ borderTop: "2px dotted var(--ornament)", marginBottom: 10 }} />
+              <div style={{ display: "grid", gap: 10 }}>
+                {uncategorized.map((it) => (
+                  <div key={it.id} style={row}>
+                    <div>
+                      <div style={{ fontWeight: 700 }}>{it.name}</div>
+                      <div style={{ fontSize: 12, color: "var(--muted)" }}>
+                        {it.tags?.spicy ? <span role="img" aria-label="Spicy">🌶 </span> : null}
+                        {it.tags?.vegetarian ? <span role="img" aria-label="Vegetarian">🌱 </span> : null}
+                        {it.tags?.popular ? <span role="img" aria-label="Popular">★ </span> : null}
+                      </div>
+                    </div>
+                    <div style={{ fontWeight: 700 }}>${(it.basePrice ?? 0).toFixed(2)}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+        })()}
       </section>
     </div>
   );

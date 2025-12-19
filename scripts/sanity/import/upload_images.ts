@@ -73,7 +73,10 @@ async function main() {
   for (const [slug, imageFiles] of imagesBySlug) {
     let item = slugToItem.get(slug);
     if (!item) {
-      // Try partial match
+      // Try partial match for cases where image slug differs slightly from menu item slug.
+      // Example: image "orange-chicken" may match menu item "orange-chicken-l" (lunch variant).
+      // Note: This intentionally uses substring matching. Review matches in console output
+      // to verify correctness. For stricter matching, use exact slug lookup only.
       const partialMatch = Array.from(slugToItem.entries()).find(([s]) =>
         s.includes(slug) || slug.includes(s)
       );
