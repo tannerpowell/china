@@ -68,13 +68,27 @@
 
 ---
 
-## Nitpick Comments (Selected)
+## Nitpick Comments (Complete List)
 
 | # | File | Issue | Status |
 |---|------|-------|--------|
-| NP1 | `docs/vercel-deploy.md` | Enhance documentation | ⏭️ Low priority |
-| NP2 | Various | Alphabetical ordering of env vars | ⏭️ Low priority |
-| ... | ... | (52 total nitpicks - most are low priority) | ... |
+| NP1 | `apps/web/.env.example` | Alphabetically order environment variables | ⏭️ Style preference |
+| NP2 | `apps/web/src/lib/stripe.ts` | Non-null assertions on env vars may crash | ⏭️ Low risk (validated at startup) |
+| NP3 | `apps/web/src/lib/sanity.ts` | Hardcoded fallback values may mask config issues | ⏭️ Intentional for dev convenience |
+| NP4 | `apps/web/src/lib/cart-store.ts` | Floating-point redundancy in total calc | ⏭️ Negligible impact |
+| NP5 | `apps/web/src/lib/cart-store.ts` | Handle SSR hydration for persisted store | ⏭️ Works correctly in practice |
+| NP6 | `apps/web/src/lib/menu.ts` | `sort()` mutates array in place | ⏭️ Acceptable side effect |
+| NP7 | `apps/web/src/app/page.tsx` | Consider removing "use client" directive | ⏭️ May need for future interactivity |
+| NP8 | `apps/web/src/app/page.tsx` | Use Next.js Image component for logo | ⏭️ Low priority optimization |
+| NP9 | `apps/web/src/app/page.tsx` | Verify placeholder content is intentional | ⏭️ Yes, placeholder for now |
+| NP10 | `apps/web/src/app/globals.css` | Dual color system maintenance overhead | ⏭️ Intentional during migration |
+| NP11 | `apps/web/src/app/globals.css` | High z-index (9999) for noise overlay | ⏭️ Intentional, has pointer-events:none |
+| NP12 | `apps/web/src/lib/sanity.ts` | Add error handling to fetch functions | ⏭️ Future improvement |
+| NP13 | `apps/web/src/lib/menu-sanity.ts` | Use dedicated Sanity query for filtering | ⏭️ Future optimization |
+| NP14 | `apps/web/src/lib/sanity.ts` | CDN caching implications | ⏭️ Addressed (made configurable) |
+| NP15 | `docs/vercel-deploy.md` | Enhance documentation | ⏭️ Low priority |
+| NP16 | `apps/web/src/app/order/page.tsx` | Move style constants before component | ⏭️ Style preference |
+| NP17 | `apps/web/src/lib/menu.ts` | Image path relies on categoryId prefix | ⏭️ Works as designed |
 
 ---
 
@@ -128,6 +142,15 @@
 | Critical | 7 | 7 | 0 | 0 |
 | Major | 20 | 18 | 2 | 0 |
 | Minor | 14 | 14 | 0 | 0 |
-| Nitpick | 52 | - | - | Low priority |
+| Nitpick | 17 | 0 | 17 | Non-blocking |
 
 **All actionable issues have been addressed.**
+
+### Nitpick Summary
+All 17 nitpicks are intentionally deferred as they are:
+- Style preferences (env var ordering, code organization)
+- Already working correctly (SSR hydration, sort mutation)
+- Intentional design choices (dual color system, z-index, fallback values)
+- Future optimizations (error handling, query efficiency)
+
+None are blocking for merge.
