@@ -3,6 +3,11 @@ import { useMemo, useState } from "react";
 import type { Category, MenuItem, MenuData } from "@/lib/types";
 import data from "@/data/menu.normalized.json";
 
+/** Sanitize ID for use as HTML id attribute */
+function toHtmlId(id: string): string {
+  return id.replace(/[^a-zA-Z0-9_-]/g, "_");
+}
+
 export default function MenuExplorer() {
   const normalized = data as MenuData;
   const [q, setQ] = useState("");
@@ -48,7 +53,7 @@ export default function MenuExplorer() {
         <div style={{ marginTop: 16 }}>
           <div style={{ fontSize: 12, color: "var(--muted)", marginBottom: 8 }}>Jump to</div>
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-            {categories.map((c) => <a key={c.id} href={`#${c.id}`} style={pill}>{c.title}</a>)}
+            {categories.map((c) => <a key={c.id} href={`#${toHtmlId(c.id)}`} style={pill}>{c.title}</a>)}
           </div>
         </div>
       </aside>
@@ -64,7 +69,7 @@ export default function MenuExplorer() {
           const group = byCat.get(c.id) ?? [];
           if (!group.length) return null;
           return (
-            <div key={c.id} id={c.id} style={{ marginBottom: 24 }}>
+            <div key={c.id} id={toHtmlId(c.id)} style={{ marginBottom: 24 }}>
               <h2 style={{ marginBottom: 8 }}>{c.title}</h2>
               <div style={{ borderTop: "2px dotted var(--ornament)", marginBottom: 10 }} />
               <div style={{ display: "grid", gap: 10 }}>
@@ -73,9 +78,9 @@ export default function MenuExplorer() {
                     <div>
                       <div style={{ fontWeight: 700 }}>{it.name}</div>
                       <div style={{ fontSize: 12, color: "var(--muted)" }}>
-                        {it.tags?.spicy ? <span aria-label="Spicy">🌶 </span> : ""}
-                        {it.tags?.vegetarian ? <span aria-label="Vegetarian">🌱 </span> : ""}
-                        {it.tags?.popular ? <span aria-label="Popular">★ </span> : ""}
+                        {it.tags?.spicy ? <span role="img" aria-label="Spicy">🌶 </span> : null}
+                        {it.tags?.vegetarian ? <span role="img" aria-label="Vegetarian">🌱 </span> : null}
+                        {it.tags?.popular ? <span role="img" aria-label="Popular">★ </span> : null}
                       </div>
                     </div>
                     <div style={{ fontWeight: 700 }}>${(it.basePrice ?? 0).toFixed(2)}</div>
@@ -91,7 +96,7 @@ export default function MenuExplorer() {
 }
 
 function Chip(props: { label: string; active: boolean; onClick: () => void }) {
-  return <button onClick={props.onClick} aria-pressed={props.active} style={{ ...chip, ...(props.active ? chipActive : {}) }}>{props.label}</button>;
+  return <button type="button" onClick={props.onClick} aria-pressed={props.active} style={{ ...chip, ...(props.active ? chipActive : {}) }}>{props.label}</button>;
 }
 
 const input: React.CSSProperties = { width: "100%", padding: "10px 12px", borderRadius: 12, border: "1px solid rgba(23,23,23,0.14)", background: "white" };

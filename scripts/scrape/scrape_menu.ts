@@ -3,14 +3,13 @@ import * as cheerio from "cheerio";
 import { log } from "./utils/logger.js";
 import { writeJson, ensureDir } from "./utils/storage.js";
 import { slugify } from "./utils/slugify.js";
+import type { ModifierOption, ModifierGroup } from "./scrape_item_modal.js";
 
 const MENU_URL = process.env.MENU_URL ?? "http://www.chinaislandasiangrill.com/menu.asp";
 const CART_URL = process.env.CART_URL ?? "https://us.chinesemenu.com/order/shoppingcart.htm";
 const RID = "301196398"; // Restaurant ID from discovery
 
 type ItemIndexEntry = { itemId: number; nameFromList: string; categoryFromList: string | null; sourceUrl: string };
-type ModifierOption = { label: string; priceDelta: number; inputType: "radio" | "checkbox" };
-type ModifierGroup = { title: string; selectionType: "single" | "multi"; options: ModifierOption[] };
 
 function parseApiResponse(html: string) {
   const $ = cheerio.load(html);
