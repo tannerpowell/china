@@ -73,10 +73,12 @@ export default function MenuExplorer() {
                     <div>
                       <div style={{ fontWeight: 700 }}>{it.name}</div>
                       <div style={{ fontSize: 12, color: "var(--muted)" }}>
-                        {it.tags?.spicy ? "🌶 " : ""}{it.tags?.vegetarian ? "🌱 " : ""}{it.tags?.popular ? "★ " : ""}
+                        {it.tags?.spicy ? <span aria-label="Spicy">🌶 </span> : ""}
+                        {it.tags?.vegetarian ? <span aria-label="Vegetarian">🌱 </span> : ""}
+                        {it.tags?.popular ? <span aria-label="Popular">★ </span> : ""}
                       </div>
                     </div>
-                    <div style={{ fontWeight: 700 }}>${Number(it.basePrice ?? 0).toFixed(2)}</div>
+                    <div style={{ fontWeight: 700 }}>${(it.basePrice ?? 0).toFixed(2)}</div>
                   </div>
                 ))}
               </div>

@@ -5,6 +5,10 @@ import { useCartStore } from "@/lib/cart-store";
 import { useEffect, useState } from "react";
 import styles from "./Header.module.css";
 
+// Restaurant phone from environment
+const PHONE_NUMBER = process.env.NEXT_PUBLIC_RESTAURANT_PHONE || "";
+const PHONE_HREF = PHONE_NUMBER ? `tel:${PHONE_NUMBER}` : "/order";
+
 interface HeaderProps {
   onCartClick: () => void;
 }
@@ -51,7 +55,7 @@ export function Header({ onCartClick }: HeaderProps) {
             <MapPin size={16} />
             <span>Location</span>
           </a>
-          <a href="tel:+1234567890" className={styles.navLink}>
+          <a href={PHONE_HREF} className={styles.navLink}>
             <Phone size={16} />
             <span>Order</span>
           </a>
@@ -113,7 +117,7 @@ export function Header({ onCartClick }: HeaderProps) {
           <span>Location</span>
         </a>
         <a
-          href="tel:+1234567890"
+          href={PHONE_HREF}
           className={styles.mobileNavLink}
           onClick={() => setMobileMenuOpen(false)}
         >
