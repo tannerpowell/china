@@ -1,3 +1,4 @@
+import { cache } from 'react';
 import { sanityClient, queries, SanityCategory, SanityMenuItem, SanityModifierGroup } from './sanity';
 import type { Category, MenuItem, ModifierGroup } from './types';
 
@@ -43,34 +44,21 @@ function transformModifierGroup(group: SanityModifierGroup): ModifierGroup {
   };
 }
 
-// Cache for server-side data
-let categoriesCache: Category[] | null = null;
-let itemsCache: MenuItem[] | null = null;
-let modifierGroupsCache: ModifierGroup[] | null = null;
-
-export async function getCategories(): Promise<Category[]> {
-  if (categoriesCache) return categoriesCache;
-
+// Use React cache() for request-scoped memoization (prevents stale data in serverless)
+export const getCategories = cache(async (): Promise<Category[]> => {
   const sanityCategories = await sanityClient.fetch<SanityCategory[]>(queries.categories);
-  categoriesCache = sanityCategories.map(transformCategory);
-  return categoriesCache;
-}
+  return sanityCategories.map(transformCategory);
+});
 
-export async function getMenuItems(): Promise<MenuItem[]> {
-  if (itemsCache) return itemsCache;
-
+export const getMenuItems = cache(async (): Promise<MenuItem[]> => {
   const sanityItems = await sanityClient.fetch<SanityMenuItem[]>(queries.menuItems);
-  itemsCache = sanityItems.map(transformMenuItem);
-  return itemsCache;
-}
+  return sanityItems.map(transformMenuItem);
+});
 
-export async function getModifierGroups(): Promise<ModifierGroup[]> {
-  if (modifierGroupsCache) return modifierGroupsCache;
-
+export const getModifierGroups = cache(async (): Promise<ModifierGroup[]> => {
   const sanityGroups = await sanityClient.fetch<SanityModifierGroup[]>(queries.modifierGroups);
-  modifierGroupsCache = sanityGroups.map(transformModifierGroup);
-  return modifierGroupsCache;
-}
+  return sanityGroups.map(transformModifierGroup);
+});
 
 export async function getItemsByCategory(categoryId: string): Promise<MenuItem[]> {
   // Use server-side GROQ query for filtering instead of fetching all items
