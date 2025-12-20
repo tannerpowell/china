@@ -21,17 +21,19 @@ Thumbs.db
 *.swp
 *.swo
 
-# Generated data (large/binary)
-data/raw/responses/
-data/images/
-data/raw/*.partial.json
-data/gallery_out/
-data/gallery/
-data/gallery_upscale/
-data/gallery_generated/
-data/gallery_generated_round2/
-data/nano-banana-batch-kit/.env
-data/nano-banana-batch-kit/runs/
+# Image pipeline (large binary assets - ~850MB)
+# Numbered folders represent processing stages:
+#   1-SCRAPED-RAW → 2-SCRAPED-PROCESSED → 3-COMPRESSED
+#   4-AI-UPSCALED → 5-AI-GENERATED-R1 → 6-AI-GENERATED-R2 → 7-FINAL-MENU-IMAGES
+# Final production images are in apps/web/public/gallery/ (committed)
+data/
+
+# Scraping outputs
+scripts/scrape/data/
+scripts/scrape/apps/
+
+# TypeScript build cache
+*.tsbuildinfo
 
 # Logs
 *.log
