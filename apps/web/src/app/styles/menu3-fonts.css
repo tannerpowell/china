@@ -1,0 +1,171 @@
+/* ============================================
+   MENU3 TYPOGRAPHY - China Island Asian Grill
+   ============================================
+
+   Premium typographic system for the 3-panel menu.
+   Uses existing Sen font family with defined type scale.
+*/
+
+/* ============================================
+   CSS CUSTOM PROPERTIES - Typography & Colors
+   ============================================ */
+
+:root {
+  /* Font families - uses --font-sen from next/font in layout.tsx */
+  --font-menu-display: var(--font-sen), 'Sen', system-ui, -apple-system, sans-serif;
+  --font-menu-body: var(--font-sen), 'Sen', system-ui, -apple-system, sans-serif;
+  --font-menu-ui: var(--font-sen), 'Sen', system-ui, -apple-system, sans-serif;
+  --font-menu-mono: 'SF Mono', 'Menlo', 'Monaco', 'Consolas', monospace;
+}
+
+/* ============================================
+   THEME: CLASSIC (White + Red/Green)
+   Matches home page aesthetic
+   ============================================ */
+.menu3-theme-classic {
+  --menu3-main-bg: #ffffff;
+  --menu3-sidebar-bg: rgba(0, 0, 0, 0.02);
+  --menu3-preview-bg: rgba(0, 0, 0, 0.01);
+  --menu3-card-bg: #ffffff;
+  --menu3-border: rgba(0, 0, 0, 0.08);
+  --menu3-border-dashed: 2px dashed #f74140;
+  --menu3-text: #f74140;
+  --menu3-text-secondary: #499e4b;
+  --menu3-text-muted: #757575; /* WCAG AA compliant: 4.63:1 on white */
+  --menu3-accent: #f74140;
+  --menu3-accent-light: #ff5a59;
+  --menu3-green: #499e4b;
+  --menu3-green-light: rgba(73, 158, 75, 0.1);
+  --menu3-green-hover: #3d8a40;
+  --menu3-hover-bg: rgba(247, 65, 64, 0.9);
+  --menu3-active-bg: rgba(255, 255, 255, 0.95);
+  --menu3-search-bg: rgba(0, 0, 0, 0.03);
+  --menu3-image-placeholder: rgba(0, 0, 0, 0.04);
+  --menu3-category-color: #499e4b;
+  --menu3-category-active-bg: #499e4b;
+  --menu3-category-active-color: white;
+  --menu3-modifier-bg: rgba(73, 158, 75, 0.08);
+  --menu3-modifier-border: rgba(73, 158, 75, 0.2);
+  --menu3-modifier-text: #499e4b;
+  --menu3-modifier-selected-bg: #499e4b;
+}
+
+/* ============================================
+   THEME: WARM (Cream/Beige)
+   Premium editorial feel
+   ============================================ */
+.menu3-theme-warm {
+  --menu3-main-bg: #FDF8ED;
+  --menu3-sidebar-bg: rgba(42, 37, 34, 0.03);
+  --menu3-preview-bg: rgba(42, 37, 34, 0.02);
+  --menu3-card-bg: #ffffff;
+  --menu3-border: rgba(42, 37, 34, 0.06);
+  --menu3-border-dashed: 2px dashed rgba(42, 37, 34, 0.12);
+  --menu3-text: #2A2522;
+  --menu3-text-secondary: #4A4543;
+  --menu3-text-muted: #706D6B; /* WCAG AA compliant: 4.85:1 on #FDF8ED */
+  --menu3-accent: #B8423C;
+  --menu3-accent-light: #D4635E;
+  --menu3-green: #499e4b;
+  --menu3-green-light: rgba(73, 158, 75, 0.1);
+  --menu3-green-hover: #3d8a40;
+  --menu3-hover-bg: rgba(184, 66, 60, 0.85);
+  --menu3-active-bg: rgba(255, 255, 255, 0.8);
+  --menu3-search-bg: rgba(42, 37, 34, 0.02);
+  --menu3-image-placeholder: rgba(42, 37, 34, 0.04);
+  --menu3-category-color: #706D6B; /* WCAG AA compliant */
+  --menu3-category-active-bg: #B8423C;
+  --menu3-category-active-color: white;
+  --menu3-modifier-bg: rgba(42, 37, 34, 0.04);
+  --menu3-modifier-border: rgba(42, 37, 34, 0.08);
+  --menu3-modifier-text: #2A2522;
+  --menu3-modifier-selected-bg: #B8423C;
+}
+
+/* ============================================
+   TYPE SCALE
+
+   Category list: 12px, uppercase, tracked
+   Item name: 18-20px, weight 700
+   Description: 14px, normal weight, muted
+   Price: 16px, monospace, tabular numerals
+   ============================================ */
+
+/* Category navigation */
+.menu3-type-category {
+  font-family: var(--font-menu-ui);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Item name - the hero typography */
+.menu3-type-item-name {
+  font-family: var(--font-menu-display);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.3;
+}
+
+/* Item description */
+.menu3-type-description {
+  font-family: var(--font-menu-body);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--menu3-text-muted);
+}
+
+/* Price display */
+.menu3-type-price {
+  font-family: var(--font-menu-mono);
+  font-size: 16px;
+  font-weight: 500;
+  font-feature-settings: 'tnum' 1;
+  letter-spacing: 0;
+}
+
+/* Search input */
+.menu3-type-search {
+  font-family: var(--font-menu-ui);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+/* Section headers */
+.menu3-type-section {
+  font-family: var(--font-menu-ui);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Peek card item name */
+.menu3-type-peek-name {
+  font-family: var(--font-menu-display);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+}
+
+/* Modal item name - larger */
+.menu3-type-modal-name {
+  font-family: var(--font-menu-display);
+  font-size: clamp(24px, 4vw, 32px);
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  line-height: 1.15;
+}
+
+/* Badge/tag text */
+.menu3-type-badge {
+  font-family: var(--font-menu-ui);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
