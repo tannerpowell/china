@@ -37,7 +37,7 @@ The dev server starts without Stripe keys; payments are only needed for checkout
 
 ## Project Structure
 
-```
+```text
 apps/web/        # Next.js web application
 scripts/scrape/  # Menu scraping tools
 scripts/sanity/  # Sanity import tools
