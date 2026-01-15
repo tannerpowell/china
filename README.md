@@ -7,19 +7,19 @@ Website redesign for China Island Asian Grill restaurant.
 - **Framework**: Next.js 16
 - **CMS**: Sanity
 - **Payments**: Stripe
-- **Package Manager**: npm (workspaces)
+- **Package Manager**: bun (workspaces)
 
 ## Getting Started
 
 ```bash
-npm install
-cp apps/web/.env.example apps/web/.env
-npm run dev
+bun install
+cp .env.example .env
+bun run dev
 ```
 
 ### Configuration
 
-Before running the development server, configure your environment in `apps/web/.env`:
+Before running the development server, configure your environment in `.env`:
 
 | Variable | Required | Description |
 |----------|----------|-------------|

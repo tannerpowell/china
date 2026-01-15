@@ -15,21 +15,21 @@ This repo is designed to be **handed to a coding agent** (Codex / Claude) and ex
 
 ## Quick start
 ### Prereqs
-- Node 20+
+- Node 24+ (LTS)
 
 ### Install
 ```bash
-npm install
+bun install
 ```
 
 ### Run dev server
 ```bash
-npm run dev
+bun run dev
 ```
 
 ### Scrape (if needed)
 ```bash
-npm run scrape -w @ci/scrape
+bun --filter @ci/scrape scrape
 ```
 
 Outputs:
@@ -39,7 +39,7 @@ Outputs:
 
 ### Normalize
 ```bash
-npm run normalize -w @ci/scrape
+bun --filter @ci/scrape normalize
 ```
 
 Outputs:
@@ -50,7 +50,7 @@ Copy `.env.example` -> `.env` and fill values.
 
 Then:
 ```bash
-npm run import -w @ci/sanity
+bun --filter @ci/sanity import
 ```
 
 ## Agent handoff
