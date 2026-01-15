@@ -3,9 +3,9 @@
   "private": true,
   "workspaces": ["apps/*", "scripts/*"],
   "scripts": {
-    "dev": "npm run dev -w @ci/web",
-    "build": "npm run build -w @ci/web",
-    "start": "npm run start -w @ci/web"
+    "dev": "bun --filter @ci/web dev",
+    "build": "bun --filter @ci/web build",
+    "start": "bun --filter @ci/web start"
   },
   "devDependencies": {
     "sharp": "^0.34.5",
