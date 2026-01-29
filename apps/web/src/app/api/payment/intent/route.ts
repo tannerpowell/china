@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { stripe, formatAmountForStripe } from '@/lib/stripe';
+import { getStripe, formatAmountForStripe } from '@/lib/stripe';
 import type { CartItem, CustomerInfo, OrderType } from '@/lib/types';
 
 export interface CreatePaymentIntentRequest {
@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
       .map((item) => `${item.quantity}x ${item.menuItem.name}`)
       .join(', ');
 
-    const paymentIntent = await stripe.paymentIntents.create({
+    const paymentIntent = await getStripe().paymentIntents.create({
       amount: formatAmountForStripe(total),
       currency: 'usd',
       automatic_payment_methods: {

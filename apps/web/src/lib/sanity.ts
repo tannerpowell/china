@@ -170,39 +170,3 @@ export interface SanityModifierGroup {
   }[];
 }
 
-// Fetch functions with error handling
-export async function fetchCategories(): Promise<SanityCategory[]> {
-  try {
-    return await sanityClient.fetch(queries.categories);
-  } catch (error) {
-    console.error('Failed to fetch categories from Sanity:', error);
-    throw new Error('Unable to load menu categories');
-  }
-}
-
-export async function fetchMenuItems(): Promise<SanityMenuItem[]> {
-  try {
-    return await sanityClient.fetch(queries.menuItems);
-  } catch (error) {
-    console.error('Failed to fetch menu items from Sanity:', error);
-    throw new Error('Unable to load menu items');
-  }
-}
-
-export async function fetchModifierGroups(): Promise<SanityModifierGroup[]> {
-  try {
-    return await sanityClient.fetch(queries.modifierGroups);
-  } catch (error) {
-    console.error('Failed to fetch modifier groups from Sanity:', error);
-    throw new Error('Unable to load modifier options');
-  }
-}
-
-export async function fetchItemsByCategory(categoryId: string): Promise<SanityMenuItem[]> {
-  try {
-    return await sanityClient.fetch(queries.itemsByCategory, { categoryId });
-  } catch (error) {
-    console.error(`Failed to fetch items for category ${categoryId} from Sanity:`, error);
-    throw new Error('Unable to load category items');
-  }
-}
