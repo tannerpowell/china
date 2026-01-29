@@ -31,22 +31,6 @@ export function getStripe(): Stripe {
   return _stripe;
 }
 
-// For backward compatibility - getter that lazily initializes
-export const stripe = {
-  get webhooks() {
-    return getStripe().webhooks;
-  },
-  get paymentIntents() {
-    return getStripe().paymentIntents;
-  },
-  get customers() {
-    return getStripe().customers;
-  },
-  get refunds() {
-    return getStripe().refunds;
-  },
-};
-
 // Stripe configuration for client-side
 export const stripeConfig = {
   get publishableKey() {
