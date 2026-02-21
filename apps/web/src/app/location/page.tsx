@@ -1,3 +1,11 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Location & Hours",
+  description: "Find China Island Asian Grill. Address, phone number, hours of operation, and directions.",
+  alternates: { canonical: "/location" },
+};
+
 export default function LocationPage() {
   const address = process.env.NEXT_PUBLIC_RESTAURANT_ADDRESS ?? "";
   const phone = process.env.NEXT_PUBLIC_RESTAURANT_PHONE ?? "";
