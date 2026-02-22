@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo, useCallback, useRef, useEffect } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import type { MenuItem, Category } from '@/lib/types';
 import { MenuItemRow } from './MenuItemRow';
 
@@ -84,37 +84,27 @@ export function MenuList({
     return groups;
   }, [filteredItems, categories]);
 
-  // Handle item hover with delay
-  const handleItemHover = useCallback((item: MenuItem) => {
-    // Clear any pending timeout
+  function handleItemHover(item: MenuItem) {
     if (hoverTimeoutRef.current) {
       clearTimeout(hoverTimeoutRef.current);
     }
 
-    // Set hover with slight delay to prevent flickering
     hoverTimeoutRef.current = setTimeout(() => {
       setHoveredItemId(item.id);
       onItemHover(item);
     }, 80);
-  }, [onItemHover]);
+  }
 
-  const handleItemLeave = useCallback(() => {
-    // Clear any pending hover
+  function handleItemLeave() {
     if (hoverTimeoutRef.current) {
       clearTimeout(hoverTimeoutRef.current);
     }
 
-    // Delay clearing to allow moving to peek preview
     hoverTimeoutRef.current = setTimeout(() => {
       setHoveredItemId(null);
       onItemHover(null);
     }, 150);
-  }, [onItemHover]);
-
-  // Handle item click
-  const handleItemClick = useCallback((item: MenuItem) => {
-    onItemClick(item);
-  }, [onItemClick]);
+  }
 
   // Count total visible items
   const visibleItemCount = filteredItems.length;
@@ -150,7 +140,7 @@ export function MenuList({
                   onLeave={handleItemLeave}
                   onFocus={() => handleItemHover(item)}
                   onBlur={handleItemLeave}
-                  onClick={() => handleItemClick(item)}
+                  onClick={() => onItemClick(item)}
                 />
               );
             })}

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import type { MenuItem, Category, ModifierGroup } from '@/lib/types';
 import { useCartStore } from '@/lib/cart-store';
@@ -52,10 +52,10 @@ export default function Menu3PageClient({
   }, []);
 
   // Handle theme change
-  const handleThemeChange = useCallback((newTheme: MenuTheme) => {
+  function handleThemeChange(newTheme: MenuTheme) {
     setTheme(newTheme);
     localStorage.setItem(THEME_STORAGE_KEY, newTheme);
-  }, []);
+  }
 
   // Category state
   const [selectedCategory, setSelectedCategory] = useState<string>('');
@@ -68,31 +68,6 @@ export default function Menu3PageClient({
 
   // Modal state
   const [modalItem, setModalItem] = useState<MenuItem | null>(null);
-
-  // Handle category change
-  const handleCategoryChange = useCallback((slug: string) => {
-    setSelectedCategory(slug);
-  }, []);
-
-  // Handle search
-  const handleSearchChange = useCallback((term: string) => {
-    setSearchTerm(term);
-  }, []);
-
-  // Handle item hover
-  const handleItemHover = useCallback((item: MenuItem | null) => {
-    setPeekItem(item);
-  }, []);
-
-  // Handle item click
-  const handleItemClick = useCallback((item: MenuItem) => {
-    setModalItem(item);
-  }, []);
-
-  // Handle modal close
-  const handleModalClose = useCallback(() => {
-    setModalItem(null);
-  }, []);
 
   // Use default theme class on server, actual theme after hydration
   const themeClass = mounted ? `menu3-theme-${theme}` : 'menu3-theme-classic';
@@ -143,9 +118,9 @@ export default function Menu3PageClient({
           <CategoryNav
             categories={categories}
             selectedCategory={selectedCategory}
-            onCategoryChange={handleCategoryChange}
+            onCategoryChange={setSelectedCategory}
             searchTerm={searchTerm}
-            onSearchChange={handleSearchChange}
+            onSearchChange={setSearchTerm}
           />
         </aside>
 
@@ -156,8 +131,8 @@ export default function Menu3PageClient({
             categories={categories}
             selectedCategory={selectedCategory}
             searchTerm={searchTerm}
-            onItemHover={handleItemHover}
-            onItemClick={handleItemClick}
+            onItemHover={setPeekItem}
+            onItemClick={setModalItem}
           />
         </main>
 
@@ -176,7 +151,7 @@ export default function Menu3PageClient({
           categories={categories}
           modifierGroups={modifierGroups}
           isOpen={true}
-          onClose={handleModalClose}
+          onClose={() => setModalItem(null)}
         />
       )}
 
