@@ -414,7 +414,7 @@ function FeatureSection({
             </ul>
           )}
         </div>
-        <div className={styles.sectionVisual}>
+        <div className={styles.sectionVisual} aria-hidden="true">
           <Visual />
         </div>
       </div>
@@ -498,7 +498,7 @@ export default function PitchPage() {
               without calling. If they can&apos;t, they order from somewhere else.
             </p>
           </div>
-          <div className={styles.sectionVisual}>
+          <div className={styles.sectionVisual} aria-hidden="true">
             <OldSiteVisual />
           </div>
         </div>
