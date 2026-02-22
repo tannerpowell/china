@@ -1,3 +1,11 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Order Online",
+  description: "Order online from China Island Asian Grill. Pickup and delivery available.",
+  alternates: { canonical: "/order" },
+};
+
 // Style constants
 const btnPrimary: React.CSSProperties = {
   display: "inline-flex",

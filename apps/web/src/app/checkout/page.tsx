@@ -5,6 +5,9 @@ import Link from "next/link";
 import { useCartStore } from "@/lib/cart-store";
 import styles from "./page.module.css";
 
+// Note: metadata export not supported in client components.
+// Checkout is noindex via robots.ts rules.
+
 export default function CheckoutPage() {
   const { items, subtotal, tax, total, clearCart, itemCount, removeItem, updateQuantity } = useCartStore();
   const [mounted, setMounted] = useState(false);

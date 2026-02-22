@@ -1,6 +1,12 @@
 import { cache } from 'react';
 import { sanityClient, queries, SanityCategory, SanityMenuItem, SanityModifierGroup } from './sanity';
+import * as localMenu from './menu';
 import type { Category, MenuItem, ModifierGroup } from './types';
+
+// Check if Sanity is configured (env vars present)
+function isSanityConfigured(): boolean {
+  return !!(process.env.NEXT_PUBLIC_SANITY_PROJECT_ID && process.env.NEXT_PUBLIC_SANITY_DATASET);
+}
 
 // Transform Sanity data to match existing types
 function transformCategory(cat: SanityCategory): Category {
@@ -45,37 +51,42 @@ function transformModifierGroup(group: SanityModifierGroup): ModifierGroup {
 }
 
 // Use React cache() for request-scoped memoization (prevents stale data in serverless)
+// Falls back to local JSON when Sanity is not configured or unavailable
 export const getCategories = cache(async (): Promise<Category[]> => {
+  if (!isSanityConfigured()) return localMenu.getCategories();
   try {
     const sanityCategories = await sanityClient.fetch<SanityCategory[]>(queries.categories);
     return sanityCategories.map(transformCategory);
   } catch (error) {
-    console.error('Failed to fetch categories from Sanity:', error);
-    throw new Error('Unable to load menu categories', { cause: error });
+    console.error('Sanity fetch failed, falling back to local data:', error);
+    return localMenu.getCategories();
   }
 });
 
 export const getMenuItems = cache(async (): Promise<MenuItem[]> => {
+  if (!isSanityConfigured()) return localMenu.getItems();
   try {
     const sanityItems = await sanityClient.fetch<SanityMenuItem[]>(queries.menuItems);
     return sanityItems.map(transformMenuItem);
   } catch (error) {
-    console.error('Failed to fetch menu items from Sanity:', error);
-    throw new Error('Unable to load menu items', { cause: error });
+    console.error('Sanity fetch failed, falling back to local data:', error);
+    return localMenu.getItems();
   }
 });
 
 export const getModifierGroups = cache(async (): Promise<ModifierGroup[]> => {
+  if (!isSanityConfigured()) return localMenu.getModifierGroups();
   try {
     const sanityGroups = await sanityClient.fetch<SanityModifierGroup[]>(queries.modifierGroups);
     return sanityGroups.map(transformModifierGroup);
   } catch (error) {
-    console.error('Failed to fetch modifier groups from Sanity:', error);
-    throw new Error('Unable to load modifier options', { cause: error });
+    console.error('Sanity fetch failed, falling back to local data:', error);
+    return localMenu.getModifierGroups();
   }
 });
 
 export async function getItemsByCategory(categoryId: string): Promise<MenuItem[]> {
+  if (!isSanityConfigured()) return localMenu.getItemsByCategory(categoryId);
   try {
     const sanityItems = await sanityClient.fetch<SanityMenuItem[]>(
       queries.itemsByCategory,
@@ -83,13 +94,13 @@ export async function getItemsByCategory(categoryId: string): Promise<MenuItem[]
     );
     return sanityItems.map(transformMenuItem);
   } catch (error) {
-    console.error(`Failed to fetch items for category ${categoryId}:`, error);
-    throw new Error('Unable to load category items', { cause: error });
+    console.error(`Sanity fetch failed for category ${categoryId}, falling back:`, error);
+    return localMenu.getItemsByCategory(categoryId);
   }
 }
 
-// Server-side GROQ query for single modifier group lookup
 export async function getModifierGroup(id: string): Promise<ModifierGroup | undefined> {
+  if (!isSanityConfigured()) return localMenu.getModifierGroup(id);
   try {
     const sanityGroup = await sanityClient.fetch<SanityModifierGroup | null>(
       queries.modifierGroupById,
@@ -97,13 +108,13 @@ export async function getModifierGroup(id: string): Promise<ModifierGroup | unde
     );
     return sanityGroup ? transformModifierGroup(sanityGroup) : undefined;
   } catch (error) {
-    console.error(`Failed to fetch modifier group ${id}:`, error);
-    throw new Error('Unable to load modifier group', { cause: error });
+    console.error(`Sanity fetch failed for modifier group ${id}, falling back:`, error);
+    return localMenu.getModifierGroup(id);
   }
 }
 
-// Server-side GROQ query for single menu item lookup
 export async function getItem(id: string): Promise<MenuItem | undefined> {
+  if (!isSanityConfigured()) return localMenu.getItem(id);
   try {
     const sanityItem = await sanityClient.fetch<SanityMenuItem | null>(
       queries.menuItemById,
@@ -111,8 +122,8 @@ export async function getItem(id: string): Promise<MenuItem | undefined> {
     );
     return sanityItem ? transformMenuItem(sanityItem) : undefined;
   } catch (error) {
-    console.error(`Failed to fetch menu item ${id}:`, error);
-    throw new Error('Unable to load menu item', { cause: error });
+    console.error(`Sanity fetch failed for item ${id}, falling back:`, error);
+    return localMenu.getItem(id);
   }
 }
 

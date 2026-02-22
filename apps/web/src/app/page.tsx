@@ -1,14 +1,36 @@
 import Image from "next/image";
 import Link from "next/link";
+import { JsonLd } from "@/components/JsonLd";
 import styles from "./page.module.css";
 
 // Restaurant configuration from environment
 const phone = process.env.NEXT_PUBLIC_RESTAURANT_PHONE;
 const hours = process.env.NEXT_PUBLIC_RESTAURANT_HOURS || "Mon–Sat: 11am–9pm | Sun: 12pm–8pm";
+const address = process.env.NEXT_PUBLIC_RESTAURANT_ADDRESS ?? "";
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://chinaislandgrill.com";
+
+const restaurantJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  name: "China Island Asian Grill",
+  description: "Fresh Asian cuisine made with care. Dine-in, takeout & delivery.",
+  url: baseUrl,
+  ...(phone && { telephone: phone }),
+  ...(address && {
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: address,
+    },
+  }),
+  servesCuisine: ["Chinese", "Asian"],
+  hasMenu: `${baseUrl}/menu`,
+  acceptsReservations: false,
+};
 
 export default function Home() {
   return (
     <div className={styles.layout}>
+      <JsonLd data={restaurantJsonLd} />
       {/* Fixed Left Panel */}
       <aside className={styles.leftPanel}>
         <div className={styles.intro}>
