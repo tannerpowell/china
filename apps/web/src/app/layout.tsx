@@ -1,6 +1,7 @@
 import "./globals.css";
 import "./styles/menu3-fonts.css";
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Sen } from "next/font/google";
 import { NavigationProgress } from "@/components/NavigationProgress";
 
@@ -44,7 +45,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={sen.variable}>
       <body>
-        <NavigationProgress />
+        <Suspense fallback={null}>
+          <NavigationProgress />
+        </Suspense>
         {children}
       </body>
     </html>
