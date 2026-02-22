@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { Metadata } from "next";
 import { JsonLd } from "@/components/JsonLd";
 import styles from "./page.module.css";
 
@@ -9,10 +8,6 @@ const phone = process.env.NEXT_PUBLIC_RESTAURANT_PHONE;
 const hours = process.env.NEXT_PUBLIC_RESTAURANT_HOURS || "Mon–Sat: 11am–9pm | Sun: 12pm–8pm";
 const address = process.env.NEXT_PUBLIC_RESTAURANT_ADDRESS ?? "";
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://chinaislandgrill.com";
-
-export const metadata: Metadata = {
-  alternates: { canonical: "/" },
-};
 
 const restaurantJsonLd = {
   "@context": "https://schema.org",

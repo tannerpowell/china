@@ -1,18 +1,5 @@
+import { SkeletonPulse, pulseKeyframes } from '@/components/SkeletonPulse';
 import styles from './page.module.css';
-
-function SkeletonPulse({ width, height = 16 }: { width: string | number; height?: number }) {
-  return (
-    <div
-      style={{
-        width,
-        height,
-        borderRadius: 4,
-        background: 'rgba(0,0,0,0.06)',
-        animation: 'pulse 1.5s ease-in-out infinite',
-      }}
-    />
-  );
-}
 
 function SkeletonCategory() {
   return (
@@ -34,7 +21,7 @@ function SkeletonCategory() {
               borderBottom: '1px solid rgba(0,0,0,0.05)',
             }}
           >
-            <SkeletonPulse width={`${50 + Math.random() * 30}%`} height={14} />
+            <SkeletonPulse width={`${50 + ((i * 9301 + 49297) % 233280) / 233280 * 30}%`} height={14} />
             <SkeletonPulse width={48} height={14} />
           </div>
         ))}
@@ -64,12 +51,7 @@ export default function MenuLoading() {
 
       {/* Right panel skeleton */}
       <main className={styles.rightPanel}>
-        <style>{`
-          @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
-          }
-        `}</style>
+        <style>{pulseKeyframes}</style>
         {Array.from({ length: 4 }).map((_, i) => (
           <SkeletonCategory key={i} />
         ))}
