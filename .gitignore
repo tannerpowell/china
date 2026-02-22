@@ -35,6 +35,9 @@ scripts/scrape/apps/
 # TypeScript build cache
 *.tsbuildinfo
 
+# Next.js auto-generated type file (build artifact)
+apps/web/next-env.d.ts
+
 # Logs
 *.log
 npm-debug.log*

@@ -15,7 +15,7 @@ This repo is designed to be **handed to a coding agent** (Codex / Claude) and ex
 
 ## Quick start
 ### Prereqs
-- Node 24+ (LTS)
+- Node 22+ (LTS)
 
 ### Install
 ```bash
