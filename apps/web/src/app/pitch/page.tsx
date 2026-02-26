@@ -1,7 +1,7 @@
 import type { ComponentType } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { translations, type Locale, type Translations } from "./translations";
+import { translations, type Locale, type Translations, type FeatureId } from "./translations";
 import { LanguageToggle } from "./LanguageToggle";
 import styles from "./page.module.css";
 
@@ -278,7 +278,7 @@ function PaymentFlowVisual({ t }: { t: Translations['payment'] }) {
 
 // ===== FEATURE VISUAL MAP =====
 
-function getVisual(id: string, t: Translations): ComponentType {
+function getVisual(id: FeatureId, t: Translations): ComponentType {
   switch (id) {
     case 'menu':     return NewMenuVisual;
     case 'ordering': return () => <CommissionVisual t={t.commission} />;
@@ -290,7 +290,7 @@ function getVisual(id: string, t: Translations): ComponentType {
   }
 }
 
-const featureAlignments: Record<string, { alignment: 'left' | 'right'; isDark: boolean }> = {
+const featureAlignments: Record<FeatureId, { alignment: 'left' | 'right'; isDark: boolean }> = {
   menu:     { alignment: 'left',  isDark: false },
   ordering: { alignment: 'right', isDark: true  },
   mobile:   { alignment: 'left',  isDark: false },

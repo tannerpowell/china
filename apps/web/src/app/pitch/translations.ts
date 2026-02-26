@@ -1,4 +1,5 @@
 export type Locale = 'en' | 'zh';
+export type FeatureId = 'menu' | 'ordering' | 'mobile' | 'seo' | 'cms' | 'payments';
 
 export interface Translations {
   meta: { title: string };
@@ -16,7 +17,7 @@ export interface Translations {
   };
   problem: { headline: string; description: string };
   features: ReadonlyArray<{
-    id: string;
+    id: FeatureId;
     headline: string;
     copy: string;
     bullets: readonly string[];

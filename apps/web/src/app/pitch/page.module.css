@@ -22,6 +22,11 @@
   border-color: var(--color-gold);
 }
 
+.langToggle:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
 /* ===== PAGE ===== */
 
 .page {
