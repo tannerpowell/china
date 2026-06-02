@@ -352,7 +352,7 @@ export function MenuItemModal({
                 disabled={quantity <= 1}
                 aria-label="Decrease quantity"
               >
-                <Minus size={18} />
+                <Minus size={18} aria-hidden="true" />
               </button>
               <span className={styles.quantityValue}>{quantity}</span>
               <button
@@ -361,7 +361,7 @@ export function MenuItemModal({
                 onClick={() => setQuantity(quantity + 1)}
                 aria-label="Increase quantity"
               >
-                <Plus size={18} />
+                <Plus size={18} aria-hidden="true" />
               </button>
             </div>
 

@@ -7,21 +7,21 @@
     "start": "next start"
   },
   "dependencies": {
-    "@sanity/client": "^7.14.0",
-    "@stripe/react-stripe-js": "^5.4.1",
-    "@stripe/stripe-js": "^8.6.1",
-    "lucide-react": "^0.563.0",
-    "next": "^16.1.2",
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3",
-    "stripe": "^20.1.2",
-    "zustand": "^5.0.10"
+    "@sanity/client": "^7.22.1",
+    "@stripe/react-stripe-js": "^6.5.0",
+    "@stripe/stripe-js": "^9.7.0",
+    "lucide-react": "^1.17.0",
+    "next": "^16.2.6",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "stripe": "^22.2.0",
+    "zustand": "^5.0.14"
   },
   "devDependencies": {
-    "@types/node": "^25.0.8",
-    "@types/react": "^19.2.8",
+    "@types/node": "^24.12.4",
+    "@types/react": "^19.2.15",
     "babel-plugin-react-compiler": "19.1.0-rc.3",
-    "playwright": "^1.57.0",
-    "typescript": "5.9.3"
+    "playwright": "^1.60.0",
+    "typescript": "6.0.3"
   }
 }
