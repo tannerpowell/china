@@ -1,4 +1,4 @@
-import type { ComponentType } from "react";
+import type { ReactNode } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { translations, type Locale, type Translations, type FeatureId } from "./translations";
@@ -278,15 +278,17 @@ function PaymentFlowVisual({ t }: { t: Translations['payment'] }) {
 
 // ===== FEATURE VISUAL MAP =====
 
-function getVisual(id: FeatureId, t: Translations): ComponentType {
+// Returns a rendered element (not a component factory) so the visuals keep
+// stable component identities across renders instead of remounting each time.
+function getVisual(id: FeatureId, t: Translations): ReactNode {
   switch (id) {
-    case 'menu':     return NewMenuVisual;
-    case 'ordering': return () => <CommissionVisual t={t.commission} />;
-    case 'mobile':   return PhoneMockup;
-    case 'seo':      return () => <SearchResultsVisual t={t.search} />;
-    case 'cms':      return CMSVisual;
-    case 'payments': return () => <PaymentFlowVisual t={t.payment} />;
-    default:         return () => null;
+    case 'menu':     return <NewMenuVisual />;
+    case 'ordering': return <CommissionVisual t={t.commission} />;
+    case 'mobile':   return <PhoneMockup />;
+    case 'seo':      return <SearchResultsVisual t={t.search} />;
+    case 'cms':      return <CMSVisual />;
+    case 'payments': return <PaymentFlowVisual t={t.payment} />;
+    default:         return null;
   }
 }
 
@@ -305,15 +307,15 @@ function FeatureSection({
   headline,
   copy,
   bullets,
-  Visual,
+  visual,
   isDark,
 }: {
-  id: string;
+  id: FeatureId;
   alignment: 'left' | 'right';
   headline: string;
   copy: string;
   bullets: readonly string[];
-  Visual: ComponentType;
+  visual: ReactNode;
   isDark: boolean;
 }) {
   return (
@@ -340,7 +342,7 @@ function FeatureSection({
           )}
         </div>
         <div className={styles.sectionVisual} aria-hidden="true">
-          <Visual />
+          {visual}
         </div>
       </div>
     </section>
@@ -357,7 +359,7 @@ export default async function PitchPage(props: { searchParams: SearchParams }) {
   return (
     <div className={styles.page}>
       {/* Language toggle — fixed position */}
-      <LanguageToggle locale={locale} label={t.toggle} />
+      <LanguageToggle locale={locale} />
 
       {/* Hero */}
       <section className={styles.hero}>
@@ -401,7 +403,6 @@ export default async function PitchPage(props: { searchParams: SearchParams }) {
       {/* Feature Sections */}
       {t.features.map((feature) => {
         const { alignment, isDark } = featureAlignments[feature.id];
-        const Visual = getVisual(feature.id, t);
         return (
           <FeatureSection
             key={feature.id}
@@ -411,7 +412,7 @@ export default async function PitchPage(props: { searchParams: SearchParams }) {
             headline={feature.headline}
             copy={feature.copy}
             bullets={feature.bullets}
-            Visual={Visual}
+            visual={getVisual(feature.id, t)}
           />
         );
       })}

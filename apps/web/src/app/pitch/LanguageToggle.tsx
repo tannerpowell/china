@@ -4,16 +4,20 @@ import { useRouter, usePathname } from 'next/navigation';
 import type { Locale } from './translations';
 import styles from './page.module.css';
 
-export function LanguageToggle({ locale }: { locale: Locale; label: string }) {
+export function LanguageToggle({ locale }: { locale: Locale }) {
   const router = useRouter();
   const pathname = usePathname();
 
   const handleToggle = () => {
+    // Preserve any existing query params; only flip the `lang` key.
+    const params = new URLSearchParams(window.location.search);
     if (locale === 'en') {
-      router.push(`${pathname}?lang=zh`);
+      params.set('lang', 'zh');
     } else {
-      router.push(pathname);
+      params.delete('lang');
     }
+    const query = params.toString();
+    router.push(query ? `${pathname}?${query}` : pathname);
   };
 
   return (
