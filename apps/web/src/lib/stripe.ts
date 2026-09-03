@@ -24,7 +24,7 @@ function getStripePublishableKey(): string {
 export function getStripe(): Stripe {
   if (!_stripe) {
     _stripe = new Stripe(getStripeSecretKey(), {
-      apiVersion: '2026-05-27.dahlia',
+      apiVersion: '2026-08-26.dahlia',
       typescript: true,
     });
   }
