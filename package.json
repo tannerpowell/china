@@ -8,7 +8,7 @@
     "start": "bun --filter @ci/web start"
   },
   "devDependencies": {
-    "sharp": "^0.34.5",
-    "tsx": "^4.22.4"
+    "sharp": "^0.35.4",
+    "tsx": "^4.23.13"
   }
 }
