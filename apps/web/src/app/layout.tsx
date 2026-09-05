@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     template: "%s | China Island Asian Grill",
   },
   description:
-    "Fresh Asian cuisine made with care. Dine-in, takeout & delivery in the greater Houston area. View our full menu and order online.",
+    "Fresh Asian cuisine made with care. Dine-in, takeout & delivery in Flower Mound, TX. View our full menu and order online.",
   openGraph: {
     type: "website",
     siteName: "China Island Asian Grill",

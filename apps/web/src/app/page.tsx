@@ -3,28 +3,50 @@ import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
 import styles from "./page.module.css";
 
-// Restaurant configuration from environment
-const phone = process.env.NEXT_PUBLIC_RESTAURANT_PHONE;
-const hours = process.env.NEXT_PUBLIC_RESTAURANT_HOURS || "Mon–Sat: 11am–9pm | Sun: 12pm–8pm";
-const address = process.env.NEXT_PUBLIC_RESTAURANT_ADDRESS ?? "";
+import {
+  restaurant,
+  restaurantAddressFull,
+  restaurantPhoneHref,
+} from "@/lib/restaurant";
+
+// Restaurant info: env overrides win, verified Flower Mound values are the fallback
+const phone = process.env.NEXT_PUBLIC_RESTAURANT_PHONE || restaurant.phoneDisplay;
+const hours = process.env.NEXT_PUBLIC_RESTAURANT_HOURS || restaurant.hoursSummary;
+const address = process.env.NEXT_PUBLIC_RESTAURANT_ADDRESS || restaurantAddressFull;
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://chinaislandgrill.com";
 
 const restaurantJsonLd = {
   "@context": "https://schema.org",
   "@type": "Restaurant",
-  name: "China Island Asian Grill",
+  name: restaurant.name,
   description: "Fresh Asian cuisine made with care. Dine-in, takeout & delivery.",
   url: baseUrl,
-  ...(phone && { telephone: phone }),
-  ...(address && {
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: address,
-    },
-  }),
-  servesCuisine: ["Chinese", "Asian"],
+  telephone: phone,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: restaurant.addressStreet,
+    addressLocality: restaurant.addressCity,
+    addressRegion: restaurant.addressRegion,
+    postalCode: restaurant.addressZip,
+    addressCountry: "US",
+  },
+  servesCuisine: [...restaurant.cuisines],
   hasMenu: `${baseUrl}/menu`,
   acceptsReservations: false,
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"],
+      opens: "11:00",
+      closes: "21:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Friday", "Saturday"],
+      opens: "11:00",
+      closes: "21:30",
+    },
+  ],
 };
 
 export default function Home() {
@@ -53,18 +75,14 @@ export default function Home() {
               Order Online
             </Link>
             <Link href="/location" className={styles.navLink}>
-              Location
+              Visit Us
             </Link>
           </nav>
 
           <p className={styles.blurb}>
             Fresh Asian cuisine made with care. We offer dine-in, takeout, and delivery options for all your favorite dishes.
-            {phone && (
-              <>
-                <br /><br />
-                <a href={`tel:${phone}`} className={styles.aboutLink}>Call to Order</a>
-              </>
-            )}
+            <br /><br />
+            <a href={restaurantPhoneHref} className={styles.aboutLink}>Call to Order: {phone}</a>
           </p>
 
           <div className={styles.hours}>
