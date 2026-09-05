@@ -14,8 +14,12 @@
   padding: 40px;
 }
 
-/* Page header — mirrors home .welcome */
+/* Page header — title left, Order Online top right */
 .welcome {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
   margin-bottom: 32px;
   padding-bottom: 24px;
   border-bottom: 2px dashed var(--red);
@@ -24,7 +28,21 @@
 .welcomeTitle {
   font-size: 28px;
   color: var(--red);
-  margin-bottom: 8px;
+}
+
+.headerCta {
+  flex-shrink: 0;
+  display: inline-block;
+  padding: 12px 28px;
+  background: var(--red);
+  color: white;
+  border-radius: 100px;
+  font-size: 16px;
+  transition: background 0.2s ease;
+}
+
+.headerCta:hover {
+  background: var(--red-hover);
 }
 
 .welcomeText {
@@ -97,6 +115,11 @@
   font-weight: 700;
 }
 
+.bodyStrong {
+  font-size: 15px;
+  font-weight: 700;
+}
+
 .phoneLink {
   font-size: 28px;
   font-weight: 800;
@@ -150,28 +173,6 @@
 .pillLink:hover {
   background: var(--green);
   color: white;
-}
-
-/* CTA — mirrors home */
-.cta {
-  margin-top: 40px;
-  padding-top: 32px;
-  border-top: 2px dashed var(--red);
-  text-align: center;
-}
-
-.ctaButton {
-  display: inline-block;
-  padding: 12px 28px;
-  background: var(--red);
-  color: white;
-  border-radius: 100px;
-  font-size: 16px;
-  transition: background 0.2s ease;
-}
-
-.ctaButton:hover {
-  background: var(--red-hover);
 }
 
 /* Mobile: Stack panels — mirrors home */

@@ -27,6 +27,9 @@ export default function LocationPage() {
       <main className={styles.rightPanel}>
         <div className={styles.welcome}>
           <h1 className={styles.welcomeTitle}>Location Info</h1>
+          <Link href="/order" className={styles.headerCta}>
+            Order Online
+          </Link>
         </div>
 
         <div className={styles.topRow}>
@@ -37,29 +40,21 @@ export default function LocationPage() {
                 {restaurant.phoneDisplay}
               </a>
             </p>
-            <p className={styles.body}>
-              Call ahead for pickup — about 15 minutes normally, about 30
-              minutes during the evening rush (5:30–7:30 PM).
-            </p>
+          <p className={styles.body}>
+            Call ahead for pickup — about 15 minutes normally, about 30
+            minutes during the evening rush (5:30–7:30 p.m.).
+          </p>
           </section>
 
           <section className={styles.topCol}>
             <span className={styles.eyebrow}>Address</span>
-            <p className={styles.body}>
+            <p className={`${styles.body} ${styles.bodyStrong}`}>
               {restaurant.addressStreet}
               <br />
               {restaurant.addressCity}, {restaurant.addressRegion}{" "}
               {restaurant.addressZip}
             </p>
             <div className={styles.pillRow}>
-              <a
-                href={restaurantDirectionsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.pillLink}
-              >
-                Google Maps
-              </a>
               <a
                 href={`https://maps.apple.com/?q=${restaurantMapsQuery}`}
                 target="_blank"
@@ -68,6 +63,14 @@ export default function LocationPage() {
               >
                 Apple Maps
               </a>
+              <a
+                href={restaurantDirectionsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.pillLink}
+              >
+                Google Maps
+              </a>
             </div>
           </section>
 
@@ -75,7 +78,7 @@ export default function LocationPage() {
             <span className={styles.eyebrow}>Hours</span>
             <div className={styles.hoursList}>
               {restaurantHoursRows.map((row) => (
-                <p key={row.days} className={styles.body}>
+                <p key={row.days} className={`${styles.body} ${styles.bodyStrong}`}>
                   {row.days}
                   <br />
                   {row.time}
@@ -137,12 +140,6 @@ export default function LocationPage() {
             </a>
           </div>
         </section>
-
-        <div className={styles.cta}>
-          <Link href="/order" className={styles.ctaButton}>
-            Order Online →
-          </Link>
-        </div>
       </main>
     </div>
   );
