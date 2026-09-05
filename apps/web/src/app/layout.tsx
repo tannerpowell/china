@@ -1,5 +1,6 @@
 import "./globals.css";
 import "./styles/menu3-fonts.css";
+import "./styles/menu3.css";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { Sen } from "next/font/google";

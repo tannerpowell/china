@@ -156,62 +156,6 @@ export function MenuList({
         )}
       </div>
 
-      <style jsx>{`
-        .menu3-list-header {
-          display: flex;
-          align-items: baseline;
-          justify-content: flex-end;
-          margin-bottom: 20px;
-          padding-bottom: 16px;
-          border-bottom: 1px solid var(--menu3-border, rgba(0, 0, 0, 0.06));
-        }
-
-        .menu3-item-count {
-          color: var(--menu3-text-muted, #8A8583);
-          opacity: 0.8;
-        }
-
-        .menu3-list {
-          display: flex;
-          flex-direction: column;
-        }
-
-        .menu3-category-group {
-          margin-bottom: 32px;
-        }
-
-        .menu3-category-group:last-child {
-          margin-bottom: 0;
-        }
-
-        .menu3-category-header {
-          margin-bottom: 16px;
-          padding-bottom: 8px;
-        }
-
-        .menu3-category-title {
-          margin: 0;
-          color: var(--menu3-accent, #f74140);
-          font-size: 13px;
-        }
-
-        .menu3-no-results {
-          text-align: center;
-          padding: 48px 24px;
-          color: var(--menu3-text-muted, #8A8583);
-        }
-
-        .menu3-no-results p {
-          margin: 0;
-          font-size: 16px;
-        }
-
-        .menu3-no-results-hint {
-          margin-top: 8px !important;
-          font-size: 14px !important;
-          opacity: 0.7;
-        }
-      `}</style>
     </>
   );
 }
