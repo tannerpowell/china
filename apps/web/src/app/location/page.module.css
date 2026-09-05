@@ -120,6 +120,10 @@
   font-weight: 700;
 }
 
+.hoursBody {
+  font-size: 15px;
+}
+
 .phoneLink {
   font-size: 28px;
   font-weight: 800;

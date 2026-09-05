@@ -78,10 +78,10 @@ export default function LocationPage() {
             <span className={styles.eyebrow}>Hours</span>
             <div className={styles.hoursList}>
               {restaurantHoursRows.map((row) => (
-                <p key={row.days} className={`${styles.body} ${styles.bodyStrong}`}>
+                <p key={row.days} className={`${styles.body} ${styles.hoursBody}`}>
                   {row.days}
                   <br />
-                  {row.time}
+                  <strong>{row.time}</strong>
                 </p>
               ))}
             </div>
