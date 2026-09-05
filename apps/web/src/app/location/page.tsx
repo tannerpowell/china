@@ -26,72 +26,74 @@ export default function LocationPage() {
 
       <main className={styles.rightPanel}>
         <div className={styles.welcome}>
-          <h1 className={styles.welcomeTitle}>Visit Us</h1>
+          <h1 className={styles.welcomeTitle}>Location Info</h1>
         </div>
 
-        <section className={styles.block}>
-          <span className={styles.eyebrow}>Contact</span>
-          <h2 className={styles.blockTitle}>Call to order</h2>
-          <p className={styles.body}>
-            <a href={restaurantPhoneHref} className={styles.phoneLink}>
-              {restaurant.phoneDisplay}
-            </a>
-          </p>
-          <p className={styles.body}>
-            Call ahead for pickup — about 15 minutes normally, about 30
-            minutes during the evening rush (5:30–7:30 PM).
-          </p>
-        </section>
+        <div className={styles.topRow}>
+          <section className={styles.topCol}>
+            <span className={styles.eyebrow}>Call to Order</span>
+            <p className={styles.body}>
+              <a href={restaurantPhoneHref} className={styles.phoneLink}>
+                {restaurant.phoneDisplay}
+              </a>
+            </p>
+            <p className={styles.body}>
+              Call ahead for pickup — about 15 minutes normally, about 30
+              minutes during the evening rush (5:30–7:30 PM).
+            </p>
+          </section>
 
-        <section className={styles.block}>
-          <span className={styles.eyebrow}>Address</span>
-          <h2 className={styles.blockTitle}>Where to find us</h2>
-          <p className={styles.body}>
-            {restaurant.addressStreet}
-            <br />
-            {restaurant.addressCity}, {restaurant.addressRegion}{" "}
-            {restaurant.addressZip}
-          </p>
-          <div className={styles.pillRow}>
-            <a
-              href={restaurantDirectionsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.pillLink}
-            >
-              Google Maps
-            </a>
-            <a
-              href={`https://maps.apple.com/?q=${restaurantMapsQuery}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.pillLink}
-            >
-              Apple Maps
-            </a>
-          </div>
-          <div className={styles.mapFrame}>
-            <iframe
-              title={`Map to ${restaurant.name} at ${restaurantAddressFull}`}
-              src={restaurantMapEmbedUrl}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              allowFullScreen
-            />
-          </div>
-        </section>
+          <section className={styles.topCol}>
+            <span className={styles.eyebrow}>Address</span>
+            <p className={styles.body}>
+              {restaurant.addressStreet}
+              <br />
+              {restaurant.addressCity}, {restaurant.addressRegion}{" "}
+              {restaurant.addressZip}
+            </p>
+            <div className={styles.pillRow}>
+              <a
+                href={restaurantDirectionsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.pillLink}
+              >
+                Google Maps
+              </a>
+              <a
+                href={`https://maps.apple.com/?q=${restaurantMapsQuery}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.pillLink}
+              >
+                Apple Maps
+              </a>
+            </div>
+          </section>
 
-        <section className={styles.block}>
-          <span className={styles.eyebrow}>Hours</span>
-          <h2 className={styles.blockTitle}>When we&apos;re open</h2>
-          <div className={styles.hoursList}>
-            {restaurantHoursRows.map((row) => (
-              <p key={row.days} className={styles.body}>
-                {row.days} {row.time}
-              </p>
-            ))}
-          </div>
-        </section>
+          <section className={styles.topCol}>
+            <span className={styles.eyebrow}>Hours</span>
+            <div className={styles.hoursList}>
+              {restaurantHoursRows.map((row) => (
+                <p key={row.days} className={styles.body}>
+                  {row.days}
+                  <br />
+                  {row.time}
+                </p>
+              ))}
+            </div>
+          </section>
+        </div>
+
+        <div className={styles.mapFrame}>
+          <iframe
+            title={`Map to ${restaurant.name} at ${restaurantAddressFull}`}
+            src={restaurantMapEmbedUrl}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            allowFullScreen
+          />
+        </div>
 
         <section id="about" className={styles.block}>
           <span className={styles.eyebrow}>About</span>
