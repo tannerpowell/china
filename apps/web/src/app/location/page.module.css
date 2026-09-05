@@ -70,20 +70,8 @@
   font-weight: 700;
 }
 
-.greenLink {
-  display: inline-block;
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--green);
-  margin-top: 4px;
-}
-
-.greenLink:hover {
-  text-decoration: underline;
-}
-
 .phoneLink {
-  font-size: 22px;
+  font-size: 28px;
   font-weight: 800;
   color: var(--red);
 }
