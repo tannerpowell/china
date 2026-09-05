@@ -119,7 +119,7 @@ export function MenuList({
 
       <div className="menu3-list" role="list" aria-label="Menu items">
         {groupedItems.map(({ category, items: categoryItems }) => (
-          <div key={category.id} className="menu3-category-group">
+          <div key={category.id} id={category.slug} className="menu3-category-group">
             {/* Category header - only show if not filtering by single category */}
             {!selectedCategory && (
               <div className="menu3-category-header">

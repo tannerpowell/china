@@ -255,6 +255,8 @@
 
 .menu3-category-group {
   margin-bottom: 32px;
+  /* Anchor target from home cards (e.g. /menu#soups) — clear the sticky header */
+  scroll-margin-top: 104px;
 }
 
 .menu3-category-group:last-child {
