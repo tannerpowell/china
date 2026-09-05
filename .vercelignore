@@ -1,0 +1,32 @@
+# Secrets — never upload to Vercel
+.env
+.env.*
+!.env.example
+
+# Local Vercel state
+.vercel
+
+# Dependencies & build output
+node_modules/
+.next/
+out/
+dist/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+*.swp
+
+# Data artifacts (large, regenerable)
+data/
+scripts/scrape/data/
+scripts/scrape/apps/
+
+# Redesign zips / fixtures at repo root
+china-island-redesign/
+china-island-redesign.zip
+
+# Test artifacts
+playwright-report/
+test-results/
+*.tsbuildinfo
