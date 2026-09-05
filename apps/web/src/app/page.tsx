@@ -1,18 +1,13 @@
-import Image from "next/image";
 import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
-import styles from "./page.module.css";
-
+import { SiteSidebar } from "@/components/SiteSidebar";
 import {
   restaurant,
-  restaurantAddressFull,
-  restaurantPhoneHref,
 } from "@/lib/restaurant";
+import styles from "./page.module.css";
 
 // Restaurant info: env overrides win, verified Flower Mound values are the fallback
 const phone = process.env.NEXT_PUBLIC_RESTAURANT_PHONE || restaurant.phoneDisplay;
-const hours = process.env.NEXT_PUBLIC_RESTAURANT_HOURS || restaurant.hoursSummary;
-const address = process.env.NEXT_PUBLIC_RESTAURANT_ADDRESS || restaurantAddressFull;
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://chinaislandgrill.com";
 
 const restaurantJsonLd = {
@@ -53,44 +48,7 @@ export default function Home() {
   return (
     <div className={styles.layout}>
       <JsonLd data={restaurantJsonLd} />
-      {/* Fixed Left Panel */}
-      <aside className={styles.leftPanel}>
-        <div className={styles.intro}>
-          <Image
-            src="/logo.png"
-            alt="China Island Asian Grill"
-            className={styles.logo}
-            width={200}
-            height={200}
-            priority
-          />
-          <h1 className={styles.title}>China Island</h1>
-          <p className={styles.subtitle}>Asian Grill</p>
-
-          <nav className={styles.nav}>
-            <Link href="/menu" className={styles.navLink}>
-              Menu
-            </Link>
-            <Link href="/order" className={styles.navLink}>
-              Order Online
-            </Link>
-            <Link href="/location" className={styles.navLink}>
-              Visit Us
-            </Link>
-          </nav>
-
-          <p className={styles.blurb}>
-            Fresh Asian cuisine made with care. We offer dine-in, takeout, and delivery options for all your favorite dishes.
-            <br /><br />
-            <a href={restaurantPhoneHref} className={styles.aboutLink}>Call to Order: {phone}</a>
-          </p>
-
-          <div className={styles.hours}>
-            <strong>Hours</strong><br />
-            {hours}
-          </div>
-        </div>
-      </aside>
+      <SiteSidebar />
 
       {/* Scrolling Right Panel */}
       <main className={styles.rightPanel}>

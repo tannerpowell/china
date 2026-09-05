@@ -4,105 +4,6 @@
   min-height: 100vh;
 }
 
-/* Fixed Left Panel - 30% width */
-.leftPanel {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 30%;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 40px;
-  background: var(--bg);
-  z-index: 10;
-}
-
-.intro {
-  max-width: 320px;
-  text-align: center;
-  padding: 24px;
-  padding-right: 40px;
-  border-right: 2px solid var(--red);
-}
-
-.logo {
-  display: block;
-  width: 250px;
-  height: auto;
-  margin: 0 auto 16px;
-}
-
-.title {
-  font-size: 32px;
-  line-height: 1.1;
-  color: var(--red);
-  margin-bottom: 4px;
-}
-
-.subtitle {
-  font-size: 16px;
-  color: var(--text);
-  margin-bottom: 24px;
-}
-
-/* Navigation */
-.nav {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 24px;
-}
-
-.navLink {
-  display: inline-block;
-  padding: 10px 18px;
-  border: 2px solid var(--green);
-  border-radius: 100px;
-  font-size: 14px;
-  color: var(--green);
-  text-align: center;
-  transition: all 0.2s ease;
-}
-
-.navLink:hover {
-  background: var(--green);
-  color: white;
-}
-
-.navLinkActive {
-  background: var(--green);
-  color: white;
-}
-
-/* Blurb */
-.blurb {
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 1.5;
-  color: var(--text);
-  margin-bottom: 20px;
-}
-
-.aboutLink {
-  color: var(--red);
-  text-decoration: underline;
-}
-
-.aboutLink:hover {
-  color: var(--red-hover);
-}
-
-/* Hours */
-.hours {
-  font-size: 13px;
-  font-weight: 400;
-  line-height: 1.6;
-  color: #666;
-}
-
 /* Scrolling Right Panel - 70% width */
 .rightPanel {
   margin-left: 30%;
@@ -202,27 +103,6 @@
 @media (max-width: 900px) {
   .layout {
     flex-direction: column;
-  }
-
-  .leftPanel {
-    position: relative;
-    width: 100%;
-    height: auto;
-    border-right: none;
-    border-bottom: 2px solid var(--red);
-    padding: 32px 24px;
-    align-items: center;
-  }
-
-  .intro {
-    text-align: center;
-    max-width: 100%;
-  }
-
-  .nav {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
   }
 
   .rightPanel {

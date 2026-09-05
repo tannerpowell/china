@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { SiteSidebar } from "@/components/SiteSidebar";
 import {
   restaurant,
   restaurantAddressFull,
@@ -11,7 +12,7 @@ import {
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
-  title: "About & Visit Us",
+  title: "Visit Us",
   description:
     "About China Island Asian Grill in Flower Mound, TX. Address, phone, hours, pickup & delivery info, map and directions.",
   alternates: { canonical: "/location" },
@@ -19,92 +20,46 @@ export const metadata: Metadata = {
 
 export default function LocationPage() {
   return (
-    <main className={styles.page}>
-      <div className={styles.container}>
-        <Link href="/" className={styles.backLink}>
-          ← Back to Home
-        </Link>
+    <div className={styles.layout}>
+      <SiteSidebar active="visit" />
 
-        <p className={styles.eyebrow}>Visit Us</p>
-        <h1 className={styles.title}>
-          {restaurant.shortName} in Flower Mound
-        </h1>
-        <p className={styles.lede}>
-          Fresh Asian cuisine made with care — dine in with us, grab takeout
-          on your way home, or get your favorites delivered.
-        </p>
-
-        {/* About */}
-        <section id="about" className={styles.about}>
-          <h2 className={styles.sectionTitle}>About Us</h2>
-          <p className={styles.aboutText}>
-            China Island Asian Grill serves Sichuan, Mandarin, and Hunan dishes
-            in the {restaurant.shoppingCenter} — from takeout classics like
-            General Tso&apos;s chicken and crab rangoon to wok-fired
-            chef&apos;s specials. Everything is cooked to order, and online
-            ordering makes dinner easy.
+      <main className={styles.rightPanel}>
+        <div className={styles.welcome}>
+          <h1 className={styles.welcomeTitle}>Visit Us</h1>
+          <p className={styles.welcomeText}>
+            Find us in the {restaurant.shoppingCenter} in Flower Mound.
+            Dine in, grab takeout, or get your favorites delivered.
           </p>
-          <div className={styles.cuisineTags}>
-            {["Sichuan", "Mandarin", "Hunan"].map((c) => (
-              <span key={c} className={styles.cuisineTag}>
-                {c}
-              </span>
-            ))}
-          </div>
+        </div>
+
+        <section id="about" className={styles.block}>
+          <span className={styles.eyebrow}>About</span>
+          <h2 className={styles.blockTitle}>Sichuan, Mandarin & Hunan</h2>
+          <p className={styles.body}>
+            China Island Asian Grill serves Sichuan, Mandarin, and Hunan
+            dishes — from takeout classics like General Tso&apos;s chicken
+            and crab rangoon to wok-fired chef&apos;s specials. Everything
+            is cooked to order, and online ordering makes dinner easy.
+          </p>
         </section>
 
-        {/* Info cards */}
-        <section className={styles.cards}>
-          <div className={styles.card}>
-            <h2 className={styles.cardTitle}>Address</h2>
-            <address className={styles.cardBody}>
-              {restaurant.addressStreet}
-              <br />
-              {restaurant.addressCity}, {restaurant.addressRegion}{" "}
-              {restaurant.addressZip}
-            </address>
-            <a
-              href={restaurantDirectionsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.cardLink}
-            >
-              Get Directions →
-            </a>
-          </div>
-
-          <div className={styles.card}>
-            <h2 className={styles.cardTitle}>Contact</h2>
-            <p className={styles.cardBody}>
-              <a href={restaurantPhoneHref} className={styles.phoneLink}>
-                {restaurant.phoneDisplay}
-              </a>
-              <br />
-              Call ahead for pickup — normal pickup time is about 15 minutes.
-            </p>
-            <a href={restaurantPhoneHref} className={styles.cardLink}>
-              Call to Order →
-            </a>
-          </div>
-
-          <div className={styles.card}>
-            <h2 className={styles.cardTitle}>Hours</h2>
-            <dl className={styles.hoursList}>
-              {restaurantHoursRows.map((row) => (
-                <div key={row.days} className={styles.hoursRow}>
-                  <dt>{row.days}</dt>
-                  <dd>{row.time}</dd>
-                </div>
-              ))}
-            </dl>
-            <Link href="/menu" className={styles.cardLink}>
-              Browse the Menu →
-            </Link>
-          </div>
-        </section>
-
-        {/* Map */}
-        <section className={styles.mapSection}>
+        <section className={styles.block}>
+          <span className={styles.eyebrow}>Address</span>
+          <h2 className={styles.blockTitle}>Where to find us</h2>
+          <p className={styles.body}>
+            {restaurant.addressStreet}
+            <br />
+            {restaurant.addressCity}, {restaurant.addressRegion}{" "}
+            {restaurant.addressZip}
+          </p>
+          <a
+            href={restaurantDirectionsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.greenLink}
+          >
+            Get Directions →
+          </a>
           <div className={styles.mapFrame}>
             <iframe
               title={`Map to ${restaurant.name} at ${restaurantAddressFull}`}
@@ -116,28 +71,46 @@ export default function LocationPage() {
           </div>
         </section>
 
-        {/* Pickup & delivery */}
-        <section className={styles.delivery}>
-          <h2 className={styles.sectionTitle}>Pickup & Delivery</h2>
-          <ul className={styles.deliveryList}>
-            <li>
-              <strong>Pickup:</strong> about 15 minutes normally, about 30
-              minutes during the evening rush (5:30–7:30 PM).
-            </li>
-            <li>
-              <strong>Delivery:</strong> 45 minutes to 1 hour normally, 1 to
-              1.5 hours during the evening rush. Call to verify.
-            </li>
-          </ul>
-          <div className={styles.ctaRow}>
-            <Link href="/order" className={styles.ctaPrimary}>
-              Order Online
-            </Link>
+        <section className={styles.block}>
+          <span className={styles.eyebrow}>Contact</span>
+          <h2 className={styles.blockTitle}>Call to order</h2>
+          <p className={styles.body}>
+            <a href={restaurantPhoneHref} className={styles.phoneLink}>
+              {restaurant.phoneDisplay}
+            </a>
+          </p>
+          <p className={styles.body}>
+            Call ahead for pickup — normal pickup time is about 15 minutes,
+            about 30 minutes during the evening rush (5:30–7:30 PM).
+          </p>
+        </section>
+
+        <section className={styles.block}>
+          <span className={styles.eyebrow}>Hours</span>
+          <h2 className={styles.blockTitle}>When we&apos;re open</h2>
+          <div className={styles.hoursList}>
+            {restaurantHoursRows.map((row) => (
+              <p key={row.days} className={styles.body}>
+                <strong>{row.days}:</strong> {row.time}
+              </p>
+            ))}
+          </div>
+        </section>
+
+        <section className={styles.block}>
+          <span className={styles.eyebrow}>Delivery</span>
+          <h2 className={styles.blockTitle}>Get it delivered</h2>
+          <p className={styles.body}>
+            Delivery runs 45 minutes to 1 hour normally, 1 to 1.5 hours
+            during the evening rush. Call to verify. Also find us on your
+            favorite delivery app:
+          </p>
+          <div className={styles.pillRow}>
             <a
               href={restaurant.uberEatsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className={styles.ctaSecondary}
+              className={styles.pillLink}
             >
               Uber Eats
             </a>
@@ -145,13 +118,19 @@ export default function LocationPage() {
               href={restaurant.grubhubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className={styles.ctaSecondary}
+              className={styles.pillLink}
             >
               Grubhub
             </a>
           </div>
         </section>
-      </div>
-    </main>
+
+        <div className={styles.cta}>
+          <Link href="/order" className={styles.ctaButton}>
+            Order Online →
+          </Link>
+        </div>
+      </main>
+    </div>
   );
 }
