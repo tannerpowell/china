@@ -98,6 +98,10 @@
   color: #666;
 }
 
+.hoursRow {
+  display: block;
+}
+
 @media (max-width: 900px) {
   .leftPanel {
     position: relative;

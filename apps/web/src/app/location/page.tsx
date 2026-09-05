@@ -87,7 +87,7 @@ export default function LocationPage() {
           <div className={styles.hoursList}>
             {restaurantHoursRows.map((row) => (
               <p key={row.days} className={styles.body}>
-                <strong>{row.days}:</strong> {row.time}
+                {row.days} {row.time}
               </p>
             ))}
           </div>

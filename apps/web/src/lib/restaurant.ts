@@ -6,7 +6,7 @@
  * - Address: 6101 Long Prairie Rd, Suite 740, Flower Mound, TX 75028
  *   (Highland of Flower Mound Shopping Center)
  * - Phone: (972) 704-1971
- * - Hours: Sun–Thu 11:00am–9:00pm, Fri–Sat 11:00am–9:30pm
+ * - Hours: Sun–Thu 11 a.m.–9 p.m., Fri–Sat 11 a.m.–9:30 p.m.
  * - Cuisines: Sichuan, Mandarin, Hunan
  *
  * Each field can still be overridden with a NEXT_PUBLIC_* env var
@@ -36,7 +36,7 @@ export const restaurant = {
 
   hoursSummary: envOr(
     process.env.NEXT_PUBLIC_RESTAURANT_HOURS,
-    "Sun–Thu: 11am–9pm | Fri–Sat: 11am–9:30pm"
+    "Sun–Thu: 11 a.m. – 9 p.m. | Fri–Sat: 11 a.m. – 9:30 p.m."
   ),
 
   cuisines: ["Sichuan", "Mandarin", "Hunan", "Chinese", "Asian"],
@@ -64,6 +64,11 @@ export const restaurantDirectionsUrl = `https://www.google.com/maps/search/?api=
 export const restaurantMapEmbedUrl = `https://www.google.com/maps?q=${restaurantMapsQuery}&output=embed`;
 
 export const restaurantHoursRows = [
-  { days: "Sunday – Thursday", time: "11:00 AM – 9:00 PM" },
-  { days: "Friday – Saturday", time: "11:00 AM – 9:30 PM" },
+  { days: "Sunday – Thursday", time: "11 a.m. – 9 p.m." },
+  { days: "Friday – Saturday", time: "11 a.m. – 9:30 p.m." },
+] as const;
+
+export const restaurantHoursShort = [
+  { days: "Sun–Thu", time: "11 a.m. – 9 p.m." },
+  { days: "Fri–Sat", time: "11 a.m. – 9:30 p.m." },
 ] as const;

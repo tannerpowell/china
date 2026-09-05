@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   restaurant,
+  restaurantHoursShort,
   restaurantPhoneHref,
 } from "@/lib/restaurant";
 import styles from "./SiteSidebar.module.css";
@@ -14,7 +15,7 @@ interface SiteSidebarProps {
 // Visual home of the site — every page using this shell matches home.
 export function SiteSidebar({ active }: SiteSidebarProps) {
   const phone = process.env.NEXT_PUBLIC_RESTAURANT_PHONE || restaurant.phoneDisplay;
-  const hours = process.env.NEXT_PUBLIC_RESTAURANT_HOURS || restaurant.hoursSummary;
+  const hoursEnv = process.env.NEXT_PUBLIC_RESTAURANT_HOURS;
 
   return (
     <aside className={styles.leftPanel}>
@@ -59,7 +60,17 @@ export function SiteSidebar({ active }: SiteSidebarProps) {
 
         <div className={styles.hours}>
           <strong>Hours</strong><br />
-          {hours}
+          {hoursEnv ? (
+            hoursEnv
+          ) : (
+            <>
+              {restaurantHoursShort.map((row) => (
+                <span key={row.days} className={styles.hoursRow}>
+                  {row.days}: {row.time}
+                </span>
+              ))}
+            </>
+          )}
         </div>
       </div>
     </aside>
