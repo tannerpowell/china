@@ -139,6 +139,40 @@
   margin-bottom: 4px;
 }
 
+/* FAQ */
+.faqList {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
+
+.faqItem {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.faqItem:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.faqQ {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--green);
+  margin-bottom: 4px;
+}
+
+.faqA {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--text);
+  max-width: 560px;
+}
+
 /* Map — dashed red frame echoes the site's rules */
 .mapFrame {
   margin-top: 24px;

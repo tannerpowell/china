@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SiteSidebar } from "@/components/SiteSidebar";
+import { JsonLd } from "@/components/JsonLd";
 import {
   restaurant,
   restaurantAddressFull,
@@ -13,15 +14,49 @@ import {
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
-  title: "Visit Us",
+  title: "Location Info",
   description:
     "About China Island Asian Grill in Flower Mound, TX. Address, phone, hours, pickup & delivery info, map and directions.",
   alternates: { canonical: "/location" },
 };
 
+const faqs = [
+  {
+    q: "How long does pickup take?",
+    a: "About 15 minutes normally, and about 30 minutes during the evening rush (5:30–7:30 p.m.). Call ahead and we'll have it ready.",
+  },
+  {
+    q: "Do you offer delivery?",
+    a: "Yes. Delivery runs 45 minutes to 1 hour normally, and 1 to 1.5 hours during the evening rush — call to verify. We're also on Uber Eats and Grubhub.",
+  },
+  {
+    q: "Where are you located?",
+    a: "6101 Long Prairie Rd, Suite 740, Flower Mound, TX 75028, in the Highland of Flower Mound Shopping Center.",
+  },
+  {
+    q: "What are your hours?",
+    a: "Sunday through Thursday, 11 a.m. to 9 p.m.; Friday and Saturday, 11 a.m. to 9:30 p.m.",
+  },
+  {
+    q: "What kind of food do you serve?",
+    a: "Sichuan, Mandarin, and Hunan dishes — from takeout classics like General Tso's chicken and crab rangoon to wok-fired chef's specials.",
+  },
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+
 export default function LocationPage() {
   return (
     <div className={styles.layout}>
+      <JsonLd data={faqJsonLd} />
       <SiteSidebar active="visit" />
 
       <main className={styles.rightPanel}>
@@ -139,6 +174,18 @@ export default function LocationPage() {
               Grubhub
             </a>
           </div>
+        </section>
+        <section className={styles.block}>
+          <span className={styles.eyebrow}>FAQ</span>
+          <h2 className={styles.blockTitle}>Good to know</h2>
+          <dl className={styles.faqList}>
+            {faqs.map((f) => (
+              <div key={f.q} className={styles.faqItem}>
+                <dt className={styles.faqQ}>{f.q}</dt>
+                <dd className={styles.faqA}>{f.a}</dd>
+              </div>
+            ))}
+          </dl>
         </section>
       </main>
     </div>

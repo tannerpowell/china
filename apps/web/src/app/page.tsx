@@ -3,6 +3,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { SiteSidebar } from "@/components/SiteSidebar";
 import {
   restaurant,
+  restaurantDirectionsUrl,
 } from "@/lib/restaurant";
 import styles from "./page.module.css";
 
@@ -28,6 +29,14 @@ const restaurantJsonLd = {
   servesCuisine: [...restaurant.cuisines],
   hasMenu: `${baseUrl}/menu`,
   acceptsReservations: false,
+  priceRange: restaurant.priceRange,
+  image: `${baseUrl}/logo.png`,
+  hasMap: restaurantDirectionsUrl,
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: restaurant.geo.lat,
+    longitude: restaurant.geo.lng,
+  },
   openingHoursSpecification: [
     {
       "@type": "OpeningHoursSpecification",

@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { Sen } from "next/font/google";
 import { NavigationProgress } from "@/components/NavigationProgress";
+import { Analytics } from "@/components/Analytics";
 
 const sen = Sen({
   subsets: ["latin"],
@@ -17,6 +18,10 @@ const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://chinaislandgrill.co
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
+  },
   title: {
     default: "China Island Asian Grill",
     template: "%s | China Island Asian Grill",
@@ -31,6 +36,7 @@ export const metadata: Metadata = {
       "Fresh Asian cuisine made with care. Dine-in, takeout & delivery. View our full menu and order online.",
     url: baseUrl,
     locale: "en_US",
+    images: [{ url: "/logo.png", alt: "China Island Asian Grill" }],
   },
   twitter: {
     card: "summary",
@@ -49,6 +55,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Suspense fallback={null}>
           <NavigationProgress />
         </Suspense>
+        <Analytics />
         {children}
       </body>
     </html>

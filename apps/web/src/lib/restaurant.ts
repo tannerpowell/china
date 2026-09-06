@@ -34,6 +34,11 @@ export const restaurant = {
   addressZip: "75028",
   shoppingCenter: "Highland of Flower Mound Shopping Center",
 
+  // Map pin for the shopping center (suite-level precision isn't published;
+  // Google matches the listing to the GBP pin). Verified via OpenStreetMap.
+  geo: { lat: 33.0691, lng: -97.0841 },
+  priceRange: "$$",
+
   hoursSummary: envOr(
     process.env.NEXT_PUBLIC_RESTAURANT_HOURS,
     "Sun–Thu: 11 a.m. – 9 p.m. | Fri–Sat: 11 a.m. – 9:30 p.m."
