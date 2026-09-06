@@ -99,6 +99,23 @@
   background: var(--red-hover);
 }
 
+/* Quiet internal link below the main column */
+.launchLink {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.launchLink a {
+  font-size: 12px;
+  font-weight: 400;
+  color: #999;
+}
+
+.launchLink a:hover {
+  color: var(--green);
+  text-decoration: underline;
+}
+
 /* Mobile: Stack panels */
 @media (max-width: 900px) {
   .layout {

@@ -135,6 +135,10 @@ export default function Home() {
             View Full Menu →
           </Link>
         </div>
+
+        <div className={styles.launchLink}>
+          <Link href="/launch">Go-live checklist →</Link>
+        </div>
       </main>
     </div>
   );
