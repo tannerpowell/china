@@ -45,6 +45,7 @@ const STRINGS: Record<Lang, Record<string, string>> = {
     progress: "answered",
     unanswered: "Unanswered",
     noneYet: "No answers picked yet.",
+    copyNote: "Copies in English for the session.",
     decisionsHeader: "Menu owner decisions (from /menu-questions):",
     decision: "Decision",
     langLabel: "Language",
@@ -66,6 +67,7 @@ const STRINGS: Record<Lang, Record<string, string>> = {
     progress: "已回答",
     unanswered: "未回答",
     noneYet: "尚未作答。",
+    copyNote: "答案将以英文复制，用于后续处理。",
     decisionsHeader: "菜单店主决定（来自 /menu-questions）：",
     decision: "决定",
     langLabel: "语言",
@@ -301,7 +303,9 @@ export function MenuQuestionsClient() {
   const answeredCount = QUESTIONS.filter((q) => answers[q.id]).length;
 
   async function copyAll() {
-    const ok = await copyText(buildCopy(lang, answers));
+    // Pasted into (English) sessions — always copy in English, whatever
+    // language the owner used to decide.
+    const ok = await copyText(buildCopy("en", answers));
     if (ok) {
       setCopiedAll(true);
       window.setTimeout(() => setCopiedAll(false), 2000);
@@ -309,7 +313,7 @@ export function MenuQuestionsClient() {
   }
 
   async function copyOne(id: string) {
-    const ok = await copyText(buildCopy(lang, answers, id));
+    const ok = await copyText(buildCopy("en", answers, id));
     if (ok) {
       setCopiedOne(id);
       window.setTimeout(() => setCopiedOne(null), 2000);
@@ -381,6 +385,9 @@ export function MenuQuestionsClient() {
             </button>
             {answeredCount === 0 && (
               <span className={local.progressNote}>{t.noneYet}</span>
+            )}
+            {answeredCount > 0 && (
+              <span className={local.progressNote}>{t.copyNote}</span>
             )}
           </div>
           <ul className={styles.list}>
