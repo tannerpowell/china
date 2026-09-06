@@ -5,14 +5,11 @@ let _client: SanityClient | null = null;
 
 function getSanityConfig() {
   const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
-  const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
+  // Same default as sanity.config.ts: the setup docs name this dataset.
+  const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET ?? "production";
 
   if (!projectId) {
     throw new Error('Missing NEXT_PUBLIC_SANITY_PROJECT_ID environment variable');
-  }
-
-  if (!dataset) {
-    throw new Error('Missing NEXT_PUBLIC_SANITY_DATASET environment variable');
   }
 
   return {
@@ -160,13 +157,14 @@ export interface SanityMenuItem {
 export interface SanityModifierGroup {
   _id: string;
   title: string;
-  selectionType: 'single' | 'multi';
-  min: number;
-  max: number;
+  selectionType?: 'single' | 'multi';
+  min?: number;
+  max?: number;
   options: {
-    id: string;
+    _key?: string;
+    id?: string;
     label: string;
-    priceDelta: number;
+    priceDelta?: number;
   }[];
 }
 

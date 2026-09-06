@@ -4,20 +4,33 @@ import { fileURLToPath } from "node:url";
 import "dotenv/config";
 import { sanity } from "../utils/sanityClient.js";
 
-// Patches only the `description` field on menuItem docs that have one in
-// the normalized data. Unlike the full import, this skips image uploads.
+// Patches the `description` field on scrape-managed menuItem docs
+// (item_* ids only — owner-created docs are never touched). Unlike the full
+// import, this skips image uploads. Items whose normalized description is
+// absent get the field explicitly unset so stale copy can't survive.
+// Unlike the full import, this never touches images or other fields.
+//
+// Usage: tsx import/patch_descriptions.ts [--dry-run]
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = path.resolve(__dirname, "../../..");
+const DRY_RUN = process.argv.includes("--dry-run");
 
 async function main() {
   const p = path.resolve(PROJECT_ROOT, "apps/web/src/data/menu.normalized.json");
   const data = JSON.parse(fs.readFileSync(p, "utf-8"));
-  const withDesc = data.items.filter((it: any) => it.description);
-  console.log(`Patching descriptions on ${withDesc.length}/${data.items.length} items`);
+  const managed = data.items.filter((it: any) => String(it.id).startsWith("item_"));
+  const sets = managed.filter((it: any) => it.description);
+  const unsets = managed.filter((it: any) => !it.description);
+  console.log(
+    `${DRY_RUN ? "[dry-run] " : ""}Would patch ${sets.length} descriptions, ` +
+    `unset ${unsets.length}, skip ${data.items.length - managed.length} non-managed ` +
+    `of ${data.items.length} items`
+  );
+  if (DRY_RUN) return;
 
   let ok = 0;
   const failed: string[] = [];
-  for (const it of withDesc) {
+  for (const it of sets) {
     try {
       await sanity.patch(it.id).set({ description: it.description }).commit();
       ok++;
@@ -25,7 +38,16 @@ async function main() {
       failed.push(`${it.id}: ${err instanceof Error ? err.message : err}`);
     }
   }
-  console.log(`Done: ${ok} patched, ${failed.length} failed`);
+  let unok = 0;
+  for (const it of unsets) {
+    try {
+      await sanity.patch(it.id).unset(["description"]).commit();
+      unok++;
+    } catch (err) {
+      failed.push(`${it.id}: ${err instanceof Error ? err.message : err}`);
+    }
+  }
+  console.log(`Done: ${ok} set, ${unok} unset, ${failed.length} failed`);
   for (const f of failed) console.error("FAILED", f);
   if (failed.length > 0) process.exit(1);
 }

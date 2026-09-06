@@ -10,7 +10,7 @@ export const menuCategory = defineType({
   fields: [
     defineField({ name: "title", title: "Title", type: "string", validation: (r) => r.required() }),
     defineField({ name: "slug", title: "Slug", type: "slug", options: { source: "title" }, validation: (r) => r.required() }),
-    defineField({ name: "sortOrder", title: "Sort order", type: "number", initialValue: 10 }),
+    defineField({ name: "sortOrder", title: "Sort order", type: "number", initialValue: 10, validation: (r) => r.required() }),
   ],
   preview: { select: { title: "title", subtitle: "slug.current" } },
 });
@@ -27,9 +27,27 @@ export const modifierGroup = defineType({
       type: "string",
       options: { list: ["single", "multi"], layout: "radio" },
       initialValue: "single",
+      validation: (r) => r.required(),
     }),
-    defineField({ name: "min", title: "Min selections", type: "number", initialValue: 0 }),
-    defineField({ name: "max", title: "Max selections", type: "number", initialValue: 1 }),
+    defineField({
+      name: "min",
+      title: "Min selections",
+      type: "number",
+      initialValue: 0,
+      validation: (r) => r.required().min(0),
+    }),
+    defineField({
+      name: "max",
+      title: "Max selections",
+      type: "number",
+      initialValue: 1,
+      validation: (r) =>
+        r.required().min(0).custom((max, ctx) => {
+          const min = (ctx.parent as { min?: number } | undefined)?.min ?? 0;
+          if (typeof max === "number" && max < min) return `Max (${max}) must be >= min (${min})`;
+          return true;
+        }),
+    }),
     defineField({
       name: "options",
       title: "Options",
@@ -40,8 +58,19 @@ export const modifierGroup = defineType({
           title: "Option",
           type: "object",
           fields: [
+            // Existing docs carry opt_<slug> ids from the import script.
+            // Studio-created options get no id — the reader falls back to
+            // the label (see transformModifierGroup in lib/menu-sanity.ts),
+            // which option.id keys and selection state depend on.
+            defineField({ name: "id", title: "ID (blank = label is used)", type: "string" }),
             defineField({ name: "label", title: "Label", type: "string", validation: (r) => r.required() }),
-            defineField({ name: "priceDelta", title: "Price delta ($)", type: "number", initialValue: 0 }),
+            defineField({
+              name: "priceDelta",
+              title: "Price delta ($)",
+              type: "number",
+              initialValue: 0,
+              validation: (r) => r.required(),
+            }),
           ],
           preview: { select: { title: "label", subtitle: "priceDelta" } },
         }),

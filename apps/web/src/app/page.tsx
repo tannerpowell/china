@@ -7,8 +7,9 @@ import {
 } from "@/lib/restaurant";
 import styles from "./page.module.css";
 
-// Restaurant info: env overrides win, verified Flower Mound values are the fallback
-const phone = process.env.NEXT_PUBLIC_RESTAURANT_PHONE || restaurant.phoneDisplay;
+// Restaurant info: verified Flower Mound values from lib/restaurant.ts.
+// Only the phone number honors a NEXT_PUBLIC_RESTAURANT_PHONE override.
+const phone = restaurant.phoneDisplay;
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://chinaislandgrill.com";
 
 const restaurantJsonLd = {
@@ -32,11 +33,6 @@ const restaurantJsonLd = {
   priceRange: restaurant.priceRange,
   image: `${baseUrl}/logo.png`,
   hasMap: restaurantDirectionsUrl,
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: restaurant.geo.lat,
-    longitude: restaurant.geo.lng,
-  },
   openingHoursSpecification: [
     {
       "@type": "OpeningHoursSpecification",

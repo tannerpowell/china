@@ -12,6 +12,11 @@
  * Each field can still be overridden with a NEXT_PUBLIC_* env var
  * (useful for staging), but the verified value is the fallback so
  * production never renders an empty phone/address block.
+ *
+ * Override contract (kept deliberately narrow): only the phone number is
+ * overridable. Address and hours are verified structured data used by
+ * visible content, map queries, FAQ text, and JSON-LD alike — a free-form
+ * override could not update all of those consistently, so none is offered.
  */
 
 function envOr(env: string | undefined, fallback: string): string {
@@ -19,14 +24,20 @@ function envOr(env: string | undefined, fallback: string): string {
   return v === "" ? fallback : v;
 }
 
+const FALLBACK_PHONE = "(972) 704-1971";
+
+function validPhone(s: string): boolean {
+  return s.replace(/\D/g, "").length >= 10;
+}
+
+const envPhone = envOr(process.env.NEXT_PUBLIC_RESTAURANT_PHONE, FALLBACK_PHONE);
+const displayPhone = validPhone(envPhone) ? envPhone : FALLBACK_PHONE;
+
 export const restaurant = {
   name: "China Island Asian Grill",
   shortName: "China Island",
 
-  phoneDisplay: envOr(
-    process.env.NEXT_PUBLIC_RESTAURANT_PHONE,
-    "(972) 704-1971"
-  ),
+  phoneDisplay: displayPhone,
 
   addressStreet: "6101 Long Prairie Rd, Suite 740",
   addressCity: "Flower Mound",
@@ -34,15 +45,7 @@ export const restaurant = {
   addressZip: "75028",
   shoppingCenter: "Highland of Flower Mound Shopping Center",
 
-  // Map pin for the shopping center (suite-level precision isn't published;
-  // Google matches the listing to the GBP pin). Verified via OpenStreetMap.
-  geo: { lat: 33.0691, lng: -97.0841 },
   priceRange: "$$",
-
-  hoursSummary: envOr(
-    process.env.NEXT_PUBLIC_RESTAURANT_HOURS,
-    "Sun–Thu: 11 a.m. – 9 p.m. | Fri–Sat: 11 a.m. – 9:30 p.m."
-  ),
 
   cuisines: ["Sichuan", "Mandarin", "Hunan", "Chinese", "Asian"],
 
@@ -56,9 +59,6 @@ export const restaurantPhoneHref =
   "tel:+1" + restaurant.phoneDisplay.replace(/\D/g, "").slice(-10);
 
 export const restaurantAddressFull = `${restaurant.addressStreet}, ${restaurant.addressCity}, ${restaurant.addressRegion} ${restaurant.addressZip}`;
-
-export const restaurantAddressEnv =
-  envOr(process.env.NEXT_PUBLIC_RESTAURANT_ADDRESS, restaurantAddressFull);
 
 export const restaurantMapsQuery = encodeURIComponent(
   `${restaurant.name}, ${restaurantAddressFull}`

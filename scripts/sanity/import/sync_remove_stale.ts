@@ -25,6 +25,23 @@ async function deleteByType(type: string, ids: string[], label: string) {
   console.log(`${label}: deleted ${ids.length} (${ids.join(", ")})`);
 }
 
+// A stale managed category/modifier may still be referenced by a surviving
+// (e.g. owner-created) document. Sanity rejects the whole transaction in
+// that case, so check inbound references first and only delete unreferenced
+// docs — report the blocked ones instead of aborting the entire cleanup.
+async function filterReferenced(ids: string[], label: string): Promise<string[]> {
+  const deletable: string[] = [];
+  for (const id of ids) {
+    const count = await sanity.fetch<number>(`count(*[references($id)])`, { id });
+    if (count > 0) {
+      console.log(`${label}: keeping ${id} — still referenced by ${count} document(s)`);
+    } else {
+      deletable.push(id);
+    }
+  }
+  return deletable;
+}
+
 async function main() {
   const [staleItems, staleCats, staleMods] = await Promise.all([
     sanity.fetch<{ _id: string; sourceItemId?: number }[]>(
@@ -34,19 +51,22 @@ async function main() {
     sanity.fetch<{ _id: string }[]>(`*[_type == "modifierGroup"] { _id }`),
   ]);
 
+  // Only scrape-managed docs (item_*/cat_*/mod_*) are eligible for deletion.
+  // Owner-created Studio docs have random _ids and no sourceItemId — they
+  // must survive the sync, so anything outside the managed prefixes is spared.
   const itemIds = staleItems
-    .filter((i) => !liveSourceIds.has(String(i.sourceItemId)))
+    .filter((i) => i._id.startsWith("item_") && !liveSourceIds.has(String(i.sourceItemId)))
     .map((i) => i._id);
   const catIds = staleCats
-    .filter((c) => !liveCategoryIds.has(c._id))
+    .filter((c) => c._id.startsWith("cat_") && !liveCategoryIds.has(c._id))
     .map((c) => c._id);
   const modIds = staleMods
-    .filter((m) => !liveModIds.has(m._id))
+    .filter((m) => m._id.startsWith("mod_") && !liveModIds.has(m._id))
     .map((m) => m._id);
 
   await deleteByType("menuItem", itemIds, "menuItem");
-  await deleteByType("menuCategory", catIds, "menuCategory");
-  await deleteByType("modifierGroup", modIds, "modifierGroup");
+  await deleteByType("menuCategory", await filterReferenced(catIds, "menuCategory"), "menuCategory");
+  await deleteByType("modifierGroup", await filterReferenced(modIds, "modifierGroup"), "modifierGroup");
   console.log("Sanity sync complete.");
 }
 

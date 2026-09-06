@@ -13,9 +13,9 @@ interface SiteSidebarProps {
 
 // Shared left panel: chop-seal logo, brand, pill nav, blurb, hours.
 // Visual home of the site — every page using this shell matches home.
+// Business facts come from lib/restaurant.ts only; no raw env reads here.
 export function SiteSidebar({ active }: SiteSidebarProps) {
-  const phone = process.env.NEXT_PUBLIC_RESTAURANT_PHONE || restaurant.phoneDisplay;
-  const hoursEnv = process.env.NEXT_PUBLIC_RESTAURANT_HOURS;
+  const phone = restaurant.phoneDisplay;
 
   return (
     <aside className={styles.leftPanel}>
@@ -60,17 +60,11 @@ export function SiteSidebar({ active }: SiteSidebarProps) {
 
         <div className={styles.hours}>
           <strong>Hours</strong><br />
-          {hoursEnv ? (
-            hoursEnv
-          ) : (
-            <>
-              {restaurantHoursShort.map((row) => (
-                <span key={row.days} className={styles.hoursRow}>
-                  {row.days}: {row.time}
-                </span>
-              ))}
-            </>
-          )}
+          {restaurantHoursShort.map((row) => (
+            <span key={row.days} className={styles.hoursRow}>
+              {row.days}: {row.time}
+            </span>
+          ))}
         </div>
       </div>
     </aside>

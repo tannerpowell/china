@@ -72,26 +72,30 @@ async function main() {
   }
 
   log(`Found descriptions for ${descriptions.size} items`);
+  if (descriptions.size === 0) {
+    throw new Error("No descriptions parsed — source markup may have changed; refusing to wipe existing copy");
+  }
 
   const rawPath = "data/raw/menu_capture.full.json";
   const raw = readJson<{ items: any[] }>(rawPath);
+  if (raw.items.length === 0) throw new Error("Raw capture has no items — refusing to write");
+
+  // Deterministic rebuild: every item's description is set from the current
+  // source response or cleared. Stale copy from a previous run never survives.
   let patched = 0;
+  let cleared = 0;
   for (const it of raw.items) {
-    const d = descriptions.get(Number(it.itemId));
-    if (d) {
-      it.modal = it.modal ?? {};
-      it.modal.description = d;
-      patched++;
-    }
+    const d = descriptions.get(Number(it.itemId)) ?? null;
+    it.modal = it.modal ?? {};
+    if (it.modal.description && !d) cleared++;
+    if (d) patched++;
+    it.modal.description = d;
   }
 
   writeJson(rawPath, raw);
-  log(`Patched ${patched}/${raw.items.length} items in ${rawPath}`);
+  log(`Patched ${patched}, cleared ${cleared} of ${raw.items.length} items in ${rawPath}`);
 
   // Show a few samples
-  for (const it of raw.items.slice(0, 200)) {
-    if (it.modal?.description && patched <= 200) break;
-  }
   const samples = raw.items.filter((it: any) => it.modal?.description).slice(0, 5);
   for (const s of samples) log(`- ${s.itemId} ${s.modal.modalItemName}: ${(s.modal.description as string).slice(0, 80)}`);
 }
