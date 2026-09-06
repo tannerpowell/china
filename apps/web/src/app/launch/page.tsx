@@ -22,6 +22,11 @@ export default function LaunchPage() {
           What&apos;s shipped, what&apos;s left, and what needs the
           owner — for the China Island Asian Grill site pitch and launch.
         </p>
+        <p className={styles.lede}>
+          <Link href="/menu-questions" className={styles.backLink}>
+            Menu open questions →
+          </Link>
+        </p>
         <LaunchList />
       </div>
     </main>
