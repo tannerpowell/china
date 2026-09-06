@@ -2,3 +2,7 @@
 .env.*
 !.env.example
 .vercel
+# Re-include the menu fallback JSON (excluded by root .gitignore data/ rule,
+# but statically imported by src/lib/menu.ts at build time).
+!src/data/
+!src/data/menu.normalized.json
