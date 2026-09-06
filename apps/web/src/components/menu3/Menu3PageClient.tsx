@@ -60,6 +60,24 @@ export default function Menu3PageClient({
   // Category state
   const [selectedCategory, setSelectedCategory] = useState<string>('');
 
+  // Deep links (e.g. /menu#appetizers from the home cards) select the
+  // matching category on mount so the left nav reflects where you landed.
+  // Runs in an effect (not a lazy initializer) so SSR and hydration agree.
+  useEffect(() => {
+    const slug = window.location.hash.replace(/^#/, '');
+    if (slug && categories.some((c) => c.slug === slug)) {
+      setSelectedCategory(slug);
+    }
+  }, [categories]);
+
+  // Keep the URL in sync when the category changes (shareable, and the
+  // back button returns to the previous filter). replaceState avoids
+  // triggering a scroll jump.
+  function handleCategoryChange(slug: string) {
+    setSelectedCategory(slug);
+    window.history.replaceState(null, '', slug ? `/menu#${slug}` : '/menu');
+  }
+
   // Search state
   const [searchTerm, setSearchTerm] = useState<string>('');
 
@@ -118,7 +136,7 @@ export default function Menu3PageClient({
           <CategoryNav
             categories={categories}
             selectedCategory={selectedCategory}
-            onCategoryChange={setSelectedCategory}
+            onCategoryChange={handleCategoryChange}
             searchTerm={searchTerm}
             onSearchChange={setSearchTerm}
           />
