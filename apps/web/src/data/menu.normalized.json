@@ -1213,7 +1213,7 @@
       "slug": "vegetable-fried-rice",
       "categoryId": "cat_fried-rice",
       "basePrice": 14.5,
-      "description": null,
+      "description": "Rice stir-fried with peas, carrots, onions, and egg.",
       "likes": 2886,
       "tags": {
         "spicy": false,
@@ -2440,7 +2440,7 @@
       "slug": "fried-rice-l",
       "categoryId": "cat_lunch-specials",
       "basePrice": 13.5,
-      "description": null,
+      "description": "Rice stir-fried with peas, carrots, onions, and egg.",
       "likes": 1111,
       "tags": {
         "spicy": false,
@@ -2465,7 +2465,7 @@
       "slug": "lo-mein-noodles-l",
       "categoryId": "cat_lunch-specials",
       "basePrice": 14,
-      "description": null,
+      "description": "Chinese wheat flour noodles stir-fried with vegetables (celery, bean sprout, onions, mushrooms and carrots).",
       "likes": 802,
       "tags": {
         "spicy": false,
@@ -2489,7 +2489,7 @@
       "slug": "general-tsao-s-chicken-l",
       "categoryId": "cat_lunch-specials",
       "basePrice": 14,
-      "description": null,
+      "description": "Breaded dark meat chicken fried until crispy and glazed in a spicy garlic sauce served with a bed of broccoli.",
       "likes": 584,
       "tags": {
         "spicy": false,
@@ -2537,7 +2537,7 @@
       "slug": "orange-chicken-l",
       "categoryId": "cat_lunch-specials",
       "basePrice": 14,
-      "description": null,
+      "description": "Broccoli and carrots",
       "likes": 829,
       "tags": {
         "spicy": false,
@@ -2561,7 +2561,7 @@
       "slug": "sweet-and-sour-l",
       "categoryId": "cat_lunch-specials",
       "basePrice": 14,
-      "description": null,
+      "description": "Bell peppers, onions, carrots, and pineapples",
       "likes": 444,
       "tags": {
         "spicy": false,
@@ -2610,7 +2610,7 @@
       "slug": "hunan-stir-fry-l",
       "categoryId": "cat_lunch-specials",
       "basePrice": 14,
-      "description": null,
+      "description": "Broccoli, snow peas, mushrooms, red bell peppers, and zucchini",
       "likes": 418,
       "tags": {
         "spicy": false,
@@ -2635,7 +2635,7 @@
       "slug": "kung-pao-stir-fry-l",
       "categoryId": "cat_lunch-specials",
       "basePrice": 14,
-      "description": null,
+      "description": "Bell peppers, peanuts, scallions, and dried whole chili peppers",
       "likes": 402,
       "tags": {
         "spicy": true,
@@ -2660,7 +2660,7 @@
       "slug": "sichuan-stir-fry-l",
       "categoryId": "cat_lunch-specials",
       "basePrice": 14,
-      "description": null,
+      "description": "Celery, carrots, scallions, garlic and dried whole chili peppers",
       "likes": 228,
       "tags": {
         "spicy": false,
@@ -2685,7 +2685,7 @@
       "slug": "broccoli-stir-fry-l",
       "categoryId": "cat_lunch-specials",
       "basePrice": 14,
-      "description": null,
+      "description": "Broccoli and carrots",
       "likes": 377,
       "tags": {
         "spicy": false,
@@ -2710,7 +2710,7 @@
       "slug": "jalapeno-stir-fry-l",
       "categoryId": "cat_lunch-specials",
       "basePrice": 14,
-      "description": null,
+      "description": "Jalapenos, zucchini, red bell peppers, mushrooms, and onions",
       "likes": 253,
       "tags": {
         "spicy": false,
@@ -2735,7 +2735,7 @@
       "slug": "black-bean-stir-fry-l",
       "categoryId": "cat_lunch-specials",
       "basePrice": 14,
-      "description": null,
+      "description": "Bell peppers, mushroom, onions, garlic, and fermented black beans",
       "likes": 58,
       "tags": {
         "spicy": false,
@@ -2760,7 +2760,7 @@
       "slug": "mongolian-stir-fry-l",
       "categoryId": "cat_lunch-specials",
       "basePrice": 14,
-      "description": null,
+      "description": "Green and white onions, garlic, and crispy vermicelli noodles.",
       "likes": 404,
       "tags": {
         "spicy": false,
@@ -2785,7 +2785,7 @@
       "slug": "cashew-stir-fry-l",
       "categoryId": "cat_lunch-specials",
       "basePrice": 14,
-      "description": null,
+      "description": "Celery, mushrooms, and zucchini",
       "likes": 285,
       "tags": {
         "spicy": false,
@@ -2810,7 +2810,7 @@
       "slug": "almond-stir-fry-l",
       "categoryId": "cat_lunch-specials",
       "basePrice": 14,
-      "description": null,
+      "description": "Celery, mushrooms, and zucchini",
       "likes": 59,
       "tags": {
         "spicy": false,
@@ -2835,7 +2835,7 @@
       "slug": "hot-garlic-stir-fry-l",
       "categoryId": "cat_lunch-specials",
       "basePrice": 14,
-      "description": null,
+      "description": "Bamboo shoots, celery, carrots, mushrooms, and garlic",
       "likes": 130,
       "tags": {
         "spicy": true,

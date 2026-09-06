@@ -12,6 +12,7 @@ interface Question {
   q: string;
   detail?: string;
   owner: boolean;
+  done?: boolean;
 }
 
 interface Group {
@@ -21,6 +22,38 @@ interface Group {
 }
 
 const groups: Group[] = [
+  {
+    heading: "Already taken care of",
+    intro: "Resolved from the official menu and live on the site.",
+    items: [
+      {
+        q: "Backfilled 15 descriptions + 21 prices from the official site.",
+        detail:
+          "Hunan Stir-Fry veg, Favorites descriptions, Traditional stir-fry veg, Specialties, plus unambiguous single prices (soups, appetizers, drinks). Sanity sync verified live.",
+        owner: false,
+        done: true,
+      },
+      {
+        q: "Mirrored full-size copy onto 16 lunch (L) items.",
+        detail:
+          "Direct matches, three alias matches (Orange, Black Bean Sauce, Hot Garlic spacing), plus the shared fried-rice line for Fried Rice (L).",
+        owner: false,
+        done: true,
+      },
+      {
+        q: "Cloned sibling copy onto Vegetable Fried Rice.",
+        detail: "Same shared fried-rice line as its six siblings.",
+        owner: false,
+        done: true,
+      },
+      {
+        q: "Kept our cleaned copy on the 8 cosmetic diffs.",
+        detail: "Prior typo fixes and spacing cleanup stand; source typos not reintroduced.",
+        owner: false,
+        done: true,
+      },
+    ],
+  },
   {
     heading: "For the owner",
     intro: "Needs the owner's POS or policy answers before the site can mirror them.",
@@ -40,7 +73,7 @@ const groups: Group[] = [
       {
         q: "Supply copy for dishes with no description anywhere?",
         detail:
-          "Neither their site nor ours describes: Basil Seafood Fried Rice, Shrimp with Snow Pea & Asparagus, Zhajiangmien Noodles, Eggplant Stir-Fry, Baby Bok Choy Stir-Fry, Broccoli Stir-Fry (veg), Home Style Tofu, and the non-Traditional catering variants. Owner writes them, or they stay blank?",
+          "Neither their site nor ours describes: Sesame Honey Seared Chicken (L) (no full-size counterpart), Basil Seafood Fried Rice, Shrimp with Snow Pea & Asparagus, Zhajiangmien Noodles, Eggplant Stir-Fry, Baby Bok Choy Stir-Fry, Broccoli Stir-Fry (veg), Home Style Tofu, and the non-Traditional catering variants. Owner writes them, or they stay blank?",
         owner: true,
       },
       {
@@ -48,30 +81,6 @@ const groups: Group[] = [
         detail:
           "Traditional section header says comes with rice, no substitutions. Does that block swapping vegetables (e.g. mushrooms/peppers), or only the protein? Affects what the site should promise.",
         owner: true,
-      },
-    ],
-  },
-  {
-    heading: "Our calls",
-    intro: "Editorial decisions we can make without the owner. Recommendations included.",
-    items: [
-      {
-        q: "Mirror full-size descriptions onto the 17 lunch (L) dupes?",
-        detail:
-          "Lunch items carry no copy on the source site. Recommendation: copy the matching full-size description — same dish, and it fills the lunch section for the AI/dish-search schema.",
-        owner: false,
-      },
-      {
-        q: "Clone sibling copy onto Vegetable Fried Rice?",
-        detail:
-          "Six of seven fried rices share one description; Vegetable has none. Recommendation: clone it — same base dish.",
-        owner: false,
-      },
-      {
-        q: "Keep our cleaned copy where it differs cosmetically from source?",
-        detail:
-          "Eight descriptions differ only in cleanup (prior “make”→“made” typo fix, stray ? / spacing in noodle and catering copy). Recommendation: keep ours.",
-        owner: false,
       },
     ],
   },
@@ -101,10 +110,14 @@ export default function MenuQuestionsPage() {
                 <li key={item.q} className={styles.item}>
                   <span
                     className={`${styles.pill} ${
-                      item.owner ? styles.owner : styles.todo
+                      item.done
+                        ? styles.live
+                        : item.owner
+                          ? styles.owner
+                          : styles.todo
                     }`}
                   >
-                    {item.owner ? "Owner" : "Us"}
+                    {item.done ? "Done" : item.owner ? "Owner" : "Us"}
                   </span>
                   <div>
                     <p className={styles.itemText}>{item.q}</p>
