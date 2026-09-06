@@ -180,7 +180,7 @@ replay. A paid order can be late to the kitchen; it can never be lost.
 | 0 — Foundation (FIRST — checkout can't be built without it) | Squashed baseline migration; RLS + publication per §7; upsert/transition RPCs; pricing contract tests; disposable-project CI check | 2–3 days |
 | 1 — Real money + order records | Wire orphaned PaymentForm/StripeProvider; server pricing; pending-row-before-charge; idempotent webhook + outbox; scoped-token success screen | 3–4 days |
 | 2 — Kitchen tenant | Port + rebrand KDS; location seed (stations, routing); resync protocol; QR pairing; kill-switch; ops console | 4–6 days |
-| 3 — iPad kiosk | PWA install, Guided Access lockdown, kitchen wifi survey. **Screen-only at launch** — LAN thermal printing deferred (browser→LAN print architecture unproven; revisit with a concrete integration, not a hardware pick) | 1–2 days |
+| 3 — iPad kiosk + printing | PWA install, Guided Access lockdown, kitchen wifi survey, cloud-poll printing (§9), test ticket end to end | 2 days + hardware lead time |
 | 4 — Notifications + reconciliation | Twilio staff SMS; Resend receipt; outbox worker + retries; recon job + alerts | 2 days |
 | 5 — Harden + UAT | Offline/backpressure drills, failed/refunded/cancelled paths, expiry sweep, end-of-day reconciliation print, four-mode deploy test (no config / healthy / unreachable / malformed), owner + staff training | 2–3 days |
 | 0 (elapsed) — Accounts & decisions | Stripe owner + test keys; Supabase project; Twilio number; POS identity (info); SMS numbers; §12 decisions | 1 day elapsed (mostly waiting) |
@@ -192,6 +192,34 @@ their POS has an API worth syncing.
 
 ## Money (monthly, launch)
 
+## Printing (thermal tickets, cloud-poll architecture)
+
+Restaurant printers are direct-thermal, not laser — and the right ones
+solve the hard part themselves. Both major vendors support a pattern
+where the PRINTER polls our cloud endpoint ("anything to print?") instead
+of us pushing into the restaurant network:
+
+- **Star CloudPRNT** (TSP100IV LAN, mC-Print3, ~$250–300): printer polls
+  an HTTPS endpoint, pulls Star markup/JSON jobs, prints, reports status.
+- **Epson Server Direct Print** (TM-T20III, TM-m30II/m50, TM-T88 series):
+  same shape — printer polls, pulls ePOS-Print XML, prints.
+
+Why this fits: no inbound firewall ports, no static IP, no print server,
+works over the restaurant's normal internet — and it dovetails with the
+notification outbox (§5): confirming an order enqueues a print job next
+to the SMS/email jobs, same dedup keys, same retries. The iPad never
+prints directly, so no Bluetooth pairing, no mixed-content fights, and
+tickets survive the iPad being asleep.
+
+First question for the owner (biggest cost saver in the plan): **what
+printer is already in the kitchen?** A TM-T88 or TM-T20 with network
+support needs zero new hardware — point it at our endpoint during
+onboarding. Otherwise budget ~$250 for a Star TSP100IV LAN.
+
+Thermal paper darkens in extreme kitchen heat; if their line runs very
+hot, an impact printer (Star SP700, ~$400) is the fallback — decide on
+site survey in Phase 3.
+
 | Item | Cost |
 |---|---|
 | Supabase Pro (availability, not volume — §tenancy) | $25 |
@@ -199,6 +227,7 @@ their POS has an API worth syncing.
 | Resend (receipts) | $0 free tier |
 | Vercel hosting | existing ($0 incremental) |
 | iPad 10.9" + rugged case (one-time) | ~$400 |
+| Thermal LAN printer (one-time, $0 if their Epson already supports it) | ~$0–250 |
 | Stripe | 2.9% + 30¢ per transaction (owner's account) |
 
 No Cloudflare R2/D1: D1 has no realtime (would hand-roll push on Durable
@@ -228,7 +257,7 @@ assets are outgrown.
 2. Separate Supabase project (recommended) vs shared with Catch (us —
    default separate unless told otherwise)
 3. Which POS runs the counter? (owner — info only, Phase-2 option)
-4. Screen-only kitchen at launch? (us — recommended yes; printer deferred)
+4. Existing kitchen printer model? (owner — $0 if a networked Epson/Star, else ~$250; see §9)
 5. Staff phone numbers for SMS alerts (owner — Phase 4)
 6. Stripe receipts OFF + Resend branded receipt: agreed? (us — default yes)
 7. Pending-order expiry window (us — default 2h)
@@ -241,5 +270,5 @@ P1 realtime-durability → §5 resync + polling + UAT case. P1 RLS → §7
 matrix. P1 pricing authority → §4 contract. P1 phase ordering → Phase 0
 foundation. P2 notification dedup → outbox (§5). P2 migration subset →
 squashed baseline (§tenancy). P2 refunds → state machine (§3). P2 tier →
-Pro on availability (§tenancy). Printer scope → deferred screen-only
-(Phase 3). Skipped with reason: none — all findings incorporated above.
+Pro on availability (§tenancy). Printer in scope via cloud-poll (§9).
+Skipped with reason: none — all findings incorporated above.
