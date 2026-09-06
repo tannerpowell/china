@@ -197,111 +197,44 @@ img {
 }
 
 /* ThemeToggle widget (moved from menu3.css so every page shell can use it).
-   Selectors are globally unique; fallbacks keep it legible anywhere. */
+   Dense swatch circles; the ring marks the active theme. */
 .theme-toggle {
   display: inline-flex;
-  gap: 6px;
-  padding: 4px;
-  background: rgba(0, 0, 0, 0.04);
-  border-radius: 10px;
+  align-items: center;
+  gap: 8px;
 }
 
 .theme-toggle-btn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 10px;
-  background: transparent;
-  border: none;
-  border-radius: 7px;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border-radius: 50%;
+  border: 2px solid transparent;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .theme-toggle-btn:hover {
-  background: rgba(0, 0, 0, 0.04);
+  transform: scale(1.12);
 }
 
 .theme-toggle-btn.is-active {
-  background: white;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--red);
 }
 
-.theme-preview {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid transparent;
+.theme-swatch-classic {
+  background: #499e4b;
+  border-color: rgba(0, 0, 0, 0.12);
 }
 
-.theme-preview-classic {
-  background: #ffffff;
-  border-color: #e0e0e0;
-}
-
-.theme-preview-classic .theme-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #f74140;
-}
-
-.theme-preview-warm {
+.theme-swatch-warm {
   background: #FDF8ED;
-  border-color: #e8e0d4;
+  border-color: #d8cdb8;
 }
 
-.theme-preview-warm .theme-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #B8423C;
-}
-
-.theme-preview-dark {
+.theme-swatch-dark {
   background: #171310;
   border-color: #3a3129;
-}
-
-.theme-preview-dark .theme-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #F4EEE3;
-}
-
-.theme-label {
-  font-family: 'Sen', sans-serif;
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--menu3-text-muted, #666);
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-}
-
-.theme-toggle-btn.is-active .theme-label {
-  color: var(--menu3-text, #333);
-}
-
-:root[data-theme="dark"] .theme-toggle {
-  background: rgba(255, 255, 255, 0.08);
-}
-
-:root[data-theme="dark"] .theme-toggle-btn:hover {
-  background: rgba(255, 255, 255, 0.08);
-}
-
-@media (max-width: 768px) {
-  .theme-toggle .theme-label {
-    display: none;
-  }
-
-  .theme-toggle .theme-toggle-btn {
-    padding: 6px 8px;
-  }
 }
 
 /* Noise texture overlay (for v2) */

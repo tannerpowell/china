@@ -9,56 +9,35 @@ interface ThemeToggleProps {
   onThemeChange: (theme: MenuTheme) => void;
 }
 
+const OPTIONS: { id: MenuTheme; label: string }[] = [
+  { id: 'classic', label: 'Classic theme' },
+  { id: 'warm', label: 'Warm theme' },
+  { id: 'dark', label: 'Dark theme' },
+];
+
 /**
- * Theme toggle for switching between menu color schemes.
- * - Classic: White background with red/green accents (matches home page)
- * - Warm: Cream/beige background (premium feel)
+ * Dense theme switcher: three swatch circles (green / beige / charcoal).
+ * Radiogroup semantics with tooltip + screen-reader labels; the active
+ * theme gets a ring. No visible text — captions live with the consumer
+ * (e.g. "Preview theme" in the sidebar).
  */
 export function ThemeToggle({ theme, onThemeChange }: ThemeToggleProps) {
   return (
-    <div className="theme-toggle" role="radiogroup" aria-label="Menu theme">
-      <button
-        type="button"
-        className={`theme-toggle-btn ${theme === 'classic' ? 'is-active' : ''}`}
-        onClick={() => onThemeChange('classic')}
-        role="radio"
-        aria-checked={theme === 'classic'}
-        title="Classic theme"
-      >
-        <span className="theme-preview theme-preview-classic">
-          <span className="theme-dot" />
-        </span>
-        <span className="theme-label">Classic</span>
-      </button>
-
-      <button
-        type="button"
-        className={`theme-toggle-btn ${theme === 'warm' ? 'is-active' : ''}`}
-        onClick={() => onThemeChange('warm')}
-        role="radio"
-        aria-checked={theme === 'warm'}
-        title="Warm theme"
-      >
-        <span className="theme-preview theme-preview-warm">
-          <span className="theme-dot" />
-        </span>
-        <span className="theme-label">Warm</span>
-      </button>
-
-      <button
-        type="button"
-        className={`theme-toggle-btn ${theme === 'dark' ? 'is-active' : ''}`}
-        onClick={() => onThemeChange('dark')}
-        role="radio"
-        aria-checked={theme === 'dark'}
-        title="Dark theme"
-      >
-        <span className="theme-preview theme-preview-dark">
-          <span className="theme-dot" />
-        </span>
-        <span className="theme-label">Dark</span>
-      </button>
-
+    <div className="theme-toggle" role="radiogroup" aria-label="Site theme">
+      {OPTIONS.map((opt) => (
+        <button
+          key={opt.id}
+          type="button"
+          className={`theme-toggle-btn theme-swatch-${opt.id} ${
+            theme === opt.id ? 'is-active' : ''
+          }`}
+          onClick={() => onThemeChange(opt.id)}
+          role="radio"
+          aria-checked={theme === opt.id}
+          title={opt.label}
+          aria-label={opt.label}
+        />
+      ))}
     </div>
   );
 }
