@@ -589,6 +589,12 @@
   background: var(--menu3-text, #333);
 }
 
+/* Dark: the × must go ink on the lightening circle, not white-on-cream. */
+.menu3-theme-dark .menu3-search-clear,
+.menu3-theme-dark .menu3-search-clear:hover {
+  color: #171310;
+}
+
 /* Category list */
 .menu3-category-list {
   list-style: none;

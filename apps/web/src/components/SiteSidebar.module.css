@@ -98,6 +98,28 @@
   color: #666;
 }
 
+:global(:root[data-theme="dark"]) .hours {
+  color: var(--color-ink-muted);
+}
+
+/* Warm follows the interactive menu: quiet gray pills, brick actives. */
+:global(:root[data-theme="warm"]) .navLinkActive {
+  background: var(--red);
+  border-color: var(--red);
+  color: #fff;
+}
+
+/* Dark: light-green outlines, cream filled actives (white-on-green fails). */
+:global(:root[data-theme="dark"]) .navLink:hover {
+  color: var(--bg);
+}
+
+:global(:root[data-theme="dark"]) .navLinkActive {
+  background: var(--text);
+  border-color: var(--text);
+  color: var(--bg);
+}
+
 .hoursRow {
   display: block;
 }

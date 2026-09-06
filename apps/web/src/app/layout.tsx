@@ -1,9 +1,11 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import Script from "next/script";
 import { Sen } from "next/font/google";
 import { NavigationProgress } from "@/components/NavigationProgress";
 import { Analytics } from "@/components/Analytics";
+import { SITE_THEME_KEY } from "@/lib/site-theme";
 
 const sen = Sen({
   subsets: ["latin"],
@@ -49,6 +51,15 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={sen.variable}>
+      <head>
+        {/* Apply the stored theme before paint: no flash, and pages without
+            the toggle island (e.g. 404) still respect the choice. */}
+        <Script id="site-theme" strategy="beforeInteractive">
+          {`try{var t=localStorage.getItem(${JSON.stringify(
+            SITE_THEME_KEY
+          )});if(t==='classic'||t==='warm'||t==='dark'){document.documentElement.dataset.theme=t}}catch(e){}`}
+        </Script>
+      </head>
       <body>
         <Suspense fallback={null}>
           <NavigationProgress />

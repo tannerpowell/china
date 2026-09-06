@@ -167,6 +167,33 @@ img {
   --red-hover: #8F332E;
   --red-dark: #8F332E;
   --cta: #B8423C;
+  /* Warm follows the interactive menu: no green. Pills and secondary
+     accents go quiet gray; filled actives switch to brick (see sidebar). */
+  --green: #706D6B;
+}
+
+/* Dark theme. Every pair below was contrast-checked (WCAG AA, 4.5+):
+   cream text 16.0, muted 8.2, bright red 6.0, light green 9.5,
+   white on button red 4.7, ink on cream-pill 16.0. */
+:root[data-theme="dark"] {
+  --bg: #171310;
+  --text: #F4EEE3;
+  --red: #F2665C;
+  --red-hover: #C44E44;
+  --red-dark: #C44E44;
+  --green: #86C98B;
+  --border: rgba(244, 238, 227, 0.16);
+  --cta: #C64A3C;
+  --color-cream: #F4EEE3;
+  --color-cream-dark: #221B15;
+  --color-ink: #F4EEE3;
+  --color-ink-light: #D9D0C2;
+  --color-ink-muted: #B7AB9C;
+  --color-red: #F2665C;
+  --color-red-dark: #C44E44;
+  --color-red-light: #F78179;
+  --color-gold: #D9B978;
+  --color-gold-light: #E8D4A0;
 }
 
 /* ThemeToggle widget (moved from menu3.css so every page shell can use it).
@@ -234,6 +261,18 @@ img {
   background: #B8423C;
 }
 
+.theme-preview-dark {
+  background: #171310;
+  border-color: #3a3129;
+}
+
+.theme-preview-dark .theme-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #F4EEE3;
+}
+
 .theme-label {
   font-family: 'Sen', sans-serif;
   font-size: 12px;
@@ -245,6 +284,14 @@ img {
 
 .theme-toggle-btn.is-active .theme-label {
   color: var(--menu3-text, #333);
+}
+
+:root[data-theme="dark"] .theme-toggle {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+:root[data-theme="dark"] .theme-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
 }
 
 @media (max-width: 768px) {

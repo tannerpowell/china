@@ -111,6 +111,10 @@
   color: #999;
 }
 
+:global(:root[data-theme="dark"]) .launchLink a {
+  color: var(--color-ink-muted);
+}
+
 .launchLink a:hover {
   color: var(--green);
   text-decoration: underline;

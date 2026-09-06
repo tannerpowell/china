@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-export type MenuTheme = 'classic' | 'warm';
+export type MenuTheme = 'classic' | 'warm' | 'dark';
 
 interface ThemeToggleProps {
   theme: MenuTheme;
@@ -43,6 +43,20 @@ export function ThemeToggle({ theme, onThemeChange }: ThemeToggleProps) {
           <span className="theme-dot" />
         </span>
         <span className="theme-label">Warm</span>
+      </button>
+
+      <button
+        type="button"
+        className={`theme-toggle-btn ${theme === 'dark' ? 'is-active' : ''}`}
+        onClick={() => onThemeChange('dark')}
+        role="radio"
+        aria-checked={theme === 'dark'}
+        title="Dark theme"
+      >
+        <span className="theme-preview theme-preview-dark">
+          <span className="theme-dot" />
+        </span>
+        <span className="theme-label">Dark</span>
       </button>
 
     </div>

@@ -1,9 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { SITE_THEME_KEY } from '@/lib/site-theme';
 import { ThemeToggle, type MenuTheme } from './menu3/ThemeToggle';
-
-export const SITE_THEME_KEY = 'china-island-menu-theme';
 
 /**
  * Site-wide theme state (classic / warm), persisted to localStorage.
@@ -20,7 +19,7 @@ export function useSiteTheme() {
 
   useEffect(() => {
     const saved = localStorage.getItem(SITE_THEME_KEY) as MenuTheme | null;
-    if (saved === 'classic' || saved === 'warm') {
+    if (saved === 'classic' || saved === 'warm' || saved === 'dark') {
       setThemeState(saved);
       document.documentElement.dataset.theme = saved;
     }
