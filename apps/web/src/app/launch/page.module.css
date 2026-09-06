@@ -161,6 +161,15 @@
   color: #666;
 }
 
+:global(:root[data-theme="dark"]) .itemNote {
+  color: var(--color-ink-muted);
+}
+
+:global(:root[data-theme="dark"]) .owner {
+  border-color: var(--color-gold);
+  color: var(--color-gold-light);
+}
+
 @media (max-width: 640px) {
   .page {
     padding: 24px 16px 56px;
