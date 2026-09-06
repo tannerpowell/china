@@ -50,13 +50,24 @@ export default async function FullMenuPage() {
       <SiteSidebar active="menu" />
 
       <div className={styles.rightPanel}>
-        <SectionNav
-          sections={sections.map((s) => ({
-            slug: s.category.slug,
-            title: s.category.title,
-            count: s.items.length,
-          }))}
-        />
+      <SectionNav
+        sections={sections.map((s) => ({
+          slug: s.category.slug,
+          title: s.category.title,
+          count: s.items.length,
+        }))}
+        items={items.map((item) => {
+          const section = sorted.find((c) => c.id === item.categoryId);
+          return {
+            slug: item.slug,
+            name: item.name,
+            sectionSlug: section?.slug ?? "",
+            sectionTitle: section?.title ?? "",
+            price: item.basePrice !== null ? formatPrice(item.basePrice) : null,
+            description: item.description,
+          };
+        })}
+      />
 
         <main className={styles.main}>
           {/* Masthead */}
@@ -122,8 +133,8 @@ export default async function FullMenuPage() {
               </div>
 
               <ul className={styles.dishes}>
-                {sectionItems.map((item) => (
-                  <li key={item.id} className={styles.dish}>
+              {sectionItems.map((item) => (
+                <li key={item.id} id={`dish-${item.slug}`} className={styles.dish}>
                     <div className={styles.dishTop}>
                       <h3 className={styles.dishName}>
                         {item.name}

@@ -10,10 +10,15 @@ import { sanity } from "../utils/sanityClient.js";
 // absent get the field explicitly unset so stale copy can't survive.
 // Unlike the full import, this never touches images or other fields.
 //
-// Usage: tsx import/patch_descriptions.ts [--dry-run]
+// Usage: tsx import/patch_descriptions.ts [--dry-run] [--sets-only]
+//
+// --sets-only skips the unset pass. Prefer it whenever the local JSON may
+// lack copy that exists in Studio (e.g. owner edits): unsets would wipe
+// those descriptions, while sets only add missing source copy.
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = path.resolve(__dirname, "../../..");
 const DRY_RUN = process.argv.includes("--dry-run");
+const SETS_ONLY = process.argv.includes("--sets-only");
 
 async function main() {
   const p = path.resolve(PROJECT_ROOT, "apps/web/src/data/menu.normalized.json");
@@ -23,7 +28,9 @@ async function main() {
   const unsets = managed.filter((it: any) => !it.description);
   console.log(
     `${DRY_RUN ? "[dry-run] " : ""}Would patch ${sets.length} descriptions, ` +
-    `unset ${unsets.length}, skip ${data.items.length - managed.length} non-managed ` +
+    `unset ${SETS_ONLY ? 0 : unsets.length}${
+      SETS_ONLY ? ` (skipped ${unsets.length} unsets)` : ""
+    }, skip ${data.items.length - managed.length} non-managed ` +
     `of ${data.items.length} items`
   );
   if (DRY_RUN) return;
@@ -39,12 +46,14 @@ async function main() {
     }
   }
   let unok = 0;
-  for (const it of unsets) {
-    try {
-      await sanity.patch(it.id).unset(["description"]).commit();
-      unok++;
-    } catch (err) {
-      failed.push(`${it.id}: ${err instanceof Error ? err.message : err}`);
+  if (!SETS_ONLY) {
+    for (const it of unsets) {
+      try {
+        await sanity.patch(it.id).unset(["description"]).commit();
+        unok++;
+      } catch (err) {
+        failed.push(`${it.id}: ${err instanceof Error ? err.message : err}`);
+      }
     }
   }
   console.log(`Done: ${ok} set, ${unok} unset, ${failed.length} failed`);

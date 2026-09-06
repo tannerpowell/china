@@ -830,7 +830,7 @@
       "name": "Chicken & Corn Soup",
       "slug": "chicken-and-corn-soup",
       "categoryId": "cat_soups",
-      "basePrice": null,
+      "basePrice": 7.5,
       "description": null,
       "likes": null,
       "tags": {
@@ -852,7 +852,7 @@
       "name": "Vegetable & Tofu Soup",
       "slug": "vegetable-and-tofu-soup",
       "categoryId": "cat_soups",
-      "basePrice": null,
+      "basePrice": 6.5,
       "description": null,
       "likes": null,
       "tags": {
@@ -874,7 +874,7 @@
       "name": "Egg Roll (1)",
       "slug": "egg-roll-1",
       "categoryId": "cat_appetizers",
-      "basePrice": null,
+      "basePrice": 2.5,
       "description": "Chicken and vegetables mixed.",
       "likes": null,
       "tags": {
@@ -896,7 +896,7 @@
       "name": "Vegetable Spring Roll (2)",
       "slug": "vegetable-spring-roll-2",
       "categoryId": "cat_appetizers",
-      "basePrice": null,
+      "basePrice": 4.0,
       "description": "Fried and only vegetables.",
       "likes": null,
       "tags": {
@@ -918,7 +918,7 @@
       "name": "Crab Rangoons (6)",
       "slug": "crab-rangoons-6",
       "categoryId": "cat_appetizers",
-      "basePrice": null,
+      "basePrice": 7.5,
       "description": "Fried wontons filled with crab meat and cream cheese.",
       "likes": null,
       "tags": {
@@ -940,7 +940,7 @@
       "name": "Sichuan Wontons(8)",
       "slug": "sichuan-wontons-8",
       "categoryId": "cat_appetizers",
-      "basePrice": null,
+      "basePrice": 10.0,
       "description": null,
       "likes": null,
       "tags": {
@@ -962,7 +962,7 @@
       "name": "Boneless Spare Ribs",
       "slug": "boneless-spare-ribs",
       "categoryId": "cat_appetizers",
-      "basePrice": null,
+      "basePrice": 11.0,
       "description": "Chinese BBQ Style Pork",
       "likes": null,
       "tags": {
@@ -984,7 +984,7 @@
       "name": "Fried Shrimp (6)",
       "slug": "fried-shrimp-6",
       "categoryId": "cat_appetizers",
-      "basePrice": null,
+      "basePrice": 13.0,
       "description": null,
       "likes": null,
       "tags": {
@@ -1006,7 +1006,7 @@
       "name": "Edamame",
       "slug": "edamame",
       "categoryId": "cat_appetizers",
-      "basePrice": null,
+      "basePrice": 7.5,
       "description": null,
       "likes": null,
       "tags": {
@@ -1028,7 +1028,7 @@
       "name": "Teriyaki Chicken Satay (3)",
       "slug": "teriyaki-chicken-satay-3",
       "categoryId": "cat_appetizers",
-      "basePrice": null,
+      "basePrice": 9.0,
       "description": null,
       "likes": null,
       "tags": {
@@ -1120,7 +1120,7 @@
       "name": "Salt & Pepper Tofu Bites",
       "slug": "salt-and-pepper-tofu-bites",
       "categoryId": "cat_appetizers",
-      "basePrice": null,
+      "basePrice": 8.0,
       "description": null,
       "likes": null,
       "tags": {
@@ -1142,7 +1142,7 @@
       "name": "Cucumber Salad",
       "slug": "cucumber-salad",
       "categoryId": "cat_appetizers",
-      "basePrice": null,
+      "basePrice": 8.0,
       "description": "(Crisp cucumbers tossed in a savory, lightly spicy dressing and garnished with pine nuts)",
       "likes": null,
       "tags": {
@@ -1602,7 +1602,7 @@
       "slug": "spicy-crispy",
       "categoryId": "cat_favorites",
       "basePrice": 16.95,
-      "description": null,
+      "description": "Fried until crispy and stir-fried with onions, peas, and carrots in a spicy garlic sauce served with a bed of broccoli.",
       "likes": 12350,
       "tags": {
         "spicy": true,
@@ -1628,7 +1628,7 @@
       "slug": "general-tsao-s-chicken",
       "categoryId": "cat_favorites",
       "basePrice": 16.95,
-      "description": null,
+      "description": "Breaded dark meat chicken fried until crispy and glazed in a spicy garlic sauce served with a bed of broccoli.",
       "likes": 12719,
       "tags": {
         "spicy": false,
@@ -1653,7 +1653,7 @@
       "slug": "salt-and-pepper-chicken",
       "categoryId": "cat_favorites",
       "basePrice": 16.95,
-      "description": null,
+      "description": "Crispy white meat chicken tossed with garlic, onion, and jalapenos.",
       "likes": 1038,
       "tags": {
         "spicy": false,
@@ -1726,7 +1726,7 @@
       "slug": "twice-cooked-pork",
       "categoryId": "cat_favorites",
       "basePrice": 16.95,
-      "description": null,
+      "description": "BBQ Pork stir-fried with cabbage, mushroom, bell peppers, scallions, and onions in a spicy sichuan sauce.",
       "likes": 1294,
       "tags": {
         "spicy": false,
@@ -1823,7 +1823,7 @@
       "slug": "hunan-stir-fry",
       "categoryId": "cat_traditional",
       "basePrice": 15.95,
-      "description": null,
+      "description": "Broccoli, snow peas, mushrooms, red bell peppers, and zucchini",
       "likes": 6958,
       "tags": {
         "spicy": false,
@@ -1850,7 +1850,7 @@
       "slug": "kung-pao-stir-fry",
       "categoryId": "cat_traditional",
       "basePrice": 15.95,
-      "description": null,
+      "description": "Bell peppers, peanuts, scallions, and dried whole chili peppers",
       "likes": 5843,
       "tags": {
         "spicy": true,
@@ -1877,7 +1877,7 @@
       "slug": "sichuan-stir-fry",
       "categoryId": "cat_traditional",
       "basePrice": 15.95,
-      "description": null,
+      "description": "Celery, carrots, scallions, garlic and dried whole chili peppers",
       "likes": 3281,
       "tags": {
         "spicy": false,
@@ -1930,7 +1930,7 @@
       "slug": "jalapeno-stir-fry",
       "categoryId": "cat_traditional",
       "basePrice": 15.95,
-      "description": null,
+      "description": "Jalapenos, zucchini, red bell peppers, mushrooms, and onions",
       "likes": 2521,
       "tags": {
         "spicy": false,
@@ -2139,7 +2139,7 @@
       "slug": "orange",
       "categoryId": "cat_traditional",
       "basePrice": 15.95,
-      "description": null,
+      "description": "Broccoli and carrots",
       "likes": 15200,
       "tags": {
         "spicy": false,
@@ -2192,7 +2192,7 @@
       "slug": "hot-garlic-stir-fry",
       "categoryId": "cat_traditional",
       "basePrice": 15.95,
-      "description": null,
+      "description": "Bamboo shoots, celery, carrots, mushrooms, and garlic",
       "likes": 3024,
       "tags": {
         "spicy": true,
@@ -2244,7 +2244,7 @@
       "slug": "lemon-grass-chicken",
       "categoryId": "cat_specialties",
       "basePrice": 16.95,
-      "description": null,
+      "description": "Tender chicken tossed in lemon grass flavored sauce and stir-fried with bell peppers, onions, and mushrooms",
       "likes": 1230,
       "tags": {
         "spicy": false,
@@ -2318,7 +2318,7 @@
       "slug": "coconut-red-curry",
       "categoryId": "cat_specialties",
       "basePrice": 15.95,
-      "description": null,
+      "description": "Red curry infused with coconut milk and stir-fried with red and green bell peppers, white onions, snow peas, and asparagus. CANNOT BE MODIFIED TO BE MILD/NOT SPICY DUE TO SPICE OF CURRY PASTE",
       "likes": 2141,
       "tags": {
         "spicy": false,
@@ -2369,7 +2369,7 @@
       "slug": "ginger-shrimp",
       "categoryId": "cat_specialties",
       "basePrice": 18.95,
-      "description": null,
+      "description": "Jumbo shrimp stir-fried in a spicy ginger chili sauce and served on a bed of steamed snow peas",
       "likes": 825,
       "tags": {
         "spicy": false,
@@ -2935,7 +2935,7 @@
       "slug": "sichuan-string-beans",
       "categoryId": "cat_vegetarian-light",
       "basePrice": 14.45,
-      "description": null,
+      "description": "Crunchy string beans are tossed in a spicy savory sauce",
       "likes": 1828,
       "tags": {
         "spicy": false,
@@ -3041,7 +3041,7 @@
       "slug": "ma-po-tofu",
       "categoryId": "cat_vegetarian-light",
       "basePrice": 15.95,
-      "description": null,
+      "description": "Soft tofu and green onions simmered in chili oil with red pepper flakes",
       "likes": 586,
       "tags": {
         "spicy": false,
@@ -3093,7 +3093,7 @@
       "name": "Fried Wonton Chips",
       "slug": "fried-wonton-chips",
       "categoryId": "cat_side-orders",
-      "basePrice": null,
+      "basePrice": 3.25,
       "description": null,
       "likes": null,
       "tags": {
@@ -3247,7 +3247,7 @@
       "name": "Coke",
       "slug": "coke",
       "categoryId": "cat_drinks",
-      "basePrice": null,
+      "basePrice": 2.95,
       "description": "16.9 oz Bottle",
       "likes": null,
       "tags": {
@@ -3269,7 +3269,7 @@
       "name": "Diet Coke",
       "slug": "diet-coke",
       "categoryId": "cat_drinks",
-      "basePrice": null,
+      "basePrice": 2.95,
       "description": "16.9 oz Bottle",
       "likes": null,
       "tags": {
@@ -3291,7 +3291,7 @@
       "name": "Dr. Pepper",
       "slug": "dr-pepper",
       "categoryId": "cat_drinks",
-      "basePrice": null,
+      "basePrice": 2.95,
       "description": "16.9 oz Bottle",
       "likes": null,
       "tags": {
@@ -3313,7 +3313,7 @@
       "name": "Diet Dr. Pepper",
       "slug": "diet-dr-pepper",
       "categoryId": "cat_drinks",
-      "basePrice": null,
+      "basePrice": 2.95,
       "description": "16.9 oz Bottle",
       "likes": null,
       "tags": {
@@ -3335,7 +3335,7 @@
       "name": "Sprite",
       "slug": "sprite",
       "categoryId": "cat_drinks",
-      "basePrice": null,
+      "basePrice": 2.95,
       "description": "16.9 oz Bottle",
       "likes": null,
       "tags": {
@@ -3357,7 +3357,7 @@
       "name": "Bottled Water",
       "slug": "bottled-water",
       "categoryId": "cat_drinks",
-      "basePrice": null,
+      "basePrice": 2.0,
       "description": "20 oz Bottle",
       "likes": null,
       "tags": {
@@ -3379,7 +3379,7 @@
       "name": "Perrier Sparkling Water",
       "slug": "perrier-sparkling-water",
       "categoryId": "cat_drinks",
-      "basePrice": null,
+      "basePrice": 3.75,
       "description": "11.15 oz Bottle",
       "likes": null,
       "tags": {
@@ -3401,7 +3401,7 @@
       "name": "S. Pellegrino Water",
       "slug": "s-pellegrino-water",
       "categoryId": "cat_drinks",
-      "basePrice": null,
+      "basePrice": 3.75,
       "description": "16.9 oz Bottle",
       "likes": null,
       "tags": {
