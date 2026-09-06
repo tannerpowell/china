@@ -4,10 +4,25 @@ import { restaurant } from "./restaurant";
 const FALLBACK_SITE_URL = "https://chinaislandgrill.com";
 
 function siteUrl(): string {
-  const raw = (process.env.NEXT_PUBLIC_SITE_URL ?? "")
-    .trim()
-    .replace(/\/+$/, "");
-  if (/^https?:\/\//i.test(raw)) return raw;
+  const raw = (process.env.NEXT_PUBLIC_SITE_URL ?? "").trim();
+  if (raw !== "") {
+    try {
+      const url = new URL(raw);
+      const absoluteHttp =
+        (url.protocol === "http:" || url.protocol === "https:") &&
+        url.username === "" &&
+        url.password === "" &&
+        url.search === "" &&
+        url.hash === "";
+      if (absoluteHttp) {
+        // Preserve a deliberate base pathname (staging mounts), but never
+        // let query/fragment/credentials leak into structured-data URLs.
+        return (url.origin + url.pathname).replace(/\/+$/, "") || url.origin;
+      }
+    } catch {
+      // Not parseable as an absolute URL — fall through to the fallback.
+    }
+  }
   return FALLBACK_SITE_URL;
 }
 

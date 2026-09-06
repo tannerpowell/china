@@ -65,6 +65,32 @@ describe("breadcrumbJsonLd", () => {
       expect(els[0].item).toBe("https://chinaislandgrill.com/");
     }
   });
+
+  test("credentials, query strings, and fragments fall back", () => {
+    for (const bad of [
+      "https://user:pass@example.com/",
+      "https://example.com?x=1",
+      "https://example.com/#fragment",
+      "https://?x",
+    ]) {
+      process.env[ENV_KEY] = bad;
+      const data = breadcrumbJsonLd([{ name: "Home", path: "/" }]);
+      const els = data.itemListElement as Array<Record<string, unknown>>;
+      expect(els[0].item).toBe("https://chinaislandgrill.com/");
+    }
+  });
+
+  test("absolute base is normalized; deliberate subpath is preserved", () => {
+    process.env[ENV_KEY] = "HTTPS://Example.COM///";
+    let data = breadcrumbJsonLd([{ name: "Home", path: "/" }]);
+    let els = data.itemListElement as Array<Record<string, unknown>>;
+    expect(els[0].item).toBe("https://example.com/");
+
+    process.env[ENV_KEY] = "https://example.com/staging/";
+    data = breadcrumbJsonLd([{ name: "Home", path: "/" }]);
+    els = data.itemListElement as Array<Record<string, unknown>>;
+    expect(els[0].item).toBe("https://example.com/staging/");
+  });
 });
 
 describe("menuJsonLd", () => {
