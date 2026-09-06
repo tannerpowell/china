@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { SiteSidebar } from "@/components/SiteSidebar";
 import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbJsonLd } from "@/lib/schema";
 import {
   restaurant,
   restaurantAddressFull,
@@ -57,6 +58,12 @@ export default function LocationPage() {
   return (
     <div className={styles.layout}>
       <JsonLd data={faqJsonLd} />
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Location Info" },
+        ])}
+      />
       <SiteSidebar active="visit" />
 
       <main className={styles.rightPanel}>

@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbJsonLd } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Order Online",
@@ -34,6 +36,12 @@ export default function OrderPage() {
   const phone = process.env.NEXT_PUBLIC_RESTAURANT_PHONE ?? "";
   return (
     <main style={{ maxWidth: 720, margin: "0 auto", padding: 24 }}>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Order Online" },
+        ])}
+      />
       <h1 style={{ marginTop: 0 }}>Order</h1>
       <p style={{ color: "var(--muted)" }}>Ordering currently links out while we replace checkout.</p>
       <div style={{ display: "grid", gap: 10 }}>

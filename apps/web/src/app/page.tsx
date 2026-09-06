@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbJsonLd } from "@/lib/schema";
 import { SiteSidebar } from "@/components/SiteSidebar";
 import {
   restaurant,
@@ -53,6 +54,7 @@ export default function Home() {
   return (
     <div className={styles.layout}>
       <JsonLd data={restaurantJsonLd} />
+      <JsonLd data={breadcrumbJsonLd([{ name: "Home" }])} />
       <SiteSidebar />
 
       {/* Scrolling Right Panel */}
