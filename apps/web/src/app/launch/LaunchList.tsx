@@ -29,7 +29,7 @@ const groups: Group[] = [
       { text: "Location Info page: phone, address, hours above the fold", note: "Apple + Google Maps buttons, embedded map, pickup/delivery times.", status: "live" },
       { text: "Restaurant JSON-LD: address, hours, cuisines, price range", status: "live" },
       { text: "Menu + MenuItem schema block for AI/dish search", note: "All 118 items; prices where set, descriptions where available, vegetarian flags.", status: "live" },
-      { text: "BreadcrumbList schema on home, menu, order, location", status: "live" },
+      { text: "BreadcrumbList schema on menu, order, location", note: "Home excluded — a single-item trail isn't a valid breadcrumb.", status: "live" },
       { text: "Custom 404 page", note: "On-brand, links to home, menu, order, location.", status: "live" },
       { text: "FAQ content + FAQPage schema on /location", status: "live" },
       { text: "Favicon / touch icon / social share image wired", note: "Currently the logo — swap in food photography when available.", status: "live" },

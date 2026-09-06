@@ -7,6 +7,7 @@
       "esnext"
     ],
     "types": [
+      "bun",
       "node"
     ],
     "allowJs": true,

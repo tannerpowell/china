@@ -1,8 +1,14 @@
 import type { Category, MenuItem } from "./types";
 import { restaurant } from "./restaurant";
 
+const FALLBACK_SITE_URL = "https://chinaislandgrill.com";
+
 function siteUrl(): string {
-  return process.env.NEXT_PUBLIC_SITE_URL ?? "https://chinaislandgrill.com";
+  const raw = (process.env.NEXT_PUBLIC_SITE_URL ?? "")
+    .trim()
+    .replace(/\/+$/, "");
+  if (/^https?:\/\//i.test(raw)) return raw;
+  return FALLBACK_SITE_URL;
 }
 
 export interface BreadcrumbTrailItem {

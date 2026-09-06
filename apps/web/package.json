@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "portless run next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "test": "bun test"
   },
   "dependencies": {
     "@sanity/client": "^8.5.0",
@@ -20,6 +21,7 @@
     "zustand": "^5.0.15"
   },
   "devDependencies": {
+    "@types/bun": "^1.4.1",
     "@types/node": "^26.4.1",
     "@types/react": "^19.2.18",
     "babel-plugin-react-compiler": "1.0.0",
