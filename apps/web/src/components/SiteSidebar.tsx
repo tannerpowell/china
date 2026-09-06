@@ -5,6 +5,7 @@ import {
   restaurantHoursShort,
   restaurantPhoneHref,
 } from "@/lib/restaurant";
+import { SiteThemeToggle } from "./SiteThemeToggle";
 import styles from "./SiteSidebar.module.css";
 
 interface SiteSidebarProps {
@@ -65,6 +66,11 @@ export function SiteSidebar({ active }: SiteSidebarProps) {
               {row.days}: {row.time}
             </span>
           ))}
+        </div>
+
+        <div className={styles.themeWrap}>
+          <span className={styles.themeCaption}>Preview theme</span>
+          <SiteThemeToggle />
         </div>
       </div>
     </aside>

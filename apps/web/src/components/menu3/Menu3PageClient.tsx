@@ -1,16 +1,15 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
+import Link from "next/link";
 import type { MenuItem, Category, ModifierGroup } from '@/lib/types';
 import { useCartStore } from '@/lib/cart-store';
+import { useSiteTheme } from '@/components/SiteThemeToggle';
 import { CategoryNav } from './CategoryNav';
 import { MenuList } from './MenuList';
 import { PeekPreview } from './PeekPreview';
 import { MenuItemModal } from './MenuItemModal';
-import { ThemeToggle, type MenuTheme } from './ThemeToggle';
-
-const THEME_STORAGE_KEY = 'china-island-menu-theme';
+import { ThemeToggle } from './ThemeToggle';
 
 interface Menu3PageClientProps {
   categories: Category[];
@@ -38,24 +37,13 @@ export default function Menu3PageClient({
 }: Menu3PageClientProps) {
   const itemCount = useCartStore((state) => state.itemCount);
 
-  // Theme state with localStorage persistence
-  const [theme, setTheme] = useState<MenuTheme>('classic');
+  // Shared site theme (same localStorage key as the sidebar toggle).
+  const { theme, setTheme } = useSiteTheme();
   const [mounted, setMounted] = useState(false);
 
-  // Load theme from localStorage on mount
   useEffect(() => {
     setMounted(true);
-    const savedTheme = localStorage.getItem(THEME_STORAGE_KEY) as MenuTheme | null;
-    if (savedTheme && (savedTheme === 'classic' || savedTheme === 'warm')) {
-      setTheme(savedTheme);
-    }
   }, []);
-
-  // Handle theme change
-  function handleThemeChange(newTheme: MenuTheme) {
-    setTheme(newTheme);
-    localStorage.setItem(THEME_STORAGE_KEY, newTheme);
-  }
 
   // Category state
   const [selectedCategory, setSelectedCategory] = useState<string>('');
@@ -113,7 +101,10 @@ export default function Menu3PageClient({
         </Link>
 
         <div className="menu3-header-actions">
-          <ThemeToggle theme={theme} onThemeChange={handleThemeChange} />
+          <Link href="/menu/all" className="menu3-singlepage-link">
+            Single Page
+          </Link>
+          <ThemeToggle theme={theme} onThemeChange={setTheme} />
 
           {itemCount > 0 && (
             <Link href="/checkout" className="menu3-cart-button">
