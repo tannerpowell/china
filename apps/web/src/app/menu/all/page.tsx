@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getAllMenuData } from "@/lib/menu-sanity";
 import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbJsonLd } from "@/lib/schema";
+import { SiteSidebar } from "@/components/SiteSidebar";
 import {
   restaurant,
   restaurantPhoneHref,
@@ -38,7 +39,7 @@ export default async function FullMenuPage() {
     "https://us.chinesemenu.com/order/shoppingcart.htm";
 
   return (
-    <div className={styles.page} id="top">
+    <div className={styles.layout} id="top">
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
@@ -46,140 +47,135 @@ export default async function FullMenuPage() {
           { name: "Full Menu" },
         ])}
       />
+      <SiteSidebar active="menu" />
 
-      <SectionNav
-        sections={sections.map((s) => ({
-          slug: s.category.slug,
-          title: s.category.title,
-          count: s.items.length,
-        }))}
-      />
+      <div className={styles.rightPanel}>
+        <SectionNav
+          sections={sections.map((s) => ({
+            slug: s.category.slug,
+            title: s.category.title,
+            count: s.items.length,
+          }))}
+        />
 
-      <main className={styles.main}>
-        {/* Masthead */}
-        <header className={styles.masthead}>
-          <p className={styles.eyebrow}>
-            {restaurant.name} · {restaurant.addressCity},{" "}
-            {restaurant.addressRegion}
-          </p>
-          <h1 className={styles.title}>The Full Menu</h1>
-          <div className={styles.rule} aria-hidden="true">
-            <span />
-            <i>◆</i>
-            <span />
-          </div>
-          <p className={styles.lede}>
-            Every dish, start to finish — {items.length} items across{" "}
-            {sections.length} sections. Scroll, or jump straight to a craving.
-          </p>
-          <div className={styles.ctaRow}>
-            <a
-              href={orderUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.ctaPrimary}
-            >
-              Order Online
-            </a>
-            <a href={restaurantPhoneHref} className={styles.ctaSecondary}>
-              Call {restaurant.phoneDisplay}
-            </a>
-          </div>
-          <p className={styles.legend}>
-            <span title="Spicy">🌶 spicy</span>
-            <span aria-hidden="true">·</span>
-            <span title="Vegetarian">🌱 vegetarian</span>
-            <span aria-hidden="true">·</span>
-            <span title="Popular">★ house favorite</span>
-            <span aria-hidden="true">·</span>
-            <span title="Market price">MP market price</span>
-          </p>
-        </header>
-
-        {/* Sections */}
-        {sections.map(({ category, number, items: sectionItems }) => (
-          <section
-            key={category.id}
-            id={category.slug}
-            className={styles.section}
-            aria-labelledby={`${category.slug}-heading`}
-          >
-            <div className={styles.sectionHead}>
-              <span className={styles.sectionNumber} aria-hidden="true">
-                {number}
-              </span>
-              <div>
-                <p className={styles.sectionEyebrow}>
-                  Section {number} · {sectionItems.length}{" "}
-                  {sectionItems.length === 1 ? "dish" : "dishes"}
-                </p>
-                <h2
-                  id={`${category.slug}-heading`}
-                  className={styles.sectionTitle}
-                >
-                  {category.title}
-                </h2>
-              </div>
+        <main className={styles.main}>
+          {/* Masthead */}
+          <header className={styles.masthead}>
+            <p className={styles.eyebrow}>
+              {restaurant.name} · {restaurant.addressCity},{" "}
+              {restaurant.addressRegion}
+            </p>
+            <h1 className={styles.title}>The Full Menu</h1>
+            <p className={styles.lede}>
+              Every dish, start to finish — {items.length} items across{" "}
+              {sections.length} sections. Scroll, or jump straight to a
+              craving.
+            </p>
+            <div className={styles.ctaRow}>
+              <a
+                href={orderUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.ctaPrimary}
+              >
+                Order Online
+              </a>
+              <a href={restaurantPhoneHref} className={styles.ctaSecondary}>
+                Call {restaurant.phoneDisplay}
+              </a>
             </div>
+            <p className={styles.legend}>
+              <span title="Spicy">🌶 spicy</span>
+              <span aria-hidden="true">·</span>
+              <span title="Vegetarian">🌱 vegetarian</span>
+              <span aria-hidden="true">·</span>
+              <span title="Popular">★ house favorite</span>
+              <span aria-hidden="true">·</span>
+              <span title="Market price">MP market price</span>
+            </p>
+          </header>
 
-            <ul className={styles.dishes}>
-              {sectionItems.map((item) => (
-                <li key={item.id} className={styles.dish}>
-                  <div className={styles.dishTop}>
-                    <h3 className={styles.dishName}>
-                      {item.name}
-                      <span className={styles.badges}>
-                        {item.tags.spicy && (
-                          <span title="Spicy" role="img" aria-label="Spicy">
-                            🌶
-                          </span>
-                        )}
-                        {item.tags.vegetarian && (
-                          <span
-                            title="Vegetarian"
-                            role="img"
-                            aria-label="Vegetarian"
-                          >
-                            🌱
-                          </span>
-                        )}
-                        {item.tags.popular && (
-                          <span
-                            className={styles.star}
-                            title="House favorite"
-                            role="img"
-                            aria-label="House favorite"
-                          >
-                            ★
-                          </span>
+          {/* Sections */}
+          {sections.map(({ category, number, items: sectionItems }) => (
+            <section
+              key={category.id}
+              id={category.slug}
+              className={styles.section}
+              aria-labelledby={`${category.slug}-heading`}
+            >
+              <div className={styles.sectionHead}>
+                <span className={styles.sectionNumber} aria-hidden="true">
+                  {number}
+                </span>
+                <div>
+                  <p className={styles.sectionEyebrow}>
+                    Section {number} · {sectionItems.length}{" "}
+                    {sectionItems.length === 1 ? "dish" : "dishes"}
+                  </p>
+                  <h2
+                    id={`${category.slug}-heading`}
+                    className={styles.sectionTitle}
+                  >
+                    {category.title}
+                  </h2>
+                </div>
+              </div>
+
+              <ul className={styles.dishes}>
+                {sectionItems.map((item) => (
+                  <li key={item.id} className={styles.dish}>
+                    <div className={styles.dishTop}>
+                      <h3 className={styles.dishName}>
+                        {item.name}
+                        <span className={styles.badges}>
+                          {item.tags.spicy && (
+                            <span title="Spicy" role="img" aria-label="Spicy">
+                              🌶
+                            </span>
+                          )}
+                          {item.tags.vegetarian && (
+                            <span
+                              title="Vegetarian"
+                              role="img"
+                              aria-label="Vegetarian"
+                            >
+                              🌱
+                            </span>
+                          )}
+                          {item.tags.popular && (
+                            <span
+                              className={styles.star}
+                              title="House favorite"
+                              role="img"
+                              aria-label="House favorite"
+                            >
+                              ★
+                            </span>
+                          )}
+                        </span>
+                      </h3>
+                      <span className={styles.leader} aria-hidden="true" />
+                      <span className={styles.price}>
+                        {item.basePrice !== null ? (
+                          formatPrice(item.basePrice)
+                        ) : (
+                          <span className={styles.mp}>MP</span>
                         )}
                       </span>
-                    </h3>
-                    <span className={styles.leader} aria-hidden="true" />
-                    <span className={styles.price}>
-                      {item.basePrice !== null ? (
-                        formatPrice(item.basePrice)
-                      ) : (
-                        <span className={styles.mp}>MP</span>
-                      )}
-                    </span>
-                  </div>
-                  {item.description && (
-                    <p className={styles.dishDescription}>
-                      {item.description}
-                    </p>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </section>
-        ))}
+                    </div>
+                    {item.description && (
+                      <p className={styles.dishDescription}>
+                        {item.description}
+                      </p>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))}
 
-        {/* Footer */}
-        <footer className={styles.footer}>
-          <div className={styles.footerCard}>
-            <p className={styles.eyebrow}>Ready when you are</p>
-            <h2 className={styles.footerTitle}>Hungry? Skip the scroll.</h2>
+          {/* Footer */}
+          <footer className={styles.footer}>
             <div className={styles.ctaRow}>
               <a
                 href={orderUrl}
@@ -200,9 +196,9 @@ export default async function FullMenuPage() {
               <span aria-hidden="true">·</span>
               <a href="#top">Back to top ↑</a>
             </p>
-          </div>
-        </footer>
-      </main>
+          </footer>
+        </main>
+      </div>
     </div>
   );
 }
