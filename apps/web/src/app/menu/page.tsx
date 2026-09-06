@@ -1,4 +1,6 @@
 import { getAllMenuData } from "@/lib/menu-sanity";
+import { breadcrumbJsonLd, menuJsonLd } from "@/lib/schema";
+import { JsonLd } from "@/components/JsonLd";
 import { Menu3PageClient } from "@/components/menu3";
 import type { Metadata } from "next";
 
@@ -16,10 +18,19 @@ export default async function MenuPage() {
   const { categories, items, modifierGroups } = await getAllMenuData();
 
   return (
-    <Menu3PageClient
-      categories={categories}
-      items={items}
-      modifierGroups={modifierGroups}
-    />
+    <>
+      <JsonLd data={menuJsonLd(categories, items)} />
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Menu" },
+        ])}
+      />
+      <Menu3PageClient
+        categories={categories}
+        items={items}
+        modifierGroups={modifierGroups}
+      />
+    </>
   );
 }
