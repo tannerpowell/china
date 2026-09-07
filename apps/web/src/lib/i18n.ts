@@ -103,13 +103,27 @@ export const STR: Record<string, Entry> = {
     zh: "周日到周四，上午11点到晚上9点；周五周六，上午11点到晚上9点半。",
   },
 
-  // Order stub
+  // Order page
   "order.title": { en: "Order", zh: "订餐" },
   "order.body": {
     en: "Ordering currently links out while we replace checkout.",
     zh: "新的结账功能即将上线，目前先跳转到现有订餐页面。",
   },
   "order.call": { en: "Call for Takeout", zh: "致电自取" },
+  "order.empty": { en: "Your cart is empty", zh: "购物车是空的" },
+  "order.emptyBody": {
+    en: "Browse the menu and add something delicious — pickup and delivery available.",
+    zh: "去菜单看看，加点好吃的——支持自取和外卖。",
+  },
+  "order.browse": { en: "Browse Menu", zh: "浏览菜单" },
+  "order.summary": { en: "Your order", zh: "您的订单" },
+  "order.count": { en: "{n} items", zh: "{n} 件商品" },
+  "order.clear": { en: "Clear", zh: "清空" },
+  "order.checkout": { en: "Continue to Checkout", zh: "去结账" },
+  "order.subtotal": { en: "Subtotal", zh: "小计" },
+  "order.tax": { en: "Tax", zh: "税费" },
+  "order.total": { en: "Total", zh: "总计" },
+  "order.remove": { en: "Remove", zh: "删除" },
 
   // Interactive menu
   "menu.searchPh": { en: "Search menu...", zh: "搜索菜单…" },
