@@ -4,7 +4,7 @@ import LaunchList from "./LaunchList";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
-  title: "Go-Live Launch List",
+  title: "Launch Preparation",
   description: "Internal go-live checklist for the China Island Asian Grill website.",
   robots: { index: false, follow: false },
 };
@@ -13,23 +13,20 @@ export default function LaunchPage() {
   return (
     <main className={styles.page}>
       <div className={styles.container}>
-        <Link href="/" className={styles.backLink}>
-          ← Back to Home
-        </Link>
+        <nav className={styles.ownerNav} aria-label="Owner pages">
+          <span className={styles.ownerNavActive} aria-current="page">
+            Launch Preparation
+          </span>
+          <span aria-hidden="true">|</span>
+          <Link href="/menu-questions">Open Questions</Link>
+          <span aria-hidden="true">|</span>
+          <Link href="/demo/receipt">Receipt Demo</Link>
+        </nav>
         <p className={styles.eyebrow}>Internal · not indexed</p>
-        <h1 className={styles.title}>Go-Live Launch List</h1>
+        <h1 className={styles.title}>Launch Preparation</h1>
         <p className={styles.lede}>
           What&apos;s shipped, what&apos;s left, and what needs the
           owner — for the China Island Asian Grill site pitch and launch.
-        </p>
-        <p className={styles.lede}>
-          <Link href="/menu-questions" className={styles.backLink}>
-            Menu open questions →
-          </Link>
-          {" · "}
-          <Link href="/demo/receipt" className={styles.backLink}>
-            Animated receipt demo →
-          </Link>
         </p>
         <LaunchList />
       </div>

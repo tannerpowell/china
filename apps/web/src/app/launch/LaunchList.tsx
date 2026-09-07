@@ -68,14 +68,14 @@ const groups: Group[] = [
   },
 ];
 const filters: { id: Filter; label: string }[] = [
-  { id: "all", label: "All" },
-  { id: "live", label: "Live" },
   { id: "todo", label: "To do" },
   { id: "owner", label: "Owner" },
+  { id: "live", label: "Completed" },
+  { id: "all", label: "All" },
 ];
 
 const statusLabel: Record<Status, string> = {
-  live: "Live",
+  live: "Completed",
   todo: "To do",
   owner: "Owner",
 };

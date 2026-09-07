@@ -24,6 +24,29 @@
   text-decoration: underline;
 }
 
+/* Owner pages nav: Launch Preparation | Open Questions | Receipt Demo */
+.ownerNav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+.ownerNav a {
+  color: var(--green);
+}
+
+.ownerNav a:hover {
+  text-decoration: underline;
+}
+
+.ownerNavActive {
+  color: var(--text);
+}
+
 .eyebrow {
   font-size: 12px;
   font-weight: 700;
