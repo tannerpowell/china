@@ -118,6 +118,60 @@
   color: var(--bg);
 }
 
+/* Cart pill (appears once something is in the cart). */
+.navCart {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: var(--cta);
+  color: #fff;
+  border-radius: 9999px;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.navCartCount {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.25);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Per-dish quick add. */
+.dishAdd {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--red);
+  border-radius: 50%;
+  color: var(--red);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+  transition: all 0.15s ease;
+}
+
+.dishAdd span {
+  transform: translateY(-1px);
+}
+
+.dishAdd:hover {
+  background: var(--red);
+  color: #fff;
+}
+
 /* ---------- Search modal ---------- */
 
 .searchBackdrop {

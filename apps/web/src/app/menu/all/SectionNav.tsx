@@ -1,9 +1,11 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import Link from "next/link";
 import { T, } from "@/components/T";
 import { st } from "@/lib/i18n";
 import { useSiteLang } from "@/components/LanguageToggle";
+import { useCartStore } from "@/lib/cart-store";
 import styles from "./page.module.css";
 
 interface NavSection {
@@ -19,6 +21,7 @@ export interface SearchItem {
   sectionTitle: string;
   price: string | null;
   description: string | null;
+  searchText: string;
 }
 
 /**
@@ -41,6 +44,7 @@ export function SectionNav({
   const trackRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const { lang } = useSiteLang();
+  const itemCount = useCartStore((state) => state.itemCount);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -89,13 +93,7 @@ export function SectionNav({
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (q.length < 2) return [];
-    return items
-      .filter(
-        (item) =>
-          item.name.toLowerCase().includes(q) ||
-          (item.description?.toLowerCase().includes(q) ?? false)
-      )
-      .slice(0, 30);
+    return items.filter((item) => item.searchText.includes(q)).slice(0, 30);
   }, [query, items]);
 
   function jumpTo(item: SearchItem) {
@@ -170,6 +168,12 @@ export function SectionNav({
               <path d="M20 20l-3.5-3.5" />
             </svg>
           </button>
+          {itemCount > 0 && (
+            <Link href="/checkout" className={styles.navCart}>
+              <T id="menu.viewCart" />
+              <span className={styles.navCartCount}>{itemCount}</span>
+            </Link>
+          )}
         </div>
       </nav>
 

@@ -10,6 +10,7 @@ import {
   restaurantPhoneHref,
 } from "@/lib/restaurant";
 import { SectionNav } from "./SectionNav";
+import { DishOrderProvider, DishAddButton } from "./DishOrder";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -24,9 +25,14 @@ function formatPrice(value: number): string {
 }
 
 export default async function FullMenuPage() {
-  const { categories, items } = await getAllMenuData();
+  const { categories, items, modifierGroups } = await getAllMenuData();
 
   const sorted = [...categories].sort((a, b) => a.sortOrder - b.sortOrder);
+  const modById = new Map(modifierGroups.map((g) => [g.id, g]));
+  // Protein-bearing modifier groups: searching "chicken" should find dishes
+  // where chicken is a choice even when the name doesn't say so. Prep groups
+  // (sauce, spice, rice, style) are excluded to keep results tight.
+  const proteinRe = /main-ingredient|additional-protein|entree/i;
   const sections = sorted.map((category, i) => ({
     category,
     number: String(i + 1).padStart(2, "0"),
@@ -51,7 +57,11 @@ export default async function FullMenuPage() {
       <SiteSidebar active="menu" />
 
       <div className={styles.rightPanel}>
-      <SectionNav
+        <DishOrderProvider
+          categories={sorted}
+          modifierGroups={modifierGroups}
+        >
+        <SectionNav
         sections={sections.map((s) => ({
           slug: s.category.slug,
           title: s.category.title,
@@ -59,6 +69,11 @@ export default async function FullMenuPage() {
         }))}
         items={items.map((item) => {
           const section = sorted.find((c) => c.id === item.categoryId);
+          const proteins = item.modifierGroupIds
+            .filter((gid) => proteinRe.test(gid))
+            .flatMap(
+              (gid) => modById.get(gid)?.options.map((o) => o.label) ?? []
+            );
           return {
             slug: item.slug,
             name: item.name,
@@ -66,6 +81,14 @@ export default async function FullMenuPage() {
             sectionTitle: section?.title ?? "",
             price: item.basePrice !== null ? formatPrice(item.basePrice) : null,
             description: item.description,
+            searchText: [
+              item.name,
+              item.description ?? "",
+              section?.title ?? "",
+              ...proteins,
+            ]
+              .join(" ")
+              .toLowerCase(),
           };
         })}
       />
@@ -166,14 +189,15 @@ export default async function FullMenuPage() {
                           )}
                         </span>
                       </h3>
-                      <span className={styles.leader} aria-hidden="true" />
-                      <span className={styles.price}>
-                        {item.basePrice !== null ? (
-                          formatPrice(item.basePrice)
-                        ) : (
-                          <T id="menu.mp" />
-                        )}
-                      </span>
+                    <span className={styles.leader} aria-hidden="true" />
+                    <span className={styles.price}>
+                      {item.basePrice !== null ? (
+                        formatPrice(item.basePrice)
+                      ) : (
+                        <T id="menu.mp" />
+                      )}
+                    </span>
+                    <DishAddButton item={item} />
                     </div>
                     {item.description && (
                       <p className={styles.dishDescription}>
@@ -210,6 +234,7 @@ export default async function FullMenuPage() {
             </p>
           </footer>
         </main>
+        </DishOrderProvider>
       </div>
     </div>
   );
