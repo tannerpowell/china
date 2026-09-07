@@ -19,7 +19,7 @@ export const STR: Record<string, Entry> = {
   "nav.visit": { en: "Visit Us", zh: "到店信息" },
   "nav.call": { en: "Call to Order", zh: "致电订餐" },
   "nav.hours": { en: "Hours", zh: "营业时间" },
-  "nav.theme": { en: "Preview theme", zh: "预览主题" },
+  "nav.theme": { en: "Site theme", zh: "网站主题" },
   "nav.lang": { en: "Language", zh: "语言" },
   "nav.blurb1": {
     en: "Fresh Asian cuisine made with care.",
