@@ -102,18 +102,20 @@
   height: 30rem;
   margin-top: -6px;
   overflow: hidden;
-  padding: 0 24px;
+  /* Must exceed the feed's widest blur or the mask clips it hard. */
+  padding: 0 48px;
 }
 
 .feed {
   position: relative;
   transform: translateY(-102%);
   opacity: 0;
-  /* Soft layered shadow that fades into the page instead of edging the
-     paper: wide faint bloom + tight faint contact, no hard cutoff. */
+  /* Soft layered shadow that fades into the page. Blur radii stay inside
+     the output mask's horizontal padding — anything wider gets clipped
+     into hard vertical bands. */
   filter:
-    drop-shadow(0 28px 56px rgba(0, 0, 0, 0.14))
-    drop-shadow(0 6px 18px rgba(0, 0, 0, 0.08));
+    drop-shadow(0 24px 40px rgba(0, 0, 0, 0.13))
+    drop-shadow(0 4px 12px rgba(0, 0, 0, 0.07));
 }
 
 /* Parked (processing): hidden above. Fed: paper fully out. */
