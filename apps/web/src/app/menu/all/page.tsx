@@ -41,9 +41,8 @@ export default async function FullMenuPage() {
       .sort((a, b) => b.likes - a.likes),
   }));
 
-  const orderUrl =
-    process.env.NEXT_PUBLIC_ORDER_CART_URL ??
-    "https://us.chinesemenu.com/order/shoppingcart.htm";
+  // All ordering stays in-house: the CTAs below route to /order (cart +
+  // checkout). The old third-party cart (us.chinesemenu.com) is retired.
 
   return (
     <div className={styles.layout} id="top">
@@ -105,14 +104,9 @@ export default async function FullMenuPage() {
               <T id="all.lede" vars={{ n: items.length, s: sections.length }} />
             </p>
             <div className={styles.ctaRow}>
-              <a
-                href={orderUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.ctaPrimary}
-              >
+              <Link href="/order" className={styles.ctaPrimary}>
                 <T id="all.orderCta" />
-              </a>
+              </Link>
               <a href={restaurantPhoneHref} className={styles.ctaSecondary}>
                 <T id="all.callCta" /> {restaurant.phoneDisplay}
               </a>
@@ -213,14 +207,9 @@ export default async function FullMenuPage() {
           {/* Footer */}
           <footer className={styles.footer}>
             <div className={styles.ctaRow}>
-              <a
-                href={orderUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.ctaPrimary}
-              >
+              <Link href="/order" className={styles.ctaPrimary}>
                 <T id="all.orderCta" />
-              </a>
+              </Link>
               <Link href="/menu" className={styles.ctaSecondary}>
                 <T id="all.interactive" />
               </Link>
