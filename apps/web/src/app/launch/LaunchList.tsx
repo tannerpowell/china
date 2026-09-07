@@ -63,7 +63,7 @@ const groups: Group[] = [
       { text: "Content system access: invite owner as Editor + approve our website", note: "Sanity (where menu edits happen) only talks to approved sites — ours must be on its list. See docs/sanity-setup.md. Blocks /studio login.", status: "owner" },
       { text: "Google Analytics account + ID added to the hosting settings", status: "owner" },
       { text: "Google Search Console: prove ownership + hand Google our page list", note: "Verification proves the site is ours; submitting the sitemap (the full page list) gets every page found faster.", status: "owner" },
-      { text: "Holiday-hours process (who updates GBP + site)", status: "owner" },
+      { text: "Holiday-hours process (who updates Google + site)", status: "owner" },
     ],
   },
 ];
