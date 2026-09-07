@@ -1,6 +1,6 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import styles from "./AnimatedReceipt.module.css";
 
 // ============================================================================
@@ -33,6 +33,9 @@ interface AnimatedReceiptProps {
   /** The receipt itself — any markup, usually monospace lines. */
   children: ReactNode;
   className?: string;
+  /** Pass-through for CSS vars, e.g. shadow tuning
+      ({ "--rcpt-blur": "48px" } as CSSProperties). */
+  style?: CSSProperties;
 }
 
 const DEFAULT_STATUS: Record<ReceiptStage, string> = {
@@ -60,16 +63,34 @@ export function AnimatedReceipt({
   statusText,
   children,
   className,
+  style,
 }: AnimatedReceiptProps) {
   const cls = [styles.root, className ?? ""].filter(Boolean).join(" ");
   const motionCls = feedMotion === "stepped" ? styles.stepped : styles.smooth;
   const visible = stage !== "processing";
+
+  // Measure the paper so the output mask always fits it: fixed heights
+  // clip long receipts at the bottom. +SHADOW_ROOM leaves space for the
+  // drop shadow to fade below the torn edge instead of slicing.
+  const SHADOW_ROOM = 64;
+  const paperRef = useRef<HTMLElement>(null);
+  const [maskH, setMaskH] = useState<number | null>(null);
+  useEffect(() => {
+    const el = paperRef.current;
+    if (!el) return;
+    const measure = () => setMaskH(el.offsetHeight + SHADOW_ROOM);
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [children]);
 
   return (
     <section
       aria-label="Receipt printer"
       data-stage={stage}
       data-animate={animate}
+      style={style}
       className={`${cls} ${motionCls} ${visible ? styles.fed : styles.parked} ${
         animate ? "" : styles.noAnim
       }`}
@@ -91,13 +112,20 @@ export function AnimatedReceipt({
         <div aria-hidden="true" className={styles.slot} />
       </div>
 
-      <div className={styles.output}>
+      <div
+        className={styles.output}
+        style={maskH ? { height: maskH } : undefined}
+      >
         <div
           aria-hidden={stage !== "complete"}
           className={styles.feed}
           data-testid="receipt-paper"
         >
-          <article className={styles.paper} style={{ clipPath: tornEdgeClip() }}>
+          <article
+            ref={paperRef}
+            className={styles.paper}
+            style={{ clipPath: tornEdgeClip() }}
+          >
             {children}
           </article>
         </div>

@@ -108,6 +108,35 @@
   cursor: pointer;
 }
 
+.sliders {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 300px;
+}
+
+.slidersTitle {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.7;
+  margin: 0;
+}
+
+.slider {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+}
+
+.slider input[type="range"] {
+  width: 100%;
+  accent-color: var(--green);
+}
+
 .stage {
   display: flex;
   justify-content: center;

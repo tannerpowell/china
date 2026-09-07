@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { T } from "@/components/T";
@@ -14,18 +14,23 @@ import {
 import navStyles from "../../launch/page.module.css";
 import styles from "./demo.module.css";
 
-// Demo-only sample order. The real confirmation will pass the live cart;
-// /Catch (or anyone else) passes whatever receipt body it wants as children.
+// Demo sample: dinner for four. Deliberately long — the mask must fit
+// the whole receipt with room for the shadow, never clip the bottom.
+// The real confirmation will pass the live cart instead.
 const SAMPLE = {
   orderNo: "CI-DEMO01",
   items: [
     { name: "Kung Pao Chicken", qty: 2, price: 25.9, mods: ["Hot"] },
+    { name: "Sesame Chicken", qty: 1, price: 13.95, mods: [] },
+    { name: "Mapo Tofu", qty: 1, price: 12.95, mods: ["Extra spicy"] },
     { name: "Crab Rangoon (6)", qty: 1, price: 7.95, mods: [] },
-    { name: "Vegetable Fried Rice", qty: 1, price: 10.95, mods: ["No egg"] },
+    { name: "Egg Rolls (4)", qty: 1, price: 6.95, mods: [] },
+    { name: "Vegetable Fried Rice", qty: 2, price: 21.9, mods: ["No egg"] },
+    { name: "Hot & Sour Soup", qty: 1, price: 5.5, mods: [] },
   ],
-  subtotal: 44.8,
-  tax: 3.69,
-  total: 48.49,
+  subtotal: 95.1,
+  tax: 7.85,
+  total: 102.95,
   last4: "4242",
 };
 
@@ -35,6 +40,10 @@ export function ReceiptDemo() {
   const [stage, setStage] = useState<ReceiptStage>("processing");
   const [motion, setMotion] = useState<ReceiptFeedMotion>("stepped");
   const [animate, setAnimate] = useState(true);
+  // Shadow tuning sliders — live CSS vars on the receipt root.
+  const [blur, setBlur] = useState(32);
+  const [dist, setDist] = useState(20);
+  const [dark, setDark] = useState(12);
   const timers = useRef<number[]>([]);
 
   const play = useCallback(
@@ -116,6 +125,29 @@ export function ReceiptDemo() {
               Animate
             </label>
           </div>
+
+          <div className={styles.sliders} role="group" aria-label="Shadow tuning">
+            <p className={styles.slidersTitle}>Shadow — tune it live</p>
+            {[
+              { label: "Softness", value: blur, set: setBlur, min: 4, max: 64, unit: "px" },
+              { label: "Drop", value: dist, set: setDist, min: 0, max: 48, unit: "px" },
+              { label: "Darkness", value: dark, set: setDark, min: 0, max: 30, unit: "%" },
+            ].map((s) => (
+              <label key={s.label} className={styles.slider}>
+                <span>
+                  {s.label} · {s.value}
+                  {s.unit}
+                </span>
+                <input
+                  type="range"
+                  min={s.min}
+                  max={s.max}
+                  value={s.value}
+                  onChange={(e) => s.set(Number(e.target.value))}
+                />
+              </label>
+            ))}
+          </div>
         </div>
 
         <div className={styles.stage}>
@@ -123,6 +155,13 @@ export function ReceiptDemo() {
           stage={stage}
           feedMotion={motion}
           animate={animate}
+          style={
+            {
+              "--rcpt-blur": `${blur}px`,
+              "--rcpt-y": `${dist}px`,
+              "--rcpt-a": dark / 100,
+            } as CSSProperties
+          }
           machineTitle={`Order #${SAMPLE.orderNo}`}
           statusText={{
             processing: "Sending to kitchen…",
