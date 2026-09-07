@@ -23,14 +23,16 @@ export function SiteSidebar({ active }: SiteSidebarProps) {
   return (
     <aside className={styles.leftPanel}>
       <div className={styles.intro}>
-        <Image
-          src="/logo.png"
-          alt="China Island Asian Grill"
-          className={styles.logo}
-          width={200}
-          height={200}
-          priority
-        />
+        <Link href="/" aria-label="China Island Asian Grill — home">
+          <Image
+            src="/logo.png"
+            alt="China Island Asian Grill"
+            className={styles.logo}
+            width={200}
+            height={200}
+            priority
+          />
+        </Link>
         <h1 className={styles.title}>China Island</h1>
         <p className={styles.subtitle}>Asian Grill</p>
 
@@ -42,7 +44,7 @@ export function SiteSidebar({ active }: SiteSidebarProps) {
             <T id="nav.menu" />
           </Link>
           <Link
-            href="/order"
+            href="/menu"
             className={`${styles.navLink} ${active === "order" ? styles.navLinkActive : ""}`}
           >
             <T id="nav.order" />

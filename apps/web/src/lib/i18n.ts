@@ -22,7 +22,7 @@ export const STR: Record<string, Entry> = {
   "nav.theme": { en: "Preview theme", zh: "预览主题" },
   "nav.lang": { en: "Language", zh: "语言" },
   "nav.blurb": {
-    en: "Fresh Asian cuisine made with care. We offer dine-in, takeout, and delivery options for all your favorite dishes.",
+    en: "Fresh Asian cuisine made with care. Dine-in, takeout, and delivery options.",
     zh: "用心烹制的亚洲美食，提供堂食、自取和外卖。",
   },
   "hours.sunThu": { en: "Sun–Thu", zh: "周日–周四" },
