@@ -36,6 +36,9 @@ interface AnimatedReceiptProps {
   /** Pass-through for CSS vars, e.g. shadow tuning
       ({ "--rcpt-blur": "48px" } as CSSProperties). */
   style?: CSSProperties;
+  /** When provided, a subtle "re-play" affordance appears top-right of
+      the machine that re-runs the feed from "processing". */
+  onReplay?: () => void;
 }
 
 const DEFAULT_STATUS: Record<ReceiptStage, string> = {
@@ -64,6 +67,7 @@ export function AnimatedReceipt({
   children,
   className,
   style,
+  onReplay,
 }: AnimatedReceiptProps) {
   const cls = [styles.root, className ?? ""].filter(Boolean).join(" ");
   const motionCls = feedMotion === "stepped" ? styles.stepped : styles.smooth;
@@ -96,7 +100,19 @@ export function AnimatedReceipt({
       }`}
     >
       <div className={styles.machine}>
-        <div className={styles.machineHeader}>{machineTitle}</div>
+        <div className={styles.machineHeader}>
+          <span className={styles.machineTitle}>{machineTitle}</span>
+          {onReplay && (
+            <button
+              type="button"
+              className={styles.replay}
+              onClick={onReplay}
+              aria-label="Replay receipt animation"
+            >
+              <span aria-hidden="true">↻</span> re-play
+            </button>
+          )}
+        </div>
         <div className={styles.screen}>
           <span aria-hidden="true" className={styles.indicator}>
             {stage === "complete" ? (

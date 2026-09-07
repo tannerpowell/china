@@ -44,21 +44,39 @@ function ConfirmationReceipt({
 }) {
   const [stage, setStage] = useState<ReceiptStage>("processing");
   const timers = useRef<number[]>([]);
+  const wrapRef = useRef<HTMLDivElement>(null);
+
+  // Payment happens mid-page; the confirmation is taller than the form,
+  // so bring the printer into frame on arrival (instant for reduced motion).
   useEffect(() => {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    wrapRef.current?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+  }, []);
+
+  const play = () => {
+    timers.current.forEach(clearTimeout);
+    timers.current = [];
+    setStage("processing");
     timers.current.push(
       window.setTimeout(() => setStage("printing"), 900),
       window.setTimeout(() => setStage("complete"), 3400)
     );
+  };
+  useEffect(() => {
+    play();
     return () => timers.current.forEach(clearTimeout);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const money = (n: number) => `$${n.toFixed(2)}`;
 
   return (
+    <div ref={wrapRef}>
     <AnimatedReceipt
       stage={stage}
       feedMotion="stepped"
       machineTitle={`Order #${orderNumber}`}
+      onReplay={play}
       statusText={{
         processing: "Sending to kitchen…",
         printing: "Printing your receipt…",
@@ -106,6 +124,7 @@ function ConfirmationReceipt({
         <p className={styles.center}>Thank you!</p>
       </div>
     </AnimatedReceipt>
+    </div>
   );
 }
 
