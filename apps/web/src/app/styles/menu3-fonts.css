@@ -11,10 +11,11 @@
    ============================================ */
 
 :root {
-  /* Font families - uses --font-sen from next/font in layout.tsx */
-  --font-menu-display: var(--font-sen), 'Sen', system-ui, -apple-system, sans-serif;
-  --font-menu-body: var(--font-sen), 'Sen', system-ui, -apple-system, sans-serif;
-  --font-menu-ui: var(--font-sen), 'Sen', system-ui, -apple-system, sans-serif;
+  /* Font families - uses --font-sen from next/font in layout.tsx.
+     Noto + system CJK fallbacks appended so Chinese UI copy renders. */
+  --font-menu-display: var(--font-sen), 'Noto Sans SC', 'Sen', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', system-ui, -apple-system, sans-serif;
+  --font-menu-body: var(--font-sen), 'Noto Sans SC', 'Sen', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', system-ui, -apple-system, sans-serif;
+  --font-menu-ui: var(--font-sen), 'Noto Sans SC', 'Sen', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', system-ui, -apple-system, sans-serif;
   --font-menu-mono: 'SF Mono', 'Menlo', 'Monaco', 'Consolas', monospace;
 }
 

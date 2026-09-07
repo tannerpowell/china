@@ -2,6 +2,7 @@
 
 import React, { useCallback, useRef } from 'react';
 import type { Category } from '@/lib/types';
+import { T } from '@/components/T';
 
 interface CategoryNavProps {
   categories: Category[];
@@ -54,10 +55,14 @@ export function CategoryNav({
             ref={searchInputRef}
             type="search"
             placeholder="Search menu..."
+            data-ph-en="Search menu..."
+            data-ph-zh="搜索菜单…"
             value={searchTerm}
             onChange={(e) => onSearchChange(e.target.value)}
             className="menu3-search-input menu3-type-search"
             aria-label="Search menu items"
+            data-aria-en="Search menu items"
+            data-aria-zh="搜索菜品"
           />
           {searchTerm && (
             <button
@@ -65,6 +70,8 @@ export function CategoryNav({
               onClick={handleSearchClear}
               className="menu3-search-clear"
               aria-label="Clear search"
+              data-aria-en="Clear search"
+              data-aria-zh="清除搜索"
             >
               <svg
                 width="12"
@@ -93,7 +100,7 @@ export function CategoryNav({
           role="radio"
           aria-checked={selectedCategory === ''}
         >
-          <span className="menu3-category-item-text">All Items</span>
+          <span className="menu3-category-item-text"><T id="menu.allItems" /></span>
         </button>
 
         {categories.map(category => (

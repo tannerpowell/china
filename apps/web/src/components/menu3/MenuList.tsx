@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import type { MenuItem, Category } from '@/lib/types';
+import { T } from '@/components/T';
 import { MenuItemRow } from './MenuItemRow';
 
 interface MenuListProps {
@@ -113,7 +114,7 @@ export function MenuList({
     <>
       <div className="menu3-list-header">
         <span className="menu3-item-count menu3-type-section">
-          {visibleItemCount} {visibleItemCount === 1 ? 'item' : 'items'}
+          {visibleItemCount} {visibleItemCount === 1 ? <T id="menu.item1" /> : <T id="menu.itemN" />}
         </span>
       </div>
 
@@ -150,8 +151,8 @@ export function MenuList({
         {/* No results message */}
         {filteredItems.length === 0 && (
           <div className="menu3-no-results">
-            <p>No items found</p>
-            {searchTerm && <p className="menu3-no-results-hint">Try adjusting your search</p>}
+            <p><T id="menu.noResults" /></p>
+            {searchTerm && <p className="menu3-no-results-hint"><T id="menu.noResultsHint" /></p>}
           </div>
         )}
       </div>

@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Minus, Plus, Check, ShoppingBag } from 'lucide-react';
 import type { MenuItem, ModifierGroup, CartModifier, Category } from '@/lib/types';
 import { useCartStore } from '@/lib/cart-store';
+import { T } from '@/components/T';
 import styles from './MenuItemModal.module.css';
 
 interface MenuItemModalProps {
@@ -208,6 +209,8 @@ export function MenuItemModal({
           onClick={onClose}
           className={styles.closeBtn}
           aria-label="Close modal"
+          data-aria-en="Close modal"
+          data-aria-zh="关闭窗口"
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
             <path d="M18 6 6 18M6 6l12 12" />
@@ -273,7 +276,7 @@ export function MenuItemModal({
                 <span className={styles.priceAmount}>{item.basePrice.toFixed(2)}</span>
               </>
             ) : (
-              <span className={styles.priceMarket}>Market Price</span>
+              <span className={styles.priceMarket}><T id="menu.modalMp" /></span>
             )}
           </div>
 
@@ -294,9 +297,9 @@ export function MenuItemModal({
                 <div key={group.id} className={styles.modifierGroup}>
                   <h3 className={styles.modifierTitle}>
                     {group.title.replace(/\n.*/, '').trim()}
-                    {group.min > 0 && <span className={styles.required}>(Required)</span>}
+                    {group.min > 0 && <span className={styles.required}><T id="menu.modalRequired" /></span>}
                     <span className={styles.modifierType}>
-                      {group.selectionType === 'single' ? 'Choose one' : `Choose up to ${group.max}`}
+                      {group.selectionType === 'single' ? <T id="menu.modalOne" /> : <><T id="menu.modalUpTo" /> {group.max}</>}
                     </span>
                   </h3>
                   <div className={styles.options}>
@@ -329,10 +332,12 @@ export function MenuItemModal({
 
           {/* Special instructions */}
           <div className={styles.instructions}>
-            <label className={styles.instructionsLabel}>Special Instructions</label>
+            <label className={styles.instructionsLabel}><T id="menu.modalNotes" /></label>
             <textarea
               className={styles.instructionsInput}
               placeholder="Any allergies or special requests?"
+              data-ph-en="Any allergies or special requests?"
+              data-ph-zh="有过敏或特殊要求请注明"
               value={specialInstructions}
               onChange={(e) => setSpecialInstructions(e.target.value)}
               rows={2}
@@ -351,6 +356,8 @@ export function MenuItemModal({
                 onClick={() => setQuantity(Math.max(1, quantity - 1))}
                 disabled={quantity <= 1}
                 aria-label="Decrease quantity"
+                data-aria-en="Decrease quantity"
+                data-aria-zh="减少数量"
               >
                 <Minus size={18} aria-hidden="true" />
               </button>
@@ -360,6 +367,8 @@ export function MenuItemModal({
                 className={styles.quantityButton}
                 onClick={() => setQuantity(quantity + 1)}
                 aria-label="Increase quantity"
+                data-aria-en="Increase quantity"
+                data-aria-zh="增加数量"
               >
                 <Plus size={18} aria-hidden="true" />
               </button>
@@ -374,12 +383,12 @@ export function MenuItemModal({
               {addedToCart ? (
                 <>
                   <Check size={20} />
-                  Added!
+                  <T id="menu.modalAdded" />
                 </>
               ) : (
                 <>
                   <ShoppingBag size={20} />
-                  Add to Order
+                  <T id="menu.modalAdd" />
                   <span className={styles.addButtonPrice}>${totalPrice.toFixed(2)}</span>
                 </>
               )}

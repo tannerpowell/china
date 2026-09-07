@@ -1,6 +1,9 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { T, } from "@/components/T";
+import { st } from "@/lib/i18n";
+import { useSiteLang } from "@/components/LanguageToggle";
 import styles from "./page.module.css";
 
 interface NavSection {
@@ -37,6 +40,7 @@ export function SectionNav({
   const [query, setQuery] = useState("");
   const trackRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { lang } = useSiteLang();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -115,7 +119,7 @@ export function SectionNav({
       <nav className={styles.nav} aria-label="Menu sections">
         <div className={styles.navInner}>
           <a href="#top" className={styles.navBrand}>
-            Full Menu
+            <T id="all.brand" />
           </a>
           <div className={styles.navTrackWrap}>
             <div ref={trackRef} className={styles.navLinks}>
@@ -138,8 +142,8 @@ export function SectionNav({
                 type="button"
                 onClick={scrollTrack}
                 className={styles.navCaret}
-                aria-label="Show more sections"
-                title="More sections"
+                aria-label={st("all.more", lang)}
+                title={st("all.more", lang)}
               >
                 <span aria-hidden="true">›</span>
               </button>
@@ -149,8 +153,8 @@ export function SectionNav({
             type="button"
             onClick={() => setSearchOpen(true)}
             className={styles.navSearch}
-            aria-label="Search the menu"
-            title="Search the menu"
+            aria-label={st("all.searchAria", lang)}
+            title={st("all.searchAria", lang)}
           >
             <svg
               width="16"
@@ -181,7 +185,7 @@ export function SectionNav({
             className={styles.searchDialog}
             role="dialog"
             aria-modal="true"
-            aria-label="Search the menu"
+            aria-label={st("all.searchAria", lang)}
             onClick={(e) => e.stopPropagation()}
           >
             <div className={styles.searchBox}>
@@ -208,8 +212,8 @@ export function SectionNav({
                     jumpTo(results[0]);
                   }
                 }}
-                placeholder="Search dishes…"
-                aria-label="Search dishes"
+                placeholder={st("all.searchPh", lang)}
+                aria-label={st("all.searchPh", lang)}
                 className={styles.searchInput}
               />
               <button
@@ -219,7 +223,7 @@ export function SectionNav({
                   setQuery("");
                 }}
                 className={styles.searchClose}
-                aria-label="Close search"
+                aria-label={st("all.searchClose", lang)}
               >
                 ✕
               </button>
@@ -238,7 +242,7 @@ export function SectionNav({
                           {item.name}
                         </span>
                         <span className={styles.searchResultPrice}>
-                          {item.price ?? <span className={styles.mp}>MP</span>}
+                          {item.price ?? <T id="menu.mp" />}
                         </span>
                       </span>
                       <span className={styles.searchResultMeta}>
@@ -252,18 +256,28 @@ export function SectionNav({
                 ))}
                 {results.length === 0 && (
                   <li className={styles.searchEmpty}>
-                    No dishes match “{query.trim()}”.
+                    <T id="all.searchNone" /> “{query.trim()}”.
                   </li>
                 )}
               </ul>
             )}
             <p className={styles.searchHint}>
-              {query.trim().length < 2
-                ? "Type at least 2 characters."
-                : `${results.length} match${
-                    results.length === 1 ? "" : "es"
-                  } · Enter jumps to the first.`}{" "}
-              Esc closes.
+              {query.trim().length < 2 ? (
+                <T id="all.searchMin" />
+              ) : (
+                <>
+                  {results.length}{" "}
+                  <T
+                    id={
+                      results.length === 1
+                        ? "all.searchMatch1"
+                        : "all.searchMatchN"
+                    }
+                  />{" "}
+                  · <T id="all.searchFirst" />
+                </>
+              )}{" "}
+              <T id="all.searchEsc" />
             </p>
           </div>
         </div>

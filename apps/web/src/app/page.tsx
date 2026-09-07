@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
+import { T } from "@/components/T";
 import { SiteSidebar } from "@/components/SiteSidebar";
 import {
   restaurant,
@@ -58,16 +59,16 @@ export default function Home() {
       {/* Scrolling Right Panel */}
       <main className={styles.rightPanel}>
         <div className={styles.welcome}>
-          <h2 className={styles.welcomeTitle}>Welcome</h2>
+          <h2 className={styles.welcomeTitle}><T id="home.welcome" /></h2>
           <p className={styles.welcomeText}>
-            Browse our menu and order your favorites online. Click any category below to explore our dishes.
+            <T id="home.lede" />
           </p>
         </div>
 
         <div className={styles.categoryCards}>
           <Link href="/menu#soups" className={styles.card}>
-            <span className={styles.cardCategory}>Soups</span>
-            <h3 className={styles.cardTitle}>Start with Soup</h3>
+            <span className={styles.cardCategory}><T id="home.card.soups" /></span>
+            <h3 className={styles.cardTitle}><T id="home.card.soupsTitle" /></h3>
             <div className={styles.cardItems}>
               <p>Hot & Sour Soup</p>
               <p>Egg Drop Soup</p>
@@ -76,8 +77,8 @@ export default function Home() {
           </Link>
 
           <Link href="/menu#appetizers" className={styles.card}>
-            <span className={styles.cardCategory}>Appetizers</span>
-            <h3 className={styles.cardTitle}>Appetizers</h3>
+            <span className={styles.cardCategory}><T id="home.card.appetizers" /></span>
+            <h3 className={styles.cardTitle}><T id="home.card.appetizersTitle" /></h3>
             <div className={styles.cardItems}>
               <p>Egg Rolls</p>
               <p>Crab Rangoon</p>
@@ -87,8 +88,8 @@ export default function Home() {
           </Link>
 
           <Link href="/menu#favorites" className={styles.card}>
-            <span className={styles.cardCategory}>House Favorites</span>
-            <h3 className={styles.cardTitle}>Favorites</h3>
+            <span className={styles.cardCategory}><T id="home.card.favorites" /></span>
+            <h3 className={styles.cardTitle}><T id="home.card.favoritesTitle" /></h3>
             <div className={styles.cardItems}>
               <p>General Tso's Chicken</p>
               <p>Orange Chicken</p>
@@ -98,8 +99,8 @@ export default function Home() {
           </Link>
 
           <Link href="/menu#fried-rice" className={styles.card}>
-            <span className={styles.cardCategory}>Fried Rice</span>
-            <h3 className={styles.cardTitle}>Fried Rice</h3>
+            <span className={styles.cardCategory}><T id="home.card.friedRice" /></span>
+            <h3 className={styles.cardTitle}><T id="home.card.friedRiceTitle" /></h3>
             <div className={styles.cardItems}>
               <p>Chicken Fried Rice</p>
               <p>Shrimp Fried Rice</p>
@@ -109,8 +110,8 @@ export default function Home() {
           </Link>
 
           <Link href="/menu#noodles" className={styles.card}>
-            <span className={styles.cardCategory}>Noodles</span>
-            <h3 className={styles.cardTitle}>Noodles</h3>
+            <span className={styles.cardCategory}><T id="home.card.noodles" /></span>
+            <h3 className={styles.cardTitle}><T id="home.card.noodlesTitle" /></h3>
             <div className={styles.cardItems}>
               <p>Lo Mein</p>
               <p>Chow Mein</p>
@@ -120,8 +121,8 @@ export default function Home() {
           </Link>
 
           <Link href="/menu#specialties" className={styles.card}>
-            <span className={styles.cardCategory}>Specialties</span>
-            <h3 className={styles.cardTitle}>Chef's Specials</h3>
+            <span className={styles.cardCategory}><T id="home.card.specialties" /></span>
+            <h3 className={styles.cardTitle}><T id="home.card.specialtiesTitle" /></h3>
             <div className={styles.cardItems}>
               <p>Peking Duck</p>
               <p>Salt & Pepper Shrimp</p>
@@ -132,12 +133,12 @@ export default function Home() {
 
         <div className={styles.cta}>
           <Link href="/menu" className={styles.ctaButton}>
-            View Full Menu →
+            <T id="home.viewMenu" /> →
           </Link>
         </div>
 
         <div className={styles.launchLink}>
-          <Link href="/launch">Go-live checklist →</Link>
+          <Link href="/launch"><T id="home.checklist" /></Link>
         </div>
       </main>
     </div>

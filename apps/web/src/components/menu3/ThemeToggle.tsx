@@ -1,6 +1,8 @@
 'use client';
 
 import React from 'react';
+import { st } from '@/lib/i18n';
+import { useSiteLang } from '@/components/LanguageToggle';
 
 export type MenuTheme = 'classic' | 'warm' | 'dark';
 
@@ -9,10 +11,10 @@ interface ThemeToggleProps {
   onThemeChange: (theme: MenuTheme) => void;
 }
 
-const OPTIONS: { id: MenuTheme; label: string }[] = [
-  { id: 'classic', label: 'Classic theme' },
-  { id: 'warm', label: 'Warm theme' },
-  { id: 'dark', label: 'Dark theme' },
+const OPTIONS: { id: MenuTheme; labelKey: string }[] = [
+  { id: 'classic', labelKey: 'theme.classic' },
+  { id: 'warm', labelKey: 'theme.warm' },
+  { id: 'dark', labelKey: 'theme.dark' },
 ];
 
 /**
@@ -22,8 +24,9 @@ const OPTIONS: { id: MenuTheme; label: string }[] = [
  * (e.g. "Preview theme" in the sidebar).
  */
 export function ThemeToggle({ theme, onThemeChange }: ThemeToggleProps) {
+  const { lang } = useSiteLang();
   return (
-    <div className="theme-toggle" role="radiogroup" aria-label="Site theme">
+    <div className="theme-toggle" role="radiogroup" aria-label={st('theme.group', lang)}>
       {OPTIONS.map((opt) => (
         <button
           key={opt.id}
@@ -34,8 +37,8 @@ export function ThemeToggle({ theme, onThemeChange }: ThemeToggleProps) {
           onClick={() => onThemeChange(opt.id)}
           role="radio"
           aria-checked={theme === opt.id}
-          title={opt.label}
-          aria-label={opt.label}
+          title={st(opt.labelKey, lang)}
+          aria-label={st(opt.labelKey, lang)}
         />
       ))}
     </div>

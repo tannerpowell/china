@@ -5,6 +5,8 @@ import Link from "next/link";
 import type { MenuItem, Category, ModifierGroup } from '@/lib/types';
 import { useCartStore } from '@/lib/cart-store';
 import { useSiteTheme } from '@/components/SiteThemeToggle';
+import { LanguageToggle } from '@/components/LanguageToggle';
+import { T } from '@/components/T';
 import { CategoryNav } from './CategoryNav';
 import { MenuList } from './MenuList';
 import { PeekPreview } from './PeekPreview';
@@ -102,8 +104,9 @@ export default function Menu3PageClient({
 
         <div className="menu3-header-actions">
           <Link href="/menu/all" className="menu3-singlepage-link">
-            Single Page
+            <T id="menu.singlePage" />
           </Link>
+          <LanguageToggle compact />
           <ThemeToggle theme={theme} onThemeChange={setTheme} />
 
           {itemCount > 0 && (

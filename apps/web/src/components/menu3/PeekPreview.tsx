@@ -3,6 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import type { MenuItem } from '@/lib/types';
+import { T } from '@/components/T';
 
 interface PeekPreviewProps {
   item: MenuItem | null;
@@ -64,7 +65,7 @@ export function PeekPreview({ item }: PeekPreviewProps) {
               {item.basePrice.toFixed(2)}
             </>
           ) : (
-            <span className="menu3-peek-price-mp">Market Price</span>
+            <span className="menu3-peek-price-mp"><T id="menu.modalMp" /></span>
           )}
         </div>
 

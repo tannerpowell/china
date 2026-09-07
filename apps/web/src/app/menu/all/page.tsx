@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllMenuData } from "@/lib/menu-sanity";
 import { JsonLd } from "@/components/JsonLd";
+import { T } from "@/components/T";
 import { breadcrumbJsonLd } from "@/lib/schema";
 import { SiteSidebar } from "@/components/SiteSidebar";
 import {
@@ -76,11 +77,9 @@ export default async function FullMenuPage() {
               {restaurant.name} · {restaurant.addressCity},{" "}
               {restaurant.addressRegion}
             </p>
-            <h1 className={styles.title}>The Full Menu</h1>
+            <h1 className={styles.title}><T id="all.title" /></h1>
             <p className={styles.lede}>
-              Every dish, start to finish — {items.length} items across{" "}
-              {sections.length} sections. Scroll, or jump straight to a
-              craving.
+              <T id="all.lede" vars={{ n: items.length, s: sections.length }} />
             </p>
             <div className={styles.ctaRow}>
               <a
@@ -89,20 +88,20 @@ export default async function FullMenuPage() {
                 rel="noopener noreferrer"
                 className={styles.ctaPrimary}
               >
-                Order Online
+                <T id="all.orderCta" />
               </a>
               <a href={restaurantPhoneHref} className={styles.ctaSecondary}>
-                Call {restaurant.phoneDisplay}
+                <T id="all.callCta" /> {restaurant.phoneDisplay}
               </a>
             </div>
             <p className={styles.legend}>
-              <span title="Spicy">🌶 spicy</span>
+              <span title="Spicy">🌶 <T id="all.spicy" /></span>
               <span aria-hidden="true">·</span>
-              <span title="Vegetarian">🌱 vegetarian</span>
+              <span title="Vegetarian">🌱 <T id="all.veg" /></span>
               <span aria-hidden="true">·</span>
-              <span title="Popular">★ house favorite</span>
+              <span title="Popular">★ <T id="all.pop" /></span>
               <span aria-hidden="true">·</span>
-              <span title="Market price">MP market price</span>
+              <span title="Market price">MP <T id="all.mpFull" /></span>
             </p>
           </header>
 
@@ -120,8 +119,10 @@ export default async function FullMenuPage() {
                 </span>
                 <div>
                   <p className={styles.sectionEyebrow}>
-                    Section {number} · {sectionItems.length}{" "}
-                    {sectionItems.length === 1 ? "dish" : "dishes"}
+                    <T
+                      id="all.sectionLine"
+                      vars={{ num: number, n: sectionItems.length }}
+                    />
                   </p>
                   <h2
                     id={`${category.slug}-heading`}
@@ -170,7 +171,7 @@ export default async function FullMenuPage() {
                         {item.basePrice !== null ? (
                           formatPrice(item.basePrice)
                         ) : (
-                          <span className={styles.mp}>MP</span>
+                          <T id="menu.mp" />
                         )}
                       </span>
                     </div>
@@ -194,18 +195,18 @@ export default async function FullMenuPage() {
                 rel="noopener noreferrer"
                 className={styles.ctaPrimary}
               >
-                Order Online
+                <T id="all.orderCta" />
               </a>
               <Link href="/menu" className={styles.ctaSecondary}>
-                Interactive Menu
+                <T id="all.interactive" />
               </Link>
             </div>
             <p className={styles.footerLinks}>
-              <Link href="/">Home</Link>
+              <Link href="/"><T id="all.home" /></Link>
               <span aria-hidden="true">·</span>
-              <Link href="/location">Location Info</Link>
+              <Link href="/location"><T id="nav.visit" /></Link>
               <span aria-hidden="true">·</span>
-              <a href="#top">Back to top ↑</a>
+              <a href="#top"><T id="all.top" /></a>
             </p>
           </footer>
         </main>

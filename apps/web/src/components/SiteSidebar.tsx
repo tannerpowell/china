@@ -6,6 +6,8 @@ import {
   restaurantPhoneHref,
 } from "@/lib/restaurant";
 import { SiteThemeToggle } from "./SiteThemeToggle";
+import { LanguageToggle } from "./LanguageToggle";
+import { T } from "./T";
 import styles from "./SiteSidebar.module.css";
 
 interface SiteSidebarProps {
@@ -37,40 +39,45 @@ export function SiteSidebar({ active }: SiteSidebarProps) {
             href="/menu"
             className={`${styles.navLink} ${active === "menu" ? styles.navLinkActive : ""}`}
           >
-            Menu
+            <T id="nav.menu" />
           </Link>
           <Link
             href="/order"
             className={`${styles.navLink} ${active === "order" ? styles.navLinkActive : ""}`}
           >
-            Order Online
+            <T id="nav.order" />
           </Link>
           <Link
             href="/location"
             className={`${styles.navLink} ${active === "visit" ? styles.navLinkActive : ""}`}
           >
-            Visit Us
+            <T id="nav.visit" />
           </Link>
         </nav>
 
         <p className={styles.blurb}>
-          Fresh Asian cuisine made with care. We offer dine-in, takeout, and delivery options for all your favorite dishes.
+          <T id="nav.blurb" />
           <br /><br />
-          <a href={restaurantPhoneHref} className={styles.aboutLink}>Call to Order: {phone}</a>
+          <a href={restaurantPhoneHref} className={styles.aboutLink}><T id="nav.call" />: {phone}</a>
         </p>
 
         <div className={styles.hours}>
-          <strong>Hours</strong><br />
+          <strong><T id="nav.hours" /></strong><br />
           {restaurantHoursShort.map((row) => (
             <span key={row.days} className={styles.hoursRow}>
-              {row.days}: {row.time}
+              {row.days.startsWith("Sun") ? <T id="hours.sunThu" /> : <T id="hours.friSat" />}: {row.time}
             </span>
           ))}
         </div>
 
         <div className={styles.themeWrap}>
-          <span className={styles.themeCaption}>Preview theme</span>
+          <span className={styles.themeCaption}><T id="nav.theme" /></span>
           <SiteThemeToggle />
+        </div>
+
+        <div className={styles.themeWrap}>
+          <span className={styles.themeCaption}><T id="nav.lang" /></span>
+          <LanguageToggle />
         </div>
       </div>
     </aside>

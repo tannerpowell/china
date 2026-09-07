@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/JsonLd";
+import { T } from "@/components/T";
 import { breadcrumbJsonLd } from "@/lib/schema";
 
 export const metadata: Metadata = {
@@ -42,11 +43,11 @@ export default function OrderPage() {
           { name: "Order Online" },
         ])}
       />
-      <h1 style={{ marginTop: 0 }}>Order</h1>
-      <p style={{ color: "var(--muted)" }}>Ordering currently links out while we replace checkout.</p>
+      <h1 style={{ marginTop: 0 }}><T id="order.title" /></h1>
+      <p style={{ color: "var(--muted)" }}><T id="order.body" /></p>
       <div style={{ display: "grid", gap: 10 }}>
-        <a href={orderUrl} target="_blank" rel="noopener noreferrer" style={btnPrimary}>Order Online</a>
-        {phone ? <a href={`tel:${phone}`} style={btnSecondary}>Call for Takeout</a> : null}
+        <a href={orderUrl} target="_blank" rel="noopener noreferrer" style={btnPrimary}><T id="nav.order" /></a>
+        {phone ? <a href={`tel:${phone}`} style={btnSecondary}><T id="order.call" /></a> : null}
       </div>
     </main>
   );

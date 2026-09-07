@@ -2,6 +2,7 @@
 
 import React, { forwardRef } from 'react';
 import type { MenuItem } from '@/lib/types';
+import { T } from '@/components/T';
 
 interface MenuItemRowProps {
   item: MenuItem;
@@ -82,7 +83,7 @@ export const MenuItemRow = forwardRef<HTMLButtonElement, MenuItemRowProps>(
               {item.basePrice.toFixed(2)}
             </>
           ) : (
-            <span className="menu3-price-mp">MP</span>
+            <span className="menu3-price-mp"><T id="menu.mp" /></span>
           )}
         </span>
       </button>
