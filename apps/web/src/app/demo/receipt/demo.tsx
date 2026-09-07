@@ -41,9 +41,9 @@ export function ReceiptDemo() {
   const [motion, setMotion] = useState<ReceiptFeedMotion>("stepped");
   const [animate, setAnimate] = useState(true);
   // Shadow tuning sliders — live CSS vars on the receipt root.
-  const [blur, setBlur] = useState(32);
-  const [dist, setDist] = useState(20);
-  const [dark, setDark] = useState(12);
+  const [blur, setBlur] = useState(10);
+  const [dist, setDist] = useState(5);
+  const [dark, setDark] = useState(14);
   const timers = useRef<number[]>([]);
 
   const play = useCallback(

@@ -116,8 +116,8 @@
      (see demo sliders). Blur radii must stay inside the output mask's
      horizontal padding or the mask clips them into hard bands. */
   filter:
-    drop-shadow(0 var(--rcpt-y, 20px) var(--rcpt-blur, 32px) rgba(0, 0, 0, var(--rcpt-a, 0.12)))
-    drop-shadow(0 calc(var(--rcpt-y, 20px) / 3) calc(var(--rcpt-blur, 32px) / 3) rgba(0, 0, 0, calc(var(--rcpt-a, 0.12) / 2)));
+    drop-shadow(0 var(--rcpt-y, 5px) var(--rcpt-blur, 10px) rgba(0, 0, 0, var(--rcpt-a, 0.14)))
+    drop-shadow(0 calc(var(--rcpt-y, 5px) / 3) calc(var(--rcpt-blur, 10px) / 3) rgba(0, 0, 0, calc(var(--rcpt-a, 0.14) / 2)));
 }
 
 /* Parked (processing): hidden above. Fed: paper fully out. */
