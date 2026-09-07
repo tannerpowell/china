@@ -7,11 +7,8 @@
   align-items: center;
 }
 
-.back {
-  align-self: flex-start;
-  font-size: 14px;
-  color: var(--green);
-  margin-bottom: 16px;
+.ownerBar {
+  align-self: stretch;
 }
 
 .title {

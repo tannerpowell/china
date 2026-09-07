@@ -25,14 +25,28 @@
 }
 
 /* Owner pages nav: Launch Preparation | Open Questions | Receipt Demo */
+.ownerBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
 .ownerNav {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   gap: 10px;
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 700;
-  margin-bottom: 24px;
+}
+
+.toggles {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .ownerNav a {

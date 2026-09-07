@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { SiteThemeToggle } from "@/components/SiteThemeToggle";
 import styles from "../launch/page.module.css";
 import local from "./questions.module.css";
 
@@ -323,9 +324,20 @@ export function MenuQuestionsClient() {
   return (
     <main className={styles.page}>
       <div className={styles.container}>
-        <Link href="/launch" className={styles.backLink}>
-          {t.back}
-        </Link>
+        <div className={styles.ownerBar}>
+          <nav className={styles.ownerNav} aria-label="Owner pages">
+            <Link href="/launch">Launch Preparation</Link>
+            <span aria-hidden="true">|</span>
+            <span className={styles.ownerNavActive} aria-current="page">
+              {lang === "zh" ? "待确认问题" : "Open Questions"}
+            </span>
+            <span aria-hidden="true">|</span>
+            <Link href="/demo/receipt">Receipt Demo</Link>
+          </nav>
+          <div className={styles.toggles}>
+            <SiteThemeToggle />
+          </div>
+        </div>
         <div className={local.topRow}>
           <p className={styles.eyebrow}>{t.eyebrow}</p>
           <div

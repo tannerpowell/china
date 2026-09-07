@@ -2,11 +2,13 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { SiteThemeToggle } from "@/components/SiteThemeToggle";
 import {
   AnimatedReceipt,
   type ReceiptFeedMotion,
   type ReceiptStage,
 } from "@/components/Receipt/AnimatedReceipt";
+import navStyles from "../../launch/page.module.css";
 import styles from "./demo.module.css";
 
 // Demo-only sample order. The real confirmation will pass the live cart;
@@ -54,9 +56,20 @@ export function ReceiptDemo() {
 
   return (
     <main className={styles.main}>
-      <Link href="/checkout" className={styles.back}>
-        ← Checkout (unchanged)
-      </Link>
+      <div className={`${navStyles.ownerBar} ${styles.ownerBar}`}>
+        <nav className={navStyles.ownerNav} aria-label="Owner pages">
+          <Link href="/launch">Launch Preparation</Link>
+          <span aria-hidden="true">|</span>
+          <Link href="/menu-questions">Open Questions</Link>
+          <span aria-hidden="true">|</span>
+          <span className={navStyles.ownerNavActive} aria-current="page">
+            Receipt Demo
+          </span>
+        </nav>
+        <div className={navStyles.toggles}>
+          <SiteThemeToggle />
+        </div>
+      </div>
       <h1 className={styles.title}>Receipt demo</h1>
       <p className={styles.lede}>
         Candidate animated receipt for the order confirmation. Same sample
