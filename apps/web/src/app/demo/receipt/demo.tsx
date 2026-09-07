@@ -41,7 +41,7 @@ export function ReceiptDemo() {
       setStage("processing");
       timers.current.push(
         window.setTimeout(() => setStage("printing"), 900),
-        window.setTimeout(() => setStage("complete"), m === "stepped" ? 3400 : 2600)
+        window.setTimeout(() => setStage("complete"), m === "stepped" ? 3400 : 4000)
       );
     },
     []

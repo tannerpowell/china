@@ -26,6 +26,10 @@ export default function LaunchPage() {
           <Link href="/menu-questions" className={styles.backLink}>
             Menu open questions →
           </Link>
+          {" · "}
+          <Link href="/demo/receipt" className={styles.backLink}>
+            Animated receipt demo →
+          </Link>
         </p>
         <LaunchList />
       </div>

@@ -120,7 +120,7 @@
 
 /* Smooth: one eased motion desk to done. */
 .root.smooth.fed .feed {
-  animation: receipt-feed-smooth 1.4s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  animation: receipt-feed-smooth 2.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
 }
 
 /* Stepped: hold/advance pairs like a real dot-matrix feed. */
