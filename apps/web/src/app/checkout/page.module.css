@@ -339,6 +339,47 @@
   text-align: center;
 }
 
+/* Confirmation receipt */
+.confirmWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-top: 8px;
+}
+
+.rcpt hr {
+  border: none;
+  border-top: 1px dashed #999;
+  margin: 8px 0;
+}
+
+.rcpt p {
+  margin: 0;
+}
+
+.center {
+  text-align: center;
+}
+
+.line {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  text-align: left;
+}
+
+.mod {
+  padding-left: 18px;
+  color: #6b6b6b;
+  text-align: left;
+}
+
+.total {
+  font-weight: 800;
+  font-size: 14px;
+}
+
 /* Submit */
 .submitBtn {
   padding: 16px;

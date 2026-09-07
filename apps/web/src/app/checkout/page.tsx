@@ -1,9 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useCartStore } from "@/lib/cart-store";
 import { SiteFooter } from "@/components/SiteFooter";
+import {
+  AnimatedReceipt,
+  type ReceiptStage,
+} from "@/components/Receipt/AnimatedReceipt";
 import { DemoPaymentForm } from "./DemoPaymentForm";
 import styles from "./page.module.css";
 
@@ -16,6 +20,95 @@ import styles from "./page.module.css";
 // PaymentForm already honors — so this page does not change when Stripe
 // goes live, except swapping the component + wrapping in StripeProvider.
 
+// Live order confirmation: prints the paid snapshot through the shared
+// AnimatedReceipt. Stages advance on mount; nothing here is demo-specific
+// except the "demo" note rendered by the caller (see STRIPE_TRANSITION).
+function ConfirmationReceipt({
+  orderNumber,
+  orderType,
+  items,
+  subtotal,
+  tax,
+  total,
+  last4,
+  paymentId,
+}: {
+  orderNumber: string;
+  orderType: "pickup" | "delivery";
+  items: { name: string; qty: number; lineTotal: number; mods: string[] }[];
+  subtotal: number;
+  tax: number;
+  total: number;
+  last4: string;
+  paymentId: string;
+}) {
+  const [stage, setStage] = useState<ReceiptStage>("processing");
+  const timers = useRef<number[]>([]);
+  useEffect(() => {
+    timers.current.push(
+      window.setTimeout(() => setStage("printing"), 900),
+      window.setTimeout(() => setStage("complete"), 3400)
+    );
+    return () => timers.current.forEach(clearTimeout);
+  }, []);
+
+  const money = (n: number) => `$${n.toFixed(2)}`;
+
+  return (
+    <AnimatedReceipt
+      stage={stage}
+      feedMotion="stepped"
+      machineTitle={`Order #${orderNumber}`}
+      statusText={{
+        processing: "Sending to kitchen…",
+        printing: "Printing your receipt…",
+        complete: "Order confirmed",
+      }}
+    >
+      <div className={styles.rcpt}>
+        <p className={styles.center}>CHINA ISLAND ASIAN GRILL</p>
+        <p className={styles.center}>Flower Mound, TX</p>
+        <p className={styles.center}>
+          Order #{orderNumber} · {orderType === "pickup" ? "Pickup" : "Delivery"}
+        </p>
+        <hr />
+        {items.map((it) => (
+          <div key={`${it.name}-${it.mods.join("/")}`}>
+            <p className={styles.line}>
+              <span>
+                {it.qty}x {it.name}
+              </span>
+              <span>{money(it.lineTotal)}</span>
+            </p>
+            {it.mods.map((mod) => (
+              <p key={mod} className={styles.mod}>
+                + {mod}
+              </p>
+            ))}
+          </div>
+        ))}
+        <hr />
+        <p className={styles.line}>
+          <span>Subtotal</span>
+          <span>{money(subtotal)}</span>
+        </p>
+        <p className={styles.line}>
+          <span>Tax</span>
+          <span>{money(tax)}</span>
+        </p>
+        <p className={`${styles.line} ${styles.total}`}>
+          <span>Total</span>
+          <span>{money(total)}</span>
+        </p>
+        <hr />
+        <p className={styles.center}>Paid card ending {last4}</p>
+        <p className={styles.center}>Payment {paymentId}</p>
+        <p className={styles.center}>Thank you!</p>
+      </div>
+    </AnimatedReceipt>
+  );
+}
+
 export default function CheckoutPage() {
   const { items, subtotal, tax, total, clearCart, itemCount, removeItem, updateQuantity } = useCartStore();
   const [mounted, setMounted] = useState(false);
@@ -26,8 +119,16 @@ export default function CheckoutPage() {
   const [paymentId, setPaymentId] = useState("");
   const [last4, setLast4] = useState("");
   // Captured before clearCart() wipes the store — the success screen
-  // renders after, when total is already 0.
+  // renders after, when the cart is already empty.
   const [paidTotal, setPaidTotal] = useState(0);
+  const [paidSubtotal, setPaidSubtotal] = useState(0);
+  const [paidTax, setPaidTax] = useState(0);
+  const [paidOrderType, setPaidOrderType] = useState<"pickup" | "delivery">(
+    "pickup"
+  );
+  const [paidItems, setPaidItems] = useState<
+    { name: string; qty: number; lineTotal: number; mods: string[] }[]
+  >([]);
 
   const [form, setForm] = useState({
     name: "",
@@ -47,7 +148,22 @@ export default function CheckoutPage() {
     const num = `CI-${Date.now().toString(36).toUpperCase()}`;
     setPaymentId(intentId);
     setLast4(cardLast4);
+    // Snapshot everything the receipt needs — the store is cleared below.
     setPaidTotal(total);
+    setPaidSubtotal(subtotal);
+    setPaidTax(tax);
+    setPaidOrderType(form.orderType);
+    setPaidItems(
+      items.map((item) => ({
+        name: item.menuItem.name,
+        qty: item.quantity,
+        lineTotal:
+          (item.basePrice +
+            item.modifiers.reduce((s, m) => s + m.priceDelta, 0)) *
+          item.quantity,
+        mods: item.modifiers.map((m) => m.optionLabel),
+      }))
+    );
     setOrderNumber(num);
     setOrderComplete(true);
     clearCart();
@@ -71,16 +187,20 @@ export default function CheckoutPage() {
   if (orderComplete) {
     return (
       <main className={styles.main}>
-        <div className={styles.success}>
-          <div className={styles.successIcon}>✓</div>
-          <h1>Order Confirmed!</h1>
-          <p>Order #{orderNumber}</p>
-          {/* STRIPE_TRANSITION: keep paymentId/last4 lines for real Stripe —
-              only the "demo" badge goes away. */}
-          <p className={styles.successNote}>
-            Paid ${paidTotal.toFixed(2)} with card ending in {last4} (demo — no charge).
-          </p>
-          <p className={styles.successNote}>Payment {paymentId}</p>
+        <div className={styles.confirmWrap}>
+          <ConfirmationReceipt
+            orderNumber={orderNumber}
+            orderType={paidOrderType}
+            items={paidItems}
+            subtotal={paidSubtotal}
+            tax={paidTax}
+            total={paidTotal}
+            last4={last4}
+            paymentId={paymentId}
+          />
+          {/* STRIPE_TRANSITION: the demo note goes away with real Stripe;
+              the email note + Order Again stay. */}
+          <p className={styles.successNote}>Demo — no charge was made.</p>
           <p className={styles.successNote}>You'll receive a confirmation email shortly.</p>
           <Link href="/menu" className={styles.backLink}>← Order Again</Link>
         </div>
