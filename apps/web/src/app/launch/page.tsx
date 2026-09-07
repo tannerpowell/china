@@ -35,11 +35,10 @@ export default function LaunchPage() {
             <LanguageToggle compact />
           </div>
         </div>
-        <p className={styles.eyebrow}>Internal · not indexed</p>
-        <h1 className={styles.title}>Launch Preparation</h1>
+        <p className={styles.eyebrow}><T id="launch.eyebrow" /></p>
+        <h1 className={styles.title}><T id="nav.launch" /></h1>
         <p className={styles.lede}>
-          What&apos;s shipped, what&apos;s left, and what needs the
-          owner — for the China Island Asian Grill site pitch and launch.
+          <T id="launch.lede" />
         </p>
         <LaunchList />
         <SiteFooter />

@@ -23,6 +23,15 @@ export const STR: Record<string, Entry> = {
   "nav.launch": { en: "Launch Preparation", zh: "上线准备" },
   "nav.questions": { en: "Open Questions", zh: "待确认问题" },
   "nav.receiptDemo": { en: "Receipt Demo", zh: "小票演示" },
+  "launch.eyebrow": { en: "Internal · not indexed", zh: "内部页面 · 不收录" },
+  "launch.lede": {
+    en: "What's shipped, what's left, and what needs the owner — for the China Island Asian Grill site pitch and launch.",
+    zh: "已上线、待办、以及需要店主处理的事项——China Island Asian Grill 网站方案与上线。",
+  },
+  "launch.f.todo": { en: "To-do", zh: "待办" },
+  "launch.f.owner": { en: "Owner", zh: "店主" },
+  "launch.f.completed": { en: "Completed", zh: "已完成" },
+  "launch.f.all": { en: "All", zh: "全部" },
   "nav.lang": { en: "Language", zh: "语言" },
   "nav.blurb1": {
     en: "Fresh Asian cuisine made with care.",
