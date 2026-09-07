@@ -20,7 +20,7 @@ interface Group {
 
 const groups: Group[] = [
   {
-    heading: "Live on the site",
+    heading: "Completed",
     intro: "Shipped and verified on chinaislandgrill.vercel.app.",
     items: [
       { text: "Full menu in HTML with real descriptions (56 of 118 items)", note: "The rest have no copy on the source site — nothing left to grab.", status: "live" },
@@ -44,25 +44,25 @@ const groups: Group[] = [
     heading: "Site work remaining",
     intro: "Ours to do before or just after go-live.",
     items: [
-      { text: "OrderAction schema for the online ordering flow", status: "todo" },
-      { text: "AggregateRating schema once a review feed is chosen", note: "Needs a review source (GBP API or manual).", status: "todo" },
-      { text: "Sitewide footer with NAP on every page", note: "Design call — home/menu currently have no footer.", status: "todo" },
-      { text: "Homepage H1 carries cuisine + city", note: "Currently brand only; SEO best practice wants the keyword.", status: "todo" },
-      { text: "Food photography + descriptive alt text", note: "Signature dishes, dining room, storefront.", status: "todo" },
+      { text: "Order button in Google search results (OrderAction markup)", note: "Behind-the-scenes code that lets Google show e.g. “Order pickup” next to our listing, straight into /order.", status: "todo" },
+      { text: "Star rating in Google search results, once a review source is chosen", note: "Needs a review source: Google Business Profile reviews, or ratings entered by hand. Lets Google show e.g. ★ 4.8 next to our listing.", status: "todo" },
+      { text: "Same name, address, and phone number in a footer on every page", note: "Search engines call this trio “NAP”. They trust us more when it matches everywhere — design call, home/menu currently have no footer.", status: "todo" },
+      { text: "Homepage main heading names the cuisine + city", note: "Currently brand only. The heading (called an “H1”) should read something like “Chinese Restaurant in Flower Mound” — that's the phrase people search.", status: "todo" },
+      { text: "Food photography + plain-English description on each photo", note: "Signature dishes, dining room, storefront. The attached description (called “alt text”) is what Google reads — e.g. “Kung Pao Chicken over steamed rice”.", status: "todo" },
       { text: "Catering page (menu already has catering options)", note: "Placeholder route until the owner confirms details.", status: "todo" },
-      { text: "Stripe apiVersion verified in test mode (non-mutating request, no charge)", note: "tsc/build can't prove the pinned version is accepted. Gate before go-live.", status: "todo" },
+      { text: "Safe Stripe version check in test mode", note: "Confirms Stripe accepts our connection settings with a no-charge test request. Required before real payments.", status: "todo" },
     ],
   },
   {
     heading: "Owner / external setup",
     intro: "Needs the owner's accounts, logins, or decisions. Can't be done from the repo.",
     items: [
-      { text: "Claim + verify Google Business Profile", note: "NAP, hours, categories, photos, menu link → /menu, order link → /order.", status: "owner" },
-      { text: "GBP upkeep habit: photos, posts, review replies", note: "Posts weekly; reply to every review within 72h.", status: "owner" },
-      { text: "Apple Maps + Bing Places + Yelp + TripAdvisor listings", note: "NAP identical everywhere.", status: "owner" },
-      { text: "Sanity: invite owner as Editor + add site CORS origin", note: "See docs/sanity-setup.md. Blocks /studio login.", status: "owner" },
-      { text: "Google Analytics account + ID in Vercel env", status: "owner" },
-      { text: "Google Search Console: verify + submit sitemap", status: "owner" },
+      { text: "Claim + verify Google Business Profile", note: "Name, address, phone (the “NAP” trio), hours, categories, photos, menu link → /menu, order link → /order.", status: "owner" },
+      { text: "Google Business Profile upkeep habit: photos, posts, review replies", note: "Posts weekly; reply to every review within 72h.", status: "owner" },
+      { text: "Apple Maps + Bing Places + Yelp + TripAdvisor listings", note: "Name, address, and phone identical everywhere — mismatches hurt search ranking.", status: "owner" },
+      { text: "Content system access: invite owner as Editor + approve our website", note: "Sanity (where menu edits happen) only talks to approved sites — ours must be on its list. See docs/sanity-setup.md. Blocks /studio login.", status: "owner" },
+      { text: "Google Analytics account + ID added to the hosting settings", status: "owner" },
+      { text: "Google Search Console: prove ownership + hand Google our page list", note: "Verification proves the site is ours; submitting the sitemap (the full page list) gets every page found faster.", status: "owner" },
       { text: "Holiday-hours process (who updates GBP + site)", status: "owner" },
     ],
   },
