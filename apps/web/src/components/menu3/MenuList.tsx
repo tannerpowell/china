@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import type { MenuItem, Category } from '@/lib/types';
+import { T } from '@/components/T';
 import { MenuItemRow } from './MenuItemRow';
 
 interface MenuListProps {
@@ -113,13 +114,13 @@ export function MenuList({
     <>
       <div className="menu3-list-header">
         <span className="menu3-item-count menu3-type-section">
-          {visibleItemCount} {visibleItemCount === 1 ? 'item' : 'items'}
+          {visibleItemCount} {visibleItemCount === 1 ? <T id="menu.item1" /> : <T id="menu.itemN" />}
         </span>
       </div>
 
       <div className="menu3-list" role="list" aria-label="Menu items">
         {groupedItems.map(({ category, items: categoryItems }) => (
-          <div key={category.id} className="menu3-category-group">
+          <div key={category.id} id={category.slug} className="menu3-category-group">
             {/* Category header - only show if not filtering by single category */}
             {!selectedCategory && (
               <div className="menu3-category-header">
@@ -150,68 +151,12 @@ export function MenuList({
         {/* No results message */}
         {filteredItems.length === 0 && (
           <div className="menu3-no-results">
-            <p>No items found</p>
-            {searchTerm && <p className="menu3-no-results-hint">Try adjusting your search</p>}
+            <p><T id="menu.noResults" /></p>
+            {searchTerm && <p className="menu3-no-results-hint"><T id="menu.noResultsHint" /></p>}
           </div>
         )}
       </div>
 
-      <style jsx>{`
-        .menu3-list-header {
-          display: flex;
-          align-items: baseline;
-          justify-content: flex-end;
-          margin-bottom: 20px;
-          padding-bottom: 16px;
-          border-bottom: 1px solid var(--menu3-border, rgba(0, 0, 0, 0.06));
-        }
-
-        .menu3-item-count {
-          color: var(--menu3-text-muted, #8A8583);
-          opacity: 0.8;
-        }
-
-        .menu3-list {
-          display: flex;
-          flex-direction: column;
-        }
-
-        .menu3-category-group {
-          margin-bottom: 32px;
-        }
-
-        .menu3-category-group:last-child {
-          margin-bottom: 0;
-        }
-
-        .menu3-category-header {
-          margin-bottom: 16px;
-          padding-bottom: 8px;
-        }
-
-        .menu3-category-title {
-          margin: 0;
-          color: var(--menu3-accent, #f74140);
-          font-size: 13px;
-        }
-
-        .menu3-no-results {
-          text-align: center;
-          padding: 48px 24px;
-          color: var(--menu3-text-muted, #8A8583);
-        }
-
-        .menu3-no-results p {
-          margin: 0;
-          font-size: 16px;
-        }
-
-        .menu3-no-results-hint {
-          margin-top: 8px !important;
-          font-size: 14px !important;
-          opacity: 0.7;
-        }
-      `}</style>
     </>
   );
 }

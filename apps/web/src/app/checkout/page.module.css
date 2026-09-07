@@ -298,6 +298,47 @@
   text-align: center;
 }
 
+/* Demo payment (DEMO ONLY — delete with DemoPaymentForm when Stripe lands) */
+.demoBadge {
+  padding: 12px 16px;
+  background: rgba(73, 158, 75, 0.1);
+  border: 2px dashed var(--green);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text);
+  text-align: center;
+}
+
+.cardRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.testCardBtn {
+  padding: 10px;
+  font-size: 13px;
+  background: transparent;
+  border: 2px solid var(--green);
+  border-radius: 100px;
+  color: var(--green);
+  transition: all 0.15s ease;
+}
+
+.testCardBtn:hover {
+  background: rgba(73, 158, 75, 0.1);
+}
+
+.payError {
+  padding: 12px 16px;
+  background: rgba(247, 65, 64, 0.08);
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--red);
+  text-align: center;
+}
+
 /* Submit */
 .submitBtn {
   padding: 16px;

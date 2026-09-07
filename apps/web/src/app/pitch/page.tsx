@@ -1,12 +1,20 @@
-import type { ComponentType } from "react";
+import type { ReactNode } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { translations, type Locale, type Translations, type FeatureId } from "./translations";
+import { LanguageToggle } from "./LanguageToggle";
 import styles from "./page.module.css";
 
-export const metadata: Metadata = {
-  title: "The Pitch — Your New Website",
-  robots: { index: false, follow: false },
-};
+type SearchParams = Promise<{ lang?: string }>;
+
+export async function generateMetadata(props: { searchParams: SearchParams }): Promise<Metadata> {
+  const { lang } = await props.searchParams;
+  const locale: Locale = lang === 'zh' ? 'zh' : 'en';
+  return {
+    title: translations[locale].meta.title,
+    robots: { index: false, follow: false },
+  };
+}
 
 // ===== VISUAL MOCKUP COMPONENTS =====
 
@@ -117,21 +125,21 @@ function NewMenuVisual() {
   );
 }
 
-function CommissionVisual() {
+function CommissionVisual({ t }: { t: Translations['commission'] }) {
   return (
     <div className={styles.commissionGrid}>
       <div className={`${styles.commissionCard} ${styles.commissionBad}`}>
-        <div className={styles.commissionLabel}>Third Party</div>
-        <div className={styles.commissionRow}>Order: $25.00</div>
-        <div className={styles.commissionRow}>Commission: −$7.50</div>
-        <div className={styles.commissionTotal}>You Keep: $17.50</div>
+        <div className={styles.commissionLabel}>{t.badLabel}</div>
+        <div className={styles.commissionRow}>{t.order}</div>
+        <div className={styles.commissionRow}>{t.badFee}</div>
+        <div className={styles.commissionTotal}>{t.badKeep}</div>
       </div>
       <div className={`${styles.commissionCard} ${styles.commissionGood}`}>
-        <div className={styles.commissionLabel}>Your Site</div>
-        <div className={styles.commissionRow}>Order: $25.00</div>
-        <div className={styles.commissionRow}>Commission: $0.00</div>
-        <div className={styles.commissionTotal}>You Keep: $25.00</div>
-        <div className={styles.commissionSavings}>+$7.50 saved</div>
+        <div className={styles.commissionLabel}>{t.goodLabel}</div>
+        <div className={styles.commissionRow}>{t.order}</div>
+        <div className={styles.commissionRow}>{t.goodFee}</div>
+        <div className={styles.commissionTotal}>{t.goodKeep}</div>
+        <div className={styles.commissionSavings}>{t.savings}</div>
       </div>
     </div>
   );
@@ -180,32 +188,23 @@ function PhoneMockup() {
   );
 }
 
-function SearchResultsVisual() {
+function SearchResultsVisual({ t }: { t: Translations['search'] }) {
   return (
     <div className={styles.searchMock}>
       <div className={styles.searchBar}>
         <span className={styles.searchIcon} role="img" aria-label="Search">&#128269;</span>
-        <span className={styles.searchQuery}>chinese food near me</span>
+        <span className={styles.searchQuery}>{t.query}</span>
       </div>
       <div className={styles.searchResults}>
         <div className={`${styles.searchResult} ${styles.searchResultHighlight}`}>
           <span className={styles.searchResultUrl}>chinaislandgrill.com</span>
-          <span className={styles.searchResultTitle}>
-            China Island Asian Grill — Menu & Online Ordering
-          </span>
-          <span className={styles.searchResultDesc}>
-            Fresh Asian cuisine. 114 menu items. Order online for pickup.
-            Mon–Sat 11am–9pm, Sun 12pm–8pm.
-          </span>
+          <span className={styles.searchResultTitle}>{t.result1Title}</span>
+          <span className={styles.searchResultDesc}>{t.result1Desc}</span>
         </div>
         <div className={styles.searchResult}>
           <span className={styles.searchResultUrl}>chinaislandgrill.com/menu</span>
-          <span className={styles.searchResultTitle}>
-            Full Menu — China Island Asian Grill
-          </span>
-          <span className={styles.searchResultDesc}>
-            Soups, appetizers, fried rice, noodles, house favorites, lunch specials & more. View prices and order online.
-          </span>
+          <span className={styles.searchResultTitle}>{t.result2Title}</span>
+          <span className={styles.searchResultDesc}>{t.result2Desc}</span>
         </div>
       </div>
     </div>
@@ -253,126 +252,54 @@ function CMSVisual() {
   );
 }
 
-function PaymentFlowVisual() {
+function PaymentFlowVisual({ t }: { t: Translations['payment'] }) {
   return (
     <div className={styles.paymentFlow}>
       <div className={styles.paymentStep}>
         <div className={styles.paymentIcon} role="img" aria-label="Credit card">&#128179;</div>
-        <div className={styles.paymentStepLabel}>Customer Pays</div>
-        <div className={styles.paymentStepSub}>on your website</div>
+        <div className={styles.paymentStepLabel}>{t.step1Label}</div>
+        <div className={styles.paymentStepSub}>{t.step1Sub}</div>
       </div>
       <div className={styles.paymentArrow} aria-hidden="true">&rarr;</div>
       <div className={styles.paymentStep}>
         <div className={styles.paymentIcon} role="img" aria-label="Store">&#127978;</div>
-        <div className={styles.paymentStepLabel}>Your Account</div>
-        <div className={styles.paymentStepSub}>Stripe direct</div>
+        <div className={styles.paymentStepLabel}>{t.step2Label}</div>
+        <div className={styles.paymentStepSub}>{t.step2Sub}</div>
       </div>
       <div className={styles.paymentArrow} aria-hidden="true">&rarr;</div>
       <div className={styles.paymentStep}>
         <div className={styles.paymentIcon} role="img" aria-label="Bank">&#127974;</div>
-        <div className={styles.paymentStepLabel}>Your Bank</div>
-        <div className={styles.paymentStepSub}>direct deposit</div>
+        <div className={styles.paymentStepLabel}>{t.step3Label}</div>
+        <div className={styles.paymentStepSub}>{t.step3Sub}</div>
       </div>
     </div>
   );
 }
 
-// ===== FEATURE SECTION DATA =====
+// ===== FEATURE VISUAL MAP =====
 
-const featureSections: {
-  id: string;
-  alignment: "left" | "right";
-  isDark: boolean;
-  headline: string;
-  copy: string;
-  bullets: string[];
-  Visual: ComponentType;
-}[] = [
-  {
-    id: "menu",
-    alignment: "left",
-    isDark: false,
-    headline: "Your entire menu. Every item. Every modifier.",
-    copy: "All 114 items across 13 categories, organized the way your customers think about your food. Modifiers, spice levels, protein choices — it\u2019s all there. Searchable. Filterable. With a hover preview so customers can see what they\u2019re ordering.",
-    bullets: [
-      "114 items across 13 categories",
-      "20 modifier groups (proteins, spice levels, sizes)",
-      "Search and filter by name or category",
-      "Desktop hover preview with descriptions and prices",
-    ],
-    Visual: NewMenuVisual,
-  },
-  {
-    id: "ordering",
-    alignment: "right",
-    isDark: true,
-    headline: "Take orders directly. Keep every dollar.",
-    copy: "Third-party apps take 15\u201330% of every order. On a $25 order, that\u2019s up to $7.50 gone. When customers order from your site, the money goes to you. No middleman, no commission, no sharing your customer data.",
-    bullets: [
-      "Zero commission on direct orders",
-      "Persistent cart — customers can browse and come back",
-      "Modifier customization at checkout",
-      "Tax calculated automatically (8.25%)",
-    ],
-    Visual: CommissionVisual,
-  },
-  {
-    id: "mobile",
-    alignment: "left",
-    isDark: false,
-    headline: "Works on every phone your customers have.",
-    copy: "Most of your customers will find you on their phone. The menu adapts automatically — horizontal category chips, single-column layout, slide-in cart drawer. No pinching, no zooming, no squinting at tiny text.",
-    bullets: [
-      "Responsive from 320px phones to 4K desktops",
-      "Touch-friendly cart and checkout",
-      "Mobile menu drawer with swipe support",
-      "Loads fast on cellular connections",
-    ],
-    Visual: PhoneMockup,
-  },
-  {
-    id: "seo",
-    alignment: "right",
-    isDark: true,
-    headline: "Show up when people search \u2018Chinese food near me.\u2019",
-    copy: "Right now, when someone searches for Chinese food in your area, they might never find you. Your new site has structured data that tells Google exactly what you serve, where you are, and when you\u2019re open.",
-    bullets: [
-      "JSON-LD structured data (Restaurant schema)",
-      "XML sitemap for all pages",
-      "Canonical URLs to prevent duplicate content",
-      "Open Graph tags for social media sharing",
-    ],
-    Visual: SearchResultsVisual,
-  },
-  {
-    id: "cms",
-    alignment: "left",
-    isDark: false,
-    headline: "Change a price in ten seconds. No developer needed.",
-    copy: "Seasonal special? Price increase? 86\u2019d an item? Log into the dashboard, make the change, hit publish. Every page on your site updates instantly. The menu, the checkout, everything.",
-    bullets: [
-      "Sanity CMS — edit menu items, prices, descriptions",
-      "Changes go live immediately",
-      "Add or remove items and categories",
-      "Local data fallback if CMS is ever down",
-    ],
-    Visual: CMSVisual,
-  },
-  {
-    id: "payments",
-    alignment: "right",
-    isDark: true,
-    headline: "Payments go straight to your bank account.",
-    copy: "Stripe handles the payment processing — the most trusted platform in the industry. Customers pay on your site, the money deposits directly to your bank. No shared pools, no waiting, no confusion.",
-    bullets: [
-      "Stripe payment processing — secure and PCI-compliant",
-      "Direct deposit to your bank account",
-      "Automatic webhook handling for order confirmation",
-      "Full transaction history and reporting",
-    ],
-    Visual: PaymentFlowVisual,
-  },
-];
+// Returns a rendered element (not a component factory) so the visuals keep
+// stable component identities across renders instead of remounting each time.
+function getVisual(id: FeatureId, t: Translations): ReactNode {
+  switch (id) {
+    case 'menu':     return <NewMenuVisual />;
+    case 'ordering': return <CommissionVisual t={t.commission} />;
+    case 'mobile':   return <PhoneMockup />;
+    case 'seo':      return <SearchResultsVisual t={t.search} />;
+    case 'cms':      return <CMSVisual />;
+    case 'payments': return <PaymentFlowVisual t={t.payment} />;
+    default:         return null;
+  }
+}
+
+const featureAlignments: Record<FeatureId, { alignment: 'left' | 'right'; isDark: boolean }> = {
+  menu:     { alignment: 'left',  isDark: false },
+  ordering: { alignment: 'right', isDark: true  },
+  mobile:   { alignment: 'left',  isDark: false },
+  seo:      { alignment: 'right', isDark: true  },
+  cms:      { alignment: 'left',  isDark: false },
+  payments: { alignment: 'right', isDark: true  },
+};
 
 function FeatureSection({
   id,
@@ -380,25 +307,25 @@ function FeatureSection({
   headline,
   copy,
   bullets,
-  Visual,
+  visual,
   isDark,
 }: {
-  id: string;
-  alignment: "left" | "right";
+  id: FeatureId;
+  alignment: 'left' | 'right';
   headline: string;
   copy: string;
-  bullets: string[];
-  Visual: ComponentType;
+  bullets: readonly string[];
+  visual: ReactNode;
   isDark: boolean;
 }) {
   return (
     <section
       id={id}
-      className={`${styles.section} ${isDark ? styles.sectionDark : ""}`}
+      className={`${styles.section} ${isDark ? styles.sectionDark : ''}`}
     >
       <div
         className={`${styles.sectionInner} ${
-          alignment === "right" ? styles.sectionReversed : ""
+          alignment === 'right' ? styles.sectionReversed : ''
         }`}
       >
         <div className={styles.sectionCopy}>
@@ -415,70 +342,46 @@ function FeatureSection({
           )}
         </div>
         <div className={styles.sectionVisual} aria-hidden="true">
-          <Visual />
+          {visual}
         </div>
       </div>
     </section>
   );
 }
 
-// ===== CHECKLIST =====
-
-const liveItems = [
-  "Full interactive menu (114 items)",
-  "13 menu categories",
-  "20 modifier groups",
-  "Search and filter",
-  "Shopping cart with persistence",
-  "Checkout form",
-  "Tax calculation (8.25%)",
-  "Mobile responsive layout",
-  "Loading skeletons",
-  "Navigation progress bar",
-  "SEO (sitemap, JSON-LD, robots)",
-  "Open Graph social tags",
-  "Sanity CMS integration",
-  "Stripe API endpoints",
-  "Accessibility (ARIA, keyboard)",
-  "Sen custom typography",
-];
-
-const comingSoonItems = [
-  "Live Stripe payments",
-  "Order confirmation emails",
-  "Customer accounts",
-];
-
 // ===== PAGE =====
 
-export default function PitchPage() {
+export default async function PitchPage(props: { searchParams: SearchParams }) {
+  const { lang } = await props.searchParams;
+  const locale: Locale = lang === 'zh' ? 'zh' : 'en';
+  const t = translations[locale];
+
   return (
     <div className={styles.page}>
+      {/* Language toggle — fixed position */}
+      <LanguageToggle locale={locale} />
+
       {/* Hero */}
       <section className={styles.hero}>
         <div className={styles.heroContent}>
-          <span className={styles.heroKicker}>China Island Asian Grill</span>
+          <span className={styles.heroKicker}>{t.hero.kicker}</span>
           <h1 className={styles.heroTitle}>
-            Your food deserves a website that{" "}
-            <span className={styles.heroTitleAccent}>works as hard as you do.</span>
+            {t.hero.titleLine1}{' '}
+            <span className={styles.heroTitleAccent}>{t.hero.titleAccent}</span>
           </h1>
-          <p className={styles.heroSubtitle}>
-            A complete online presence — your full menu, online ordering,
-            and a design that makes your food look as good as it tastes.
-            Already built. Ready to go live.
-          </p>
+          <p className={styles.heroSubtitle}>{t.hero.subtitle}</p>
           <div className={styles.heroStats}>
             <div className={styles.stat}>
-              <span className={styles.statValue}>114</span>
-              <span className={styles.statLabel}>Menu Items</span>
+              <span className={styles.statValue}>{t.hero.stats.items.value}</span>
+              <span className={styles.statLabel}>{t.hero.stats.items.label}</span>
             </div>
             <div className={styles.stat}>
-              <span className={styles.statValue}>13</span>
-              <span className={styles.statLabel}>Categories</span>
+              <span className={styles.statValue}>{t.hero.stats.categories.value}</span>
+              <span className={styles.statLabel}>{t.hero.stats.categories.label}</span>
             </div>
             <div className={styles.stat}>
-              <span className={styles.statValue}>$0</span>
-              <span className={styles.statLabel}>Commission</span>
+              <span className={styles.statValue}>{t.hero.stats.commission.value}</span>
+              <span className={styles.statLabel}>{t.hero.stats.commission.label}</span>
             </div>
           </div>
         </div>
@@ -488,15 +391,8 @@ export default function PitchPage() {
       <section id="problem" className={styles.section}>
         <div className={styles.sectionInner}>
           <div className={styles.sectionCopy}>
-            <h2 className={styles.headline}>
-              Your current site can&apos;t take orders, doesn&apos;t work on phones,
-              and Google barely knows it exists.
-            </h2>
-            <p className={styles.description}>
-              The old site served its purpose. But customers today expect to browse
-              a menu on their phone, add items to a cart, and check out — all
-              without calling. If they can&apos;t, they order from somewhere else.
-            </p>
+            <h2 className={styles.headline}>{t.problem.headline}</h2>
+            <p className={styles.description}>{t.problem.description}</p>
           </div>
           <div className={styles.sectionVisual} aria-hidden="true">
             <OldSiteVisual />
@@ -505,32 +401,40 @@ export default function PitchPage() {
       </section>
 
       {/* Feature Sections */}
-      {featureSections.map((section) => (
-        <FeatureSection key={section.id} {...section} />
-      ))}
+      {t.features.map((feature) => {
+        const { alignment, isDark } = featureAlignments[feature.id];
+        return (
+          <FeatureSection
+            key={feature.id}
+            id={feature.id}
+            alignment={alignment}
+            isDark={isDark}
+            headline={feature.headline}
+            copy={feature.copy}
+            bullets={feature.bullets}
+            visual={getVisual(feature.id, t)}
+          />
+        );
+      })}
 
       {/* Checklist */}
       <section className={styles.checklistSection}>
         <div className={styles.checklistHeader}>
-          <h2 className={styles.checklistTitle}>
-            This isn&apos;t a mockup. It&apos;s live code.
-          </h2>
-          <p className={styles.checklistSubtitle}>
-            Everything with a checkmark is built and working today.
-          </p>
+          <h2 className={styles.checklistTitle}>{t.checklist.headline}</h2>
+          <p className={styles.checklistSubtitle}>{t.checklist.subtitle}</p>
         </div>
         <div className={styles.checklistGrid}>
-          {liveItems.map((item) => (
+          {t.checklist.liveItems.map((item) => (
             <div key={item} className={styles.checklistItem}>
               <span className={styles.checklistCheck}>&check;</span>
               <span>{item}</span>
             </div>
           ))}
           <div className={styles.checklistDivider}>
-            <span className={styles.checklistDividerLabel}>Coming Soon</span>
+            <span className={styles.checklistDividerLabel}>{t.checklist.soonLabel}</span>
             <div className={styles.checklistDividerLine} />
           </div>
-          {comingSoonItems.map((item) => (
+          {t.checklist.soonItems.map((item) => (
             <div key={item} className={`${styles.checklistItem} ${styles.checklistItemSoon}`}>
               <span className={styles.checklistCheck}>&middot;</span>
               <span>{item}</span>
@@ -542,13 +446,10 @@ export default function PitchPage() {
       {/* CTA */}
       <section className={styles.cta}>
         <div className={styles.ctaContent}>
-          <h2 className={styles.ctaTitle}>Ready to see it live?</h2>
-          <p className={styles.ctaSubtitle}>
-            The site is built. Click below to walk through the full experience —
-            menu, cart, checkout, everything.
-          </p>
+          <h2 className={styles.ctaTitle}>{t.cta.headline}</h2>
+          <p className={styles.ctaSubtitle}>{t.cta.subtitle}</p>
           <Link href="/menu" className={styles.ctaButton}>
-            Explore the Menu &rarr;
+            {t.cta.button}
           </Link>
         </div>
       </section>

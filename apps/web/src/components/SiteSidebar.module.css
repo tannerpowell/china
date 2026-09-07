@@ -1,0 +1,184 @@
+/* Shared site sidebar — styles moved verbatim from the home page. */
+
+.leftPanel {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 30%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  background: var(--bg);
+  z-index: 10;
+  overflow-y: auto;
+}
+
+.intro {
+  max-width: 320px;
+  text-align: center;
+  padding: 24px;
+  padding-right: 40px;
+  border-right: 2px solid var(--red);
+}
+
+.logo {
+  display: block;
+  width: 250px;
+  height: auto;
+  margin: 0 auto 16px;
+}
+
+.title {
+  font-size: 32px;
+  line-height: 1.1;
+  color: var(--red);
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: var(--text);
+  margin-bottom: 24px;
+}
+
+/* Navigation */
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.navLink {
+  display: inline-block;
+  padding: 10px 18px;
+  border: 2px solid var(--green);
+  border-radius: 100px;
+  font-size: 14px;
+  color: var(--green);
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.navLink:hover {
+  background: var(--green);
+  color: white;
+}
+
+.navLinkActive {
+  background: var(--green);
+  color: white;
+}
+
+/* Blurb */
+.blurb {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+
+.aboutLink {
+  color: var(--red);
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.aboutLink:hover {
+  color: var(--red-hover);
+  cursor: pointer;
+}
+
+/* Hours */
+.hours {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #666;
+}
+
+:global(:root[data-theme="dark"]) .hours {
+  color: var(--color-ink-muted);
+}
+
+/* Warm follows the interactive menu: quiet gray pills, brick actives. */
+:global(:root[data-theme="warm"]) .navLinkActive {
+  background: var(--red);
+  border-color: var(--red);
+  color: #fff;
+}
+
+/* Dark: light-green outlines, cream filled actives (white-on-green fails). */
+:global(:root[data-theme="dark"]) .navLink:hover {
+  color: var(--bg);
+}
+
+:global(:root[data-theme="dark"]) .navLinkActive {
+  background: var(--text);
+  border-color: var(--text);
+  color: var(--bg);
+}
+
+.hoursRow {
+  display: block;
+}
+
+/* Theme + language previews, side by side so the column fits. */
+.themeWrap {
+  margin-top: 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.prefsRow {
+  margin-top: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 28px;
+}
+
+.prefGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.themeCaption {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-ink-muted, #8A8583);
+}
+
+@media (max-width: 900px) {
+  .leftPanel {
+    position: relative;
+    width: 100%;
+    height: auto;
+    border-right: none;
+    border-bottom: 2px solid var(--red);
+    padding: 32px 24px;
+    align-items: center;
+  }
+
+  .intro {
+    text-align: center;
+    max-width: 100%;
+  }
+
+  .nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

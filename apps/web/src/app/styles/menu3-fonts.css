@@ -11,10 +11,11 @@
    ============================================ */
 
 :root {
-  /* Font families - uses --font-sen from next/font in layout.tsx */
-  --font-menu-display: var(--font-sen), 'Sen', system-ui, -apple-system, sans-serif;
-  --font-menu-body: var(--font-sen), 'Sen', system-ui, -apple-system, sans-serif;
-  --font-menu-ui: var(--font-sen), 'Sen', system-ui, -apple-system, sans-serif;
+  /* Font families - uses --font-sen from next/font in layout.tsx.
+     Noto + system CJK fallbacks appended so Chinese UI copy renders. */
+  --font-menu-display: var(--font-sen), 'Noto Sans SC', 'Sen', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', system-ui, -apple-system, sans-serif;
+  --font-menu-body: var(--font-sen), 'Noto Sans SC', 'Sen', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', system-ui, -apple-system, sans-serif;
+  --font-menu-ui: var(--font-sen), 'Noto Sans SC', 'Sen', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', system-ui, -apple-system, sans-serif;
   --font-menu-mono: 'SF Mono', 'Menlo', 'Monaco', 'Consolas', monospace;
 }
 
@@ -79,6 +80,41 @@
   --menu3-modifier-bg: rgba(42, 37, 34, 0.04);
   --menu3-modifier-border: rgba(42, 37, 34, 0.08);
   --menu3-modifier-text: #2A2522;
+  --menu3-modifier-selected-bg: #B8423C;
+}
+
+/* ============================================
+   THEME: DARK (Charcoal)
+   Pairs checked WCAG AA (4.5+): cream text 16.0, muted 8.2,
+   button red w/ white 4.7, brick active w/ white 7.1,
+   light green 9.5. Applied via `menu3-theme-dark` class.
+   ============================================ */
+.menu3-theme-dark {
+  --menu3-main-bg: #171310;
+  --menu3-sidebar-bg: rgba(244, 238, 227, 0.03);
+  --menu3-preview-bg: rgba(244, 238, 227, 0.02);
+  --menu3-card-bg: #221B15;
+  --menu3-border: rgba(244, 238, 227, 0.12);
+  --menu3-border-dashed: 2px dashed rgba(244, 238, 227, 0.22);
+  --menu3-text: #F4EEE3;
+  --menu3-text-secondary: #D9D0C2;
+  --menu3-text-muted: #B7AB9C;
+  --menu3-accent: #C64A3C;
+  --menu3-accent-light: #C44E44;
+  --menu3-green: #86C98B;
+  --menu3-green-light: rgba(134, 201, 139, 0.12);
+  --menu3-green-hover: #3F7D44;
+  --menu3-hover-bg: rgba(198, 74, 60, 0.85);
+  --menu3-hover-bg-light: rgba(244, 238, 227, 0.08);
+  --menu3-active-bg: rgba(244, 238, 227, 0.1);
+  --menu3-search-bg: rgba(244, 238, 227, 0.06);
+  --menu3-image-placeholder: rgba(244, 238, 227, 0.06);
+  --menu3-category-color: #B7AB9C;
+  --menu3-category-active-bg: #B8423C;
+  --menu3-category-active-color: white;
+  --menu3-modifier-bg: rgba(244, 238, 227, 0.05);
+  --menu3-modifier-border: rgba(244, 238, 227, 0.14);
+  --menu3-modifier-text: #F4EEE3;
   --menu3-modifier-selected-bg: #B8423C;
 }
 

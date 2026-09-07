@@ -1,92 +1,74 @@
-import Image from "next/image";
 import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
+import { T } from "@/components/T";
+import { SiteSidebar } from "@/components/SiteSidebar";
+import {
+  restaurant,
+  restaurantDirectionsUrl,
+} from "@/lib/restaurant";
 import styles from "./page.module.css";
 
-// Restaurant configuration from environment
-const phone = process.env.NEXT_PUBLIC_RESTAURANT_PHONE;
-const hours = process.env.NEXT_PUBLIC_RESTAURANT_HOURS || "Mon–Sat: 11am–9pm | Sun: 12pm–8pm";
-const address = process.env.NEXT_PUBLIC_RESTAURANT_ADDRESS ?? "";
+// Restaurant info: verified Flower Mound values from lib/restaurant.ts.
+// Only the phone number honors a NEXT_PUBLIC_RESTAURANT_PHONE override.
+const phone = restaurant.phoneDisplay;
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://chinaislandgrill.com";
 
 const restaurantJsonLd = {
   "@context": "https://schema.org",
   "@type": "Restaurant",
-  name: "China Island Asian Grill",
+  name: restaurant.name,
   description: "Fresh Asian cuisine made with care. Dine-in, takeout & delivery.",
   url: baseUrl,
-  ...(phone && { telephone: phone }),
-  ...(address && {
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: address,
-    },
-  }),
-  servesCuisine: ["Chinese", "Asian"],
+  telephone: phone,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: restaurant.addressStreet,
+    addressLocality: restaurant.addressCity,
+    addressRegion: restaurant.addressRegion,
+    postalCode: restaurant.addressZip,
+    addressCountry: "US",
+  },
+  servesCuisine: [...restaurant.cuisines],
   hasMenu: `${baseUrl}/menu`,
   acceptsReservations: false,
+  priceRange: restaurant.priceRange,
+  image: `${baseUrl}/logo.png`,
+  hasMap: restaurantDirectionsUrl,
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"],
+      opens: "11:00",
+      closes: "21:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Friday", "Saturday"],
+      opens: "11:00",
+      closes: "21:30",
+    },
+  ],
 };
 
 export default function Home() {
   return (
     <div className={styles.layout}>
       <JsonLd data={restaurantJsonLd} />
-      {/* Fixed Left Panel */}
-      <aside className={styles.leftPanel}>
-        <div className={styles.intro}>
-          <Image
-            src="/logo.png"
-            alt="China Island Asian Grill"
-            className={styles.logo}
-            width={200}
-            height={200}
-            priority
-          />
-          <h1 className={styles.title}>China Island</h1>
-          <p className={styles.subtitle}>Asian Grill</p>
-
-          <nav className={styles.nav}>
-            <Link href="/menu" className={styles.navLink}>
-              Menu
-            </Link>
-            <Link href="/order" className={styles.navLink}>
-              Order Online
-            </Link>
-            <Link href="/location" className={styles.navLink}>
-              Location
-            </Link>
-          </nav>
-
-          <p className={styles.blurb}>
-            Fresh Asian cuisine made with care. We offer dine-in, takeout, and delivery options for all your favorite dishes.
-            {phone && (
-              <>
-                <br /><br />
-                <a href={`tel:${phone}`} className={styles.aboutLink}>Call to Order</a>
-              </>
-            )}
-          </p>
-
-          <div className={styles.hours}>
-            <strong>Hours</strong><br />
-            {hours}
-          </div>
-        </div>
-      </aside>
+      <SiteSidebar />
 
       {/* Scrolling Right Panel */}
       <main className={styles.rightPanel}>
         <div className={styles.welcome}>
-          <h2 className={styles.welcomeTitle}>Welcome</h2>
+          <h2 className={styles.welcomeTitle}><T id="home.welcome" /></h2>
           <p className={styles.welcomeText}>
-            Browse our menu and order your favorites online. Click any category below to explore our dishes.
+            <T id="home.lede" />
           </p>
         </div>
 
         <div className={styles.categoryCards}>
           <Link href="/menu#soups" className={styles.card}>
-            <span className={styles.cardCategory}>Soups</span>
-            <h3 className={styles.cardTitle}>Start with Soup</h3>
+            <span className={styles.cardCategory}><T id="home.card.soups" /></span>
+            <h3 className={styles.cardTitle}><T id="home.card.soupsTitle" /></h3>
             <div className={styles.cardItems}>
               <p>Hot & Sour Soup</p>
               <p>Egg Drop Soup</p>
@@ -95,8 +77,8 @@ export default function Home() {
           </Link>
 
           <Link href="/menu#appetizers" className={styles.card}>
-            <span className={styles.cardCategory}>Appetizers</span>
-            <h3 className={styles.cardTitle}>Appetizers</h3>
+            <span className={styles.cardCategory}><T id="home.card.appetizers" /></span>
+            <h3 className={styles.cardTitle}><T id="home.card.appetizersTitle" /></h3>
             <div className={styles.cardItems}>
               <p>Egg Rolls</p>
               <p>Crab Rangoon</p>
@@ -106,8 +88,8 @@ export default function Home() {
           </Link>
 
           <Link href="/menu#favorites" className={styles.card}>
-            <span className={styles.cardCategory}>House Favorites</span>
-            <h3 className={styles.cardTitle}>Favorites</h3>
+            <span className={styles.cardCategory}><T id="home.card.favorites" /></span>
+            <h3 className={styles.cardTitle}><T id="home.card.favoritesTitle" /></h3>
             <div className={styles.cardItems}>
               <p>General Tso's Chicken</p>
               <p>Orange Chicken</p>
@@ -117,8 +99,8 @@ export default function Home() {
           </Link>
 
           <Link href="/menu#fried-rice" className={styles.card}>
-            <span className={styles.cardCategory}>Fried Rice</span>
-            <h3 className={styles.cardTitle}>Fried Rice</h3>
+            <span className={styles.cardCategory}><T id="home.card.friedRice" /></span>
+            <h3 className={styles.cardTitle}><T id="home.card.friedRiceTitle" /></h3>
             <div className={styles.cardItems}>
               <p>Chicken Fried Rice</p>
               <p>Shrimp Fried Rice</p>
@@ -128,8 +110,8 @@ export default function Home() {
           </Link>
 
           <Link href="/menu#noodles" className={styles.card}>
-            <span className={styles.cardCategory}>Noodles</span>
-            <h3 className={styles.cardTitle}>Noodles</h3>
+            <span className={styles.cardCategory}><T id="home.card.noodles" /></span>
+            <h3 className={styles.cardTitle}><T id="home.card.noodlesTitle" /></h3>
             <div className={styles.cardItems}>
               <p>Lo Mein</p>
               <p>Chow Mein</p>
@@ -139,8 +121,8 @@ export default function Home() {
           </Link>
 
           <Link href="/menu#specialties" className={styles.card}>
-            <span className={styles.cardCategory}>Specialties</span>
-            <h3 className={styles.cardTitle}>Chef's Specials</h3>
+            <span className={styles.cardCategory}><T id="home.card.specialties" /></span>
+            <h3 className={styles.cardTitle}><T id="home.card.specialtiesTitle" /></h3>
             <div className={styles.cardItems}>
               <p>Peking Duck</p>
               <p>Salt & Pepper Shrimp</p>
@@ -151,8 +133,12 @@ export default function Home() {
 
         <div className={styles.cta}>
           <Link href="/menu" className={styles.ctaButton}>
-            View Full Menu →
+            <T id="home.viewMenu" /> →
           </Link>
+        </div>
+
+        <div className={styles.launchLink}>
+          <Link href="/launch"><T id="home.checklist" /></Link>
         </div>
       </main>
     </div>

@@ -6,8 +6,8 @@
     "import": "tsx import/import_to_sanity.ts"
   },
   "dependencies": {
-    "@sanity/client": "^7.14.0",
-    "dotenv": "^16.4.5",
-    "tsx": "^4.16.2"
+    "@sanity/client": "^8.5.0",
+    "dotenv": "^17.4.2",
+    "tsx": "^4.23.13"
   }
 }

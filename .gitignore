@@ -46,3 +46,6 @@ pnpm-debug.log*
 # Test artifacts
 playwright-report/
 test-results/
+
+# Sol Pro batch review results (gitignored scratch; packets live in docs/plans/)
+reviews/
