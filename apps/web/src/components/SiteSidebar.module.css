@@ -84,13 +84,14 @@
 
 .aboutLink {
   color: var(--red);
-  text-decoration: underline;
+  text-decoration: none;
   font-size: 16px;
   font-weight: 700;
 }
 
 .aboutLink:hover {
   color: var(--red-hover);
+  cursor: pointer;
 }
 
 /* Hours */
