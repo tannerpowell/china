@@ -3,17 +3,30 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useCartStore } from "@/lib/cart-store";
+import { DemoPaymentForm } from "./DemoPaymentForm";
 import styles from "./page.module.css";
 
 // Note: metadata export not supported in client components.
 // Checkout is noindex via robots.ts rules.
+//
+// STRIPE_TRANSITION: payment is DEMO MODE (see DemoPaymentForm.tsx for the
+// 3-step swap). The page below only depends on the
+// onSuccess(paymentIntentId) / onError(message) contract, which the real
+// PaymentForm already honors — so this page does not change when Stripe
+// goes live, except swapping the component + wrapping in StripeProvider.
 
 export default function CheckoutPage() {
   const { items, subtotal, tax, total, clearCart, itemCount, removeItem, updateQuantity } = useCartStore();
   const [mounted, setMounted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [orderComplete, setOrderComplete] = useState(false);
   const [orderNumber, setOrderNumber] = useState("");
+  // STRIPE_TRANSITION: last4 + demo badge are demo-only display. A real
+  // PaymentIntent id arrives the same way via onSuccess — keep storing it.
+  const [paymentId, setPaymentId] = useState("");
+  const [last4, setLast4] = useState("");
+  // Captured before clearCart() wipes the store — the success screen
+  // renders after, when total is already 0.
+  const [paidTotal, setPaidTotal] = useState(0);
 
   const [form, setForm] = useState({
     name: "",
@@ -27,19 +40,28 @@ export default function CheckoutPage() {
     setMounted(true);
   }, []);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    // Simulate order submission
-    await new Promise((r) => setTimeout(r, 1500));
-
+  // Runs after payment succeeds (demo today, Stripe confirmPayment later).
+  // Order record creation / email belongs here — it stays put in both modes.
+  const handlePaymentSuccess = (intentId: string, cardLast4: string) => {
     const num = `CI-${Date.now().toString(36).toUpperCase()}`;
+    setPaymentId(intentId);
+    setLast4(cardLast4);
+    setPaidTotal(total);
     setOrderNumber(num);
     setOrderComplete(true);
     clearCart();
-    setIsSubmitting(false);
   };
+
+  const handlePaymentError = (_message: string) => {
+    // DemoPaymentForm already surfaces the message inline; the page just
+    // needs the hook so the contract matches PaymentForm. Wire error
+    // reporting here when Stripe goes live.
+  };
+
+  const contactValid =
+    form.name.trim().length > 0 &&
+    /.+@.+\..+/.test(form.email.trim()) &&
+    form.phone.trim().length > 0;
 
   if (!mounted) {
     return <div className={styles.loading}>Loading...</div>;
@@ -52,6 +74,12 @@ export default function CheckoutPage() {
           <div className={styles.successIcon}>✓</div>
           <h1>Order Confirmed!</h1>
           <p>Order #{orderNumber}</p>
+          {/* STRIPE_TRANSITION: keep paymentId/last4 lines for real Stripe —
+              only the "demo" badge goes away. */}
+          <p className={styles.successNote}>
+            Paid ${paidTotal.toFixed(2)} with card ending in {last4} (demo — no charge).
+          </p>
+          <p className={styles.successNote}>Payment {paymentId}</p>
           <p className={styles.successNote}>You'll receive a confirmation email shortly.</p>
           <Link href="/menu" className={styles.backLink}>← Order Again</Link>
         </div>
@@ -136,7 +164,25 @@ export default function CheckoutPage() {
           <h2 className={styles.sectionTitle}>Checkout</h2>
           <div className={styles.dottedRule} />
 
-          <form onSubmit={handleSubmit} className={styles.form}>
+          {/* Contact block is a plain div, not a <form>: the payment
+              component below owns the only submit (same split as Stripe's
+              PaymentElement + confirmPayment). */}
+          <div className={styles.form}>
+            {/* DEMO ONLY — one-click sample contact info. Delete with demo mode. */}
+            <button
+              type="button"
+              className={styles.testCardBtn}
+              onClick={() =>
+                setForm({
+                  ...form,
+                  name: "Demo Diner",
+                  email: "demo@example.com",
+                  phone: "(972) 555-0134",
+                })
+              }
+            >
+              Demo only — fill sample info
+            </button>
             <div className={styles.field}>
               <label>Name *</label>
               <input
@@ -197,14 +243,16 @@ export default function CheckoutPage() {
               />
             </div>
 
-            <div className={styles.paymentNote}>
-              Stripe payment integration coming soon.
-            </div>
-
-            <button type="submit" className={styles.submitBtn} disabled={isSubmitting}>
-              {isSubmitting ? "Processing..." : `Place Order — $${total.toFixed(2)}`}
-            </button>
-          </form>
+            {/* STRIPE_TRANSITION: swap this one component for
+                <StripeProvider clientSecret={...}><PaymentForm …/></StripeProvider>.
+                Props stay the same. */}
+            <DemoPaymentForm
+              amount={total}
+              contactValid={contactValid}
+              onSuccess={handlePaymentSuccess}
+              onError={handlePaymentError}
+            />
+          </div>
         </section>
       </div>
     </main>
