@@ -58,7 +58,9 @@ export function SiteSidebar({ active }: SiteSidebarProps) {
         </nav>
 
         <p className={styles.blurb}>
-          <T id="nav.blurb" />
+          <T id="nav.blurb1" />
+          <br />
+          <T id="nav.blurb2" />
           <br /><br />
           <a href={restaurantPhoneHref} className={styles.aboutLink}><T id="nav.call" />: {phone}</a>
         </p>
