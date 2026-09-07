@@ -70,14 +70,15 @@ export function SiteSidebar({ active }: SiteSidebarProps) {
           ))}
         </div>
 
-        <div className={styles.themeWrap}>
-          <span className={styles.themeCaption}><T id="nav.theme" /></span>
-          <SiteThemeToggle />
-        </div>
-
-        <div className={styles.themeWrap}>
-          <span className={styles.themeCaption}><T id="nav.lang" /></span>
-          <LanguageToggle />
+        <div className={styles.prefsRow}>
+          <div className={styles.prefGroup}>
+            <span className={styles.themeCaption}><T id="nav.theme" /></span>
+            <SiteThemeToggle />
+          </div>
+          <div className={styles.prefGroup}>
+            <span className={styles.themeCaption}><T id="nav.lang" /></span>
+            <LanguageToggle compact />
+          </div>
         </div>
       </div>
     </aside>

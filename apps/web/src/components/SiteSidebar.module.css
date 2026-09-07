@@ -13,6 +13,7 @@
   padding: 40px;
   background: var(--bg);
   z-index: 10;
+  overflow-y: auto;
 }
 
 .intro {
@@ -124,9 +125,24 @@
   display: block;
 }
 
-/* Theme preview toggle */
+/* Theme + language previews, side by side so the column fits. */
 .themeWrap {
   margin-top: 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.prefsRow {
+  margin-top: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 28px;
+}
+
+.prefGroup {
   display: flex;
   flex-direction: column;
   align-items: center;
