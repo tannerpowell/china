@@ -326,13 +326,11 @@ export function MenuQuestionsClient() {
       <div className={styles.container}>
         <div className={styles.ownerBar}>
           <nav className={styles.ownerNav} aria-label="Owner pages">
-            <Link href="/launch">Launch Preparation</Link>
-            <span aria-hidden="true">|</span>
+            <Link href="/launch">{lang === "zh" ? "上线准备" : "Launch Preparation"}</Link>
             <span className={styles.ownerNavActive} aria-current="page">
               {lang === "zh" ? "待确认问题" : "Open Questions"}
             </span>
-            <span aria-hidden="true">|</span>
-            <Link href="/demo/receipt">Receipt Demo</Link>
+            <Link href="/demo/receipt">{lang === "zh" ? "小票演示" : "Receipt Demo"}</Link>
           </nav>
           <div className={styles.toggles}>
             <SiteThemeToggle />

@@ -20,6 +20,9 @@ export const STR: Record<string, Entry> = {
   "nav.call": { en: "Call to Order", zh: "致电订餐" },
   "nav.hours": { en: "Hours", zh: "营业时间" },
   "nav.theme": { en: "Site theme", zh: "网站主题" },
+  "nav.launch": { en: "Launch Preparation", zh: "上线准备" },
+  "nav.questions": { en: "Open Questions", zh: "待确认问题" },
+  "nav.receiptDemo": { en: "Receipt Demo", zh: "小票演示" },
   "nav.lang": { en: "Language", zh: "语言" },
   "nav.blurb1": {
     en: "Fresh Asian cuisine made with care.",

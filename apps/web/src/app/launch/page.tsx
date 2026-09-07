@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { T } from "@/components/T";
 import { SiteThemeToggle } from "@/components/SiteThemeToggle";
 import { LanguageToggle } from "@/components/LanguageToggle";
 import LaunchList from "./LaunchList";
@@ -18,12 +19,10 @@ export default function LaunchPage() {
         <div className={styles.ownerBar}>
           <nav className={styles.ownerNav} aria-label="Owner pages">
             <span className={styles.ownerNavActive} aria-current="page">
-              Launch Preparation
+              <T id="nav.launch" />
             </span>
-            <span aria-hidden="true">|</span>
-            <Link href="/menu-questions">Open Questions</Link>
-            <span aria-hidden="true">|</span>
-            <Link href="/demo/receipt">Receipt Demo</Link>
+            <Link href="/menu-questions"><T id="nav.questions" /></Link>
+            <Link href="/demo/receipt"><T id="nav.receiptDemo" /></Link>
           </nav>
           <div className={styles.toggles}>
             <SiteThemeToggle />

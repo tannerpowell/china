@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { T } from "@/components/T";
 import { SiteThemeToggle } from "@/components/SiteThemeToggle";
 import {
   AnimatedReceipt,
@@ -58,12 +59,10 @@ export function ReceiptDemo() {
     <main className={styles.main}>
       <div className={`${navStyles.ownerBar} ${styles.ownerBar}`}>
         <nav className={navStyles.ownerNav} aria-label="Owner pages">
-          <Link href="/launch">Launch Preparation</Link>
-          <span aria-hidden="true">|</span>
-          <Link href="/menu-questions">Open Questions</Link>
-          <span aria-hidden="true">|</span>
+          <Link href="/launch"><T id="nav.launch" /></Link>
+          <Link href="/menu-questions"><T id="nav.questions" /></Link>
           <span className={navStyles.ownerNavActive} aria-current="page">
-            Receipt Demo
+            <T id="nav.receiptDemo" />
           </span>
         </nav>
         <div className={navStyles.toggles}>

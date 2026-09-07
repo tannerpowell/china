@@ -37,10 +37,13 @@
 .ownerNav {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  font-size: 17px;
+  gap: 4px;
+  font-size: 16px;
   font-weight: 700;
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 100px;
+  padding: 5px;
 }
 
 .toggles {
@@ -50,15 +53,33 @@
 }
 
 .ownerNav a {
-  color: var(--green);
+  color: var(--text);
+  font-weight: 600;
+  padding: 7px 16px;
+  border-radius: 100px;
+  white-space: nowrap;
 }
 
 .ownerNav a:hover {
-  text-decoration: underline;
+  background: rgba(0, 0, 0, 0.07);
+  text-decoration: none;
 }
 
 .ownerNavActive {
-  color: var(--text);
+  color: #fff;
+  background: var(--green);
+  padding: 7px 16px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+:global(:root[data-theme="dark"]) .ownerNav {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+:global(:root[data-theme="dark"]) .ownerNav a:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .eyebrow {
