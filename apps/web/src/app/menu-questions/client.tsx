@@ -1,7 +1,9 @@
 'use client';
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
+import { SiteFooter } from "@/components/SiteFooter";
 import { SiteThemeToggle } from "@/components/SiteThemeToggle";
 import styles from "../launch/page.module.css";
 import local from "./questions.module.css";
@@ -324,6 +326,10 @@ export function MenuQuestionsClient() {
   return (
     <main className={styles.page}>
       <div className={styles.container}>
+        <Link href="/" className={styles.homeBrand} aria-label="China Island Asian Grill — home">
+          <Image src="/logo.png" alt="" width={32} height={32} />
+          <span>China Island</span>
+        </Link>
         <div className={styles.ownerBar}>
           <nav className={styles.ownerNav} aria-label="Owner pages">
             <Link href="/launch">{lang === "zh" ? "上线准备" : "Launch Preparation"}</Link>
@@ -444,6 +450,7 @@ export function MenuQuestionsClient() {
             ))}
           </ul>
         </section>
+        <SiteFooter />
       </div>
     </main>
   );

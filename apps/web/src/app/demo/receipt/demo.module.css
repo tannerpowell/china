@@ -11,6 +11,12 @@
   align-self: stretch;
 }
 
+.footerWrap {
+  align-self: stretch;
+  max-width: 760px;
+  width: 100%;
+}
+
 .title {
   font-size: 28px;
   margin-bottom: 8px;

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { T } from "@/components/T";
+import { SiteFooter } from "@/components/SiteFooter";
 import { SiteThemeToggle } from "@/components/SiteThemeToggle";
 import { LanguageToggle } from "@/components/LanguageToggle";
 import LaunchList from "./LaunchList";
@@ -16,6 +18,10 @@ export default function LaunchPage() {
   return (
     <main className={styles.page}>
       <div className={styles.container}>
+        <Link href="/" className={styles.homeBrand} aria-label="China Island Asian Grill — home">
+          <Image src="/logo.png" alt="" width={32} height={32} />
+          <span>China Island</span>
+        </Link>
         <div className={styles.ownerBar}>
           <nav className={styles.ownerNav} aria-label="Owner pages">
             <span className={styles.ownerNavActive} aria-current="page">
@@ -36,6 +42,7 @@ export default function LaunchPage() {
           owner — for the China Island Asian Grill site pitch and launch.
         </p>
         <LaunchList />
+        <SiteFooter />
       </div>
     </main>
   );

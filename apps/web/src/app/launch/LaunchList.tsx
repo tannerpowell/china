@@ -68,7 +68,7 @@ const groups: Group[] = [
   },
 ];
 const filters: { id: Filter; label: string }[] = [
-  { id: "todo", label: "To do" },
+  { id: "todo", label: "To-do" },
   { id: "owner", label: "Owner" },
   { id: "live", label: "Completed" },
   { id: "all", label: "All" },
@@ -76,12 +76,12 @@ const filters: { id: Filter; label: string }[] = [
 
 const statusLabel: Record<Status, string> = {
   live: "Completed",
-  todo: "To do",
+  todo: "To-do",
   owner: "Owner",
 };
 
 export default function LaunchList() {
-  const [filter, setFilter] = useState<Filter>("all");
+  const [filter, setFilter] = useState<Filter>("todo");
 
   const visibleGroups = groups
     .map((g) => ({

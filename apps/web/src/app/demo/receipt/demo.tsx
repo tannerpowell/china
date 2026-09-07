@@ -1,8 +1,10 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { T } from "@/components/T";
+import { SiteFooter } from "@/components/SiteFooter";
 import { SiteThemeToggle } from "@/components/SiteThemeToggle";
 import {
   AnimatedReceipt,
@@ -57,6 +59,15 @@ export function ReceiptDemo() {
 
   return (
     <main className={styles.main}>
+      <div className={`${navStyles.ownerBar} ${styles.ownerBar}`}>
+        <Link href="/" className={navStyles.homeBrand} aria-label="China Island Asian Grill — home">
+          <Image src="/logo.png" alt="" width={32} height={32} />
+          <span>China Island</span>
+        </Link>
+        <div className={navStyles.toggles}>
+          <SiteThemeToggle />
+        </div>
+      </div>
       <div className={`${navStyles.ownerBar} ${styles.ownerBar}`}>
         <nav className={navStyles.ownerNav} aria-label="Owner pages">
           <Link href="/launch"><T id="nav.launch" /></Link>
@@ -157,6 +168,9 @@ export function ReceiptDemo() {
             <p className={styles.center}>Thank you!</p>
           </div>
         </AnimatedReceipt>
+      </div>
+      <div className={styles.footerWrap}>
+        <SiteFooter />
       </div>
     </main>
   );

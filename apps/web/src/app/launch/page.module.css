@@ -31,7 +31,29 @@
   justify-content: space-between;
   gap: 16px;
   flex-wrap: wrap;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
+}
+
+/* Home brand: logo + wordmark, top-left way home from owner pages. */
+.homeBrand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  color: var(--text);
+}
+
+.homeBrand img {
+  border-radius: 8px;
+}
+
+.homeBrand span {
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.homeBrand:hover span {
+  text-decoration: underline;
 }
 
 .ownerNav {
