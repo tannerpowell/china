@@ -162,12 +162,12 @@
   100% { transform: translateY(0); opacity: 1; }
 }
 
-/* No animation: paper simply present. Stronger than the feed rules below
-   so unchecking "Animate" wins even mid-print (their specificity beats the
-   plain .noAnim rule). */
+/* No animation: paper pops in with no feed — but ONLY once fed, so
+   replaying still parks (hides) the paper during "processing" and the
+   appearance is actually visible. (An unscoped .noAnim rule would keep
+   the paper visible in every stage and Replay would seem to do nothing.) */
 .root.stepped.fed.noAnim .feed,
-.root.smooth.fed.noAnim .feed,
-.root.noAnim .feed {
+.root.smooth.fed.noAnim .feed {
   animation: none;
   transform: translateY(0);
   opacity: 1;
