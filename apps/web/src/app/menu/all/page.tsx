@@ -41,8 +41,8 @@ export default async function FullMenuPage() {
       .sort((a, b) => b.likes - a.likes),
   }));
 
-  // All ordering stays in-house: the CTAs below route to /order (cart +
-  // checkout). The old third-party cart (us.chinesemenu.com) is retired.
+  // All ordering stays in-house: the CTAs below route to /order
+  // (cart + checkout).
 
   return (
     <div className={styles.layout} id="top">

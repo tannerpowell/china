@@ -775,8 +775,8 @@
       "images": [],
       "modifierGroupIds": [],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -797,8 +797,8 @@
       "images": [],
       "modifierGroupIds": [],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -819,8 +819,8 @@
       "images": [],
       "modifierGroupIds": [],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -841,8 +841,8 @@
       "images": [],
       "modifierGroupIds": [],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -863,8 +863,8 @@
       "images": [],
       "modifierGroupIds": [],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -885,8 +885,8 @@
       "images": [],
       "modifierGroupIds": [],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -907,8 +907,8 @@
       "images": [],
       "modifierGroupIds": [],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -929,8 +929,8 @@
       "images": [],
       "modifierGroupIds": [],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -951,8 +951,8 @@
       "images": [],
       "modifierGroupIds": [],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -973,8 +973,8 @@
       "images": [],
       "modifierGroupIds": [],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -995,8 +995,8 @@
       "images": [],
       "modifierGroupIds": [],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -1017,8 +1017,8 @@
       "images": [],
       "modifierGroupIds": [],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -1039,8 +1039,8 @@
       "images": [],
       "modifierGroupIds": [],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -1063,8 +1063,8 @@
         "mod_style"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -1087,8 +1087,8 @@
         "mod_choose-your-style"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -1109,8 +1109,8 @@
       "images": [],
       "modifierGroupIds": [],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -1131,8 +1131,8 @@
       "images": [],
       "modifierGroupIds": [],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -1153,8 +1153,8 @@
       "images": [],
       "modifierGroupIds": [],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -1177,8 +1177,8 @@
         "mod_choose-your-type-of-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -1201,8 +1201,8 @@
         "mod_choose-your-type-of-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -1225,8 +1225,8 @@
         "mod_choose-your-type-of-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -1249,8 +1249,8 @@
         "mod_choice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -1273,8 +1273,8 @@
         "mod_choose-your-type-of-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -1297,8 +1297,8 @@
         "mod_choose-your-type-of-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -1321,8 +1321,8 @@
         "mod_choose-your-type-of-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -1345,8 +1345,8 @@
         "mod_choose-your-type-of-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -1370,8 +1370,8 @@
         "mod_choose-your-flavor"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -1394,8 +1394,8 @@
         "mod_spicy-level"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -1419,8 +1419,8 @@
         "mod_spicy-level"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -1443,8 +1443,8 @@
         "mod_choose-your-flavor"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -1468,8 +1468,8 @@
         "mod_spice-level"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -1492,8 +1492,8 @@
         "mod_spice-level"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -1517,8 +1517,8 @@
         "mod_spice-choose"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -1541,8 +1541,8 @@
         "mod_spice-choose"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -1566,8 +1566,8 @@
         "mod_spice-choose"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -1590,8 +1590,8 @@
         "mod_spice-choose"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -1616,8 +1616,8 @@
         "mod_choose-your-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -1641,8 +1641,8 @@
         "mod_choose-your-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -1666,8 +1666,8 @@
         "mod_choose-your-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -1690,8 +1690,8 @@
         "mod_choose-your-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -1714,8 +1714,8 @@
         "mod_choose-your-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -1739,8 +1739,8 @@
         "mod_choose-your-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -1763,8 +1763,8 @@
         "mod_choose-your-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -1787,8 +1787,8 @@
         "mod_choose-your-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -1811,8 +1811,8 @@
         "mod_choose-your-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -1838,8 +1838,8 @@
         "mod_additional-protein-select-up-to-3-items-below"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -1865,8 +1865,8 @@
         "mod_additional-protein-select-up-to-3-items-below"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -1892,8 +1892,8 @@
         "mod_additional-protein-select-up-to-3-items-below"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -1918,8 +1918,8 @@
         "mod_additional-protein-select-up-to-3-items-below"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -1945,8 +1945,8 @@
         "mod_additional-protein-select-up-to-3-items-below"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -1971,8 +1971,8 @@
         "mod_additional-protein-select-up-to-3-items-below"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -1997,8 +1997,8 @@
         "mod_additional-protein-select-up-to-3-items-below"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -2023,8 +2023,8 @@
         "mod_additional-protein-select-up-to-3-items-below"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -2049,8 +2049,8 @@
         "mod_additional-protein-select-up-to-3-items-below"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -2075,8 +2075,8 @@
         "mod_additional-protein-select-up-to-3-items-below"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -2101,8 +2101,8 @@
         "mod_additional-protein-select-up-to-3-items-below"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -2127,8 +2127,8 @@
         "mod_additional-protein-select-up-to-3-items-below"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -2154,8 +2154,8 @@
         "mod_additional-protein-select-up-to-3-items-below"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -2180,8 +2180,8 @@
         "mod_additional-protein-select-up-to-3-items-below"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -2207,8 +2207,8 @@
         "mod_additional-protein-select-up-to-3-items-below"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -2232,8 +2232,8 @@
         "mod_choose-your-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -2257,8 +2257,8 @@
         "mod_choose-your-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -2282,8 +2282,8 @@
         "mod_choose-your-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -2306,8 +2306,8 @@
         "mod_choose-your-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -2332,8 +2332,8 @@
         "mod_choose-your-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -2357,8 +2357,8 @@
         "mod_choose-your-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -2382,8 +2382,8 @@
         "mod_choose-your-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -2406,8 +2406,8 @@
         "mod_choose-your-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -2428,8 +2428,8 @@
       "images": [],
       "modifierGroupIds": [],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -2453,8 +2453,8 @@
         "mod_choose-your-type-of-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -2477,8 +2477,8 @@
         "mod_choose-your-main-ingredient"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -2501,8 +2501,8 @@
         "mod_choose-your-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -2525,8 +2525,8 @@
         "mod_choose-your-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -2549,8 +2549,8 @@
         "mod_choose-your-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -2574,8 +2574,8 @@
         "mod_choose-your-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -2598,8 +2598,8 @@
         "mod_choose-your-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -2623,8 +2623,8 @@
         "mod_choose-your-type-of-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -2648,8 +2648,8 @@
         "mod_choose-your-type-of-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -2673,8 +2673,8 @@
         "mod_choose-your-type-of-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -2698,8 +2698,8 @@
         "mod_choose-your-type-of-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -2723,8 +2723,8 @@
         "mod_choose-your-type-of-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -2748,8 +2748,8 @@
         "mod_choose-your-type-of-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -2773,8 +2773,8 @@
         "mod_choose-your-type-of-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -2798,8 +2798,8 @@
         "mod_choose-your-type-of-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -2823,8 +2823,8 @@
         "mod_choose-your-type-of-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -2848,8 +2848,8 @@
         "mod_choose-your-type-of-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -2872,8 +2872,8 @@
         "mod_choose-your-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -2896,8 +2896,8 @@
         "mod_choose-your-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -2923,8 +2923,8 @@
         "mod_choose-your-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -2949,8 +2949,8 @@
         "mod_choose-your-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -2975,8 +2975,8 @@
         "mod_choose-your-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -3002,8 +3002,8 @@
         "mod_choose-cooking-style"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -3029,8 +3029,8 @@
         "mod_choose-cooking-style"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -3055,8 +3055,8 @@
         "mod_choose-your-rice"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -3082,8 +3082,8 @@
         "mod_choose-cooking-style"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -3104,8 +3104,8 @@
       "images": [],
       "modifierGroupIds": [],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -3126,8 +3126,8 @@
       "images": [],
       "modifierGroupIds": [],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -3148,8 +3148,8 @@
       "images": [],
       "modifierGroupIds": [],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -3170,8 +3170,8 @@
       "images": [],
       "modifierGroupIds": [],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -3192,8 +3192,8 @@
       "images": [],
       "modifierGroupIds": [],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -3214,8 +3214,8 @@
       "images": [],
       "modifierGroupIds": [],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -3236,8 +3236,8 @@
       "images": [],
       "modifierGroupIds": [],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -3258,8 +3258,8 @@
       "images": [],
       "modifierGroupIds": [],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -3280,8 +3280,8 @@
       "images": [],
       "modifierGroupIds": [],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -3302,8 +3302,8 @@
       "images": [],
       "modifierGroupIds": [],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -3324,8 +3324,8 @@
       "images": [],
       "modifierGroupIds": [],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -3346,8 +3346,8 @@
       "images": [],
       "modifierGroupIds": [],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -3368,8 +3368,8 @@
       "images": [],
       "modifierGroupIds": [],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -3390,8 +3390,8 @@
       "images": [],
       "modifierGroupIds": [],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -3412,8 +3412,8 @@
       "images": [],
       "modifierGroupIds": [],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -3438,8 +3438,8 @@
         "mod_choose-your-rice-select-up-to-3-items-below"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -3464,8 +3464,8 @@
         "mod_choose-your-rice-select-up-to-3-items-below"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -3489,8 +3489,8 @@
         "mod_choose-the-type"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -3513,8 +3513,8 @@
         "mod_choose-your-main-ingredient-s"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -3539,8 +3539,8 @@
         "mod_choose-your-rice-select-up-to-3-items-below"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -3565,8 +3565,8 @@
         "mod_choose-your-rice-select-up-to-3-items-below"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -3591,8 +3591,8 @@
         "mod_choose-your-rice-select-up-to-3-items-below"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     },
@@ -3617,8 +3617,8 @@
         "mod_choose-your-rice-select-up-to-3-items-below"
       ],
       "order": {
-        "provider": "chinesemenu",
-        "cartUrl": "https://us.chinesemenu.com/order/shoppingcart.htm",
+        "provider": "",
+        "cartUrl": "",
         "itemOrderUrl": null
       }
     }
