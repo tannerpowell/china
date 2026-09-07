@@ -26,8 +26,8 @@ export const STR: Record<string, Entry> = {
     zh: "用心烹制的亚洲美食。",
   },
   "nav.blurb2": {
-    en: "Dine-in • Take-out • Delivery.",
-    zh: "堂食 • 自取 • 外卖。",
+    en: "Dine-in • Take-out • Delivery",
+    zh: "堂食 • 自取 • 外卖",
   },
   "hours.sunThu": { en: "Sun–Thu", zh: "周日–周四" },
   "hours.friSat": { en: "Fri–Sat", zh: "周五–周六" },

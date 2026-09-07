@@ -85,6 +85,8 @@
 .aboutLink {
   color: var(--red);
   text-decoration: underline;
+  font-size: 16px;
+  font-weight: 700;
 }
 
 .aboutLink:hover {
