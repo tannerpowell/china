@@ -4,6 +4,7 @@ import { getAllMenuData } from "@/lib/menu-sanity";
 import { JsonLd } from "@/components/JsonLd";
 import { T } from "@/components/T";
 import { breadcrumbJsonLd } from "@/lib/schema";
+import { SiteFooter } from "@/components/SiteFooter";
 import { SiteSidebar } from "@/components/SiteSidebar";
 import {
   restaurant,
@@ -223,6 +224,7 @@ export default async function FullMenuPage() {
             </p>
           </footer>
         </main>
+        <SiteFooter />
         </DishOrderProvider>
       </div>
     </div>

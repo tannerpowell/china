@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
 import { T } from "@/components/T";
+import { SiteFooter } from "@/components/SiteFooter";
 import { SiteSidebar } from "@/components/SiteSidebar";
 import {
   restaurant,
@@ -140,6 +141,7 @@ export default function Home() {
         <div className={styles.launchLink}>
           <Link href="/launch"><T id="home.checklist" /></Link>
         </div>
+        <SiteFooter />
       </main>
     </div>
   );

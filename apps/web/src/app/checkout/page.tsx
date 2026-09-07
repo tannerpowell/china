@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useCartStore } from "@/lib/cart-store";
+import { SiteFooter } from "@/components/SiteFooter";
 import { DemoPaymentForm } from "./DemoPaymentForm";
 import styles from "./page.module.css";
 
@@ -83,6 +84,7 @@ export default function CheckoutPage() {
           <p className={styles.successNote}>You'll receive a confirmation email shortly.</p>
           <Link href="/menu" className={styles.backLink}>← Order Again</Link>
         </div>
+        <SiteFooter />
       </main>
     );
   }
@@ -255,6 +257,7 @@ export default function CheckoutPage() {
           </div>
         </section>
       </div>
+      <SiteFooter />
     </main>
   );
 }

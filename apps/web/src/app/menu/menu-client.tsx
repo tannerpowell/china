@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useCartStore } from "@/lib/cart-store";
+import { SiteFooter } from "@/components/SiteFooter";
 import type { MenuItem, Category, ModifierGroup, CartModifier } from "@/lib/types";
 import styles from "./page.module.css";
 
@@ -210,6 +211,7 @@ export default function MenuClient({ categories, items, modifierGroups }: MenuCl
             </section>
           );
         })}
+        <SiteFooter />
       </main>
 
       {/* Peek Modal (on hover) */}

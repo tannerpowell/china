@@ -5,6 +5,7 @@ import Link from "next/link";
 import type { MenuItem, Category, ModifierGroup } from '@/lib/types';
 import { useCartStore } from '@/lib/cart-store';
 import { useSiteTheme } from '@/components/SiteThemeToggle';
+import { SiteFooter } from '@/components/SiteFooter';
 import { LanguageToggle } from '@/components/LanguageToggle';
 import { T } from '@/components/T';
 import { CategoryNav } from './CategoryNav';
@@ -146,6 +147,7 @@ export default function Menu3PageClient({
             onItemHover={setPeekItem}
             onItemClick={setModalItem}
           />
+          <SiteFooter />
         </main>
 
         {/* Right Pane - Peek Preview (Desktop only) */}

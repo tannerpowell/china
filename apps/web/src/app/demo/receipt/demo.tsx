@@ -64,9 +64,6 @@ export function ReceiptDemo() {
           <Image src="/logo.png" alt="" width={32} height={32} />
           <span>China Island</span>
         </Link>
-        <div className={navStyles.toggles}>
-          <SiteThemeToggle />
-        </div>
       </div>
       <div className={`${navStyles.ownerBar} ${styles.ownerBar}`}>
         <nav className={navStyles.ownerNav} aria-label="Owner pages">
@@ -80,44 +77,48 @@ export function ReceiptDemo() {
           <SiteThemeToggle />
         </div>
       </div>
-      <h1 className={styles.title}>Receipt demo</h1>
-      <p className={styles.lede}>
-        Candidate animated receipt for the order confirmation. Same sample
-        order every run — replay it, switch the feed, or kill the motion.
-      </p>
+      <div className={styles.body}>
+        <div className={styles.introCol}>
+          <h1 className={styles.title}>Receipt demo</h1>
+          <p className={styles.lede}>
+            Candidate animated receipt for the order confirmation. Same
+            sample order every run — replay it, switch the feed, or kill
+            the motion.
+          </p>
 
-      <div className={styles.controls} role="group" aria-label="Demo controls">
-        <button
-          type="button"
-          className={styles.replay}
-          onClick={() => play(motion)}
-        >
-          Replay
-        </button>
-        <div className={styles.seg} role="group" aria-label="Feed motion">
-          {(["stepped", "smooth"] as const).map((m) => (
+          <div className={styles.controls} role="group" aria-label="Demo controls">
             <button
-              key={m}
               type="button"
-              className={motion === m ? styles.active : ""}
-              onClick={() => setMotion(m)}
-              aria-pressed={motion === m}
+              className={styles.replay}
+              onClick={() => play(motion)}
             >
-              {m}
+              Replay
             </button>
-          ))}
+            <div className={styles.seg} role="group" aria-label="Feed motion">
+              {(["stepped", "smooth"] as const).map((m) => (
+                <button
+                  key={m}
+                  type="button"
+                  className={motion === m ? styles.active : ""}
+                  onClick={() => setMotion(m)}
+                  aria-pressed={motion === m}
+                >
+                  {m}
+                </button>
+              ))}
+            </div>
+            <label className={styles.toggle}>
+              <input
+                type="checkbox"
+                checked={animate}
+                onChange={(e) => setAnimate(e.target.checked)}
+              />
+              Animate
+            </label>
+          </div>
         </div>
-        <label className={styles.toggle}>
-          <input
-            type="checkbox"
-            checked={animate}
-            onChange={(e) => setAnimate(e.target.checked)}
-          />
-          Animate
-        </label>
-      </div>
 
-      <div className={styles.stage}>
+        <div className={styles.stage}>
         <AnimatedReceipt
           stage={stage}
           feedMotion={motion}
@@ -168,6 +169,7 @@ export function ReceiptDemo() {
             <p className={styles.center}>Thank you!</p>
           </div>
         </AnimatedReceipt>
+        </div>
       </div>
       <div className={styles.footerWrap}>
         <SiteFooter />

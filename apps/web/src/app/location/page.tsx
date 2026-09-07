@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SiteSidebar } from "@/components/SiteSidebar";
+import { SiteFooter } from "@/components/SiteFooter";
 import { JsonLd } from "@/components/JsonLd";
 import { T } from "@/components/T";
 import { breadcrumbJsonLd } from "@/lib/schema";
@@ -196,6 +197,7 @@ export default function LocationPage() {
             ))}
           </dl>
         </section>
+        <SiteFooter />
       </main>
     </div>
   );

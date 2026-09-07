@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/JsonLd";
 import { T } from "@/components/T";
+import { SiteFooter } from "@/components/SiteFooter";
 import { SiteSidebar } from "@/components/SiteSidebar";
 import { breadcrumbJsonLd } from "@/lib/schema";
 import { OrderClient } from "./OrderClient";
@@ -36,6 +37,7 @@ export default function OrderPage() {
           <div className={styles.body}>
             <OrderClient />
           </div>
+          <SiteFooter />
         </main>
       </div>
     </div>
