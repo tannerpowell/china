@@ -479,6 +479,12 @@
   color: var(--menu3-text-muted, #888);
 }
 
+.menu3-price-from {
+  font-size: 0.75em;
+  color: var(--menu3-text-muted, #888);
+  margin-right: 2px;
+}
+
 /* Compact mode for dense display */
 @media (max-width: 1200px) {
   .menu3-item-description {
@@ -766,6 +772,12 @@
 .menu3-peek-price-mp {
   font-size: 0.8em;
   color: var(--menu3-text-muted, #888);
+}
+
+.menu3-peek-price-from {
+  font-size: 0.7em;
+  color: var(--menu3-text-muted, #888);
+  margin-right: 2px;
 }
 
 /* Badges */

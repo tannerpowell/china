@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useCartStore } from "@/lib/cart-store";
+import { isRestaurantOpen, restaurantHoursShort } from "@/lib/restaurant";
 import { SiteFooter } from "@/components/SiteFooter";
 import {
   AnimatedReceipt,
@@ -29,6 +30,7 @@ function ConfirmationReceipt({
   items,
   subtotal,
   tax,
+  tip,
   total,
   last4,
   paymentId,
@@ -38,6 +40,7 @@ function ConfirmationReceipt({
   items: { name: string; qty: number; lineTotal: number; mods: string[] }[];
   subtotal: number;
   tax: number;
+  tip: number;
   total: number;
   last4: string;
   paymentId: string;
@@ -114,6 +117,12 @@ function ConfirmationReceipt({
           <span>Tax</span>
           <span>{money(tax)}</span>
         </p>
+        {tip > 0 && (
+          <p className={styles.line}>
+            <span>Tip</span>
+            <span>{money(tip)}</span>
+          </p>
+        )}
         <p className={`${styles.line} ${styles.total}`}>
           <span>Total</span>
           <span>{money(total)}</span>
@@ -142,6 +151,7 @@ export default function CheckoutPage() {
   const [paidTotal, setPaidTotal] = useState(0);
   const [paidSubtotal, setPaidSubtotal] = useState(0);
   const [paidTax, setPaidTax] = useState(0);
+  const [paidTip, setPaidTip] = useState(0);
   const [paidOrderType, setPaidOrderType] = useState<"pickup" | "delivery">(
     "pickup"
   );
@@ -155,11 +165,28 @@ export default function CheckoutPage() {
     phone: "",
     orderType: "pickup" as "pickup" | "delivery",
     notes: "",
+    street: "",
+    city: "",
+    zip: "",
   });
+  const [tipPct, setTipPct] = useState<number | "custom" | null>(null);
+  const [tipCustom, setTipCustom] = useState("");
+  const [openNow, setOpenNow] = useState(true);
 
   useEffect(() => {
     setMounted(true);
+    // Evaluated client-side so the check uses the visitor's clock against
+    // restaurant-local hours (America/Chicago).
+    setOpenNow(isRestaurantOpen());
   }, []);
+
+  const tipAmount =
+    tipPct === "custom"
+      ? Math.max(0, Number(tipCustom) || 0)
+      : tipPct
+        ? Math.round(subtotal * tipPct) / 100
+        : 0;
+  const grandTotal = total + tipAmount;
 
   // Runs after payment succeeds (demo today, Stripe confirmPayment later).
   // Order record creation / email belongs here — it stays put in both modes.
@@ -168,9 +195,10 @@ export default function CheckoutPage() {
     setPaymentId(intentId);
     setLast4(cardLast4);
     // Snapshot everything the receipt needs — the store is cleared below.
-    setPaidTotal(total);
+    setPaidTotal(grandTotal);
     setPaidSubtotal(subtotal);
     setPaidTax(tax);
+    setPaidTip(tipAmount);
     setPaidOrderType(form.orderType);
     setPaidItems(
       items.map((item) => ({
@@ -194,10 +222,17 @@ export default function CheckoutPage() {
     // reporting here when Stripe goes live.
   };
 
+  const addressValid =
+    form.orderType === "pickup" ||
+    (form.street.trim().length > 0 &&
+      form.city.trim().length > 0 &&
+      /^\d{5}(-\d{4})?$/.test(form.zip.trim()));
+
   const contactValid =
     form.name.trim().length > 0 &&
     /.+@.+\..+/.test(form.email.trim()) &&
-    form.phone.trim().length > 0;
+    form.phone.trim().length > 0 &&
+    addressValid;
 
   if (!mounted) {
     return <div className={styles.loading}>Loading...</div>;
@@ -213,6 +248,7 @@ export default function CheckoutPage() {
             items={paidItems}
             subtotal={paidSubtotal}
             tax={paidTax}
+            tip={paidTip}
             total={paidTotal}
             last4={last4}
             paymentId={paymentId}
@@ -293,9 +329,15 @@ export default function CheckoutPage() {
               <span>Tax</span>
               <span>${tax.toFixed(2)}</span>
             </div>
+            {tipAmount > 0 && (
+              <div className={styles.totalRow}>
+                <span>Tip</span>
+                <span>${tipAmount.toFixed(2)}</span>
+              </div>
+            )}
             <div className={`${styles.totalRow} ${styles.totalFinal}`}>
               <span>Total</span>
-              <span>${total.toFixed(2)}</span>
+              <span>${grandTotal.toFixed(2)}</span>
             </div>
           </div>
         </section>
@@ -304,6 +346,14 @@ export default function CheckoutPage() {
         <section className={styles.formSection}>
           <h2 className={styles.sectionTitle}>Checkout</h2>
           <div className={styles.dottedRule} />
+
+          {!openNow && (
+            <div className={styles.closedNote}>
+              We&apos;re closed right now — hours are{" "}
+              {restaurantHoursShort.map((h) => `${h.days} ${h.time}`).join(", ")}.
+              You can still place your order; we&apos;ll confirm when we open.
+            </div>
+          )}
 
           {/* Contact block is a plain div, not a <form>: the payment
               component below owns the only submit (same split as Stripe's
@@ -375,6 +425,76 @@ export default function CheckoutPage() {
               </div>
             </div>
 
+            {form.orderType === "delivery" && (
+              <>
+                <div className={styles.field}>
+                  <label>Street Address *</label>
+                  <input
+                    type="text"
+                    autoComplete="street-address"
+                    value={form.street}
+                    onChange={(e) => setForm({ ...form, street: e.target.value })}
+                  />
+                </div>
+                <div className={styles.cardRow}>
+                  <div className={styles.field}>
+                    <label>City *</label>
+                    <input
+                      type="text"
+                      autoComplete="address-level2"
+                      value={form.city}
+                      onChange={(e) => setForm({ ...form, city: e.target.value })}
+                    />
+                  </div>
+                  <div className={styles.field}>
+                    <label>ZIP *</label>
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      autoComplete="postal-code"
+                      value={form.zip}
+                      onChange={(e) => setForm({ ...form, zip: e.target.value })}
+                    />
+                  </div>
+                </div>
+              </>
+            )}
+
+            <div className={styles.field}>
+              <label>Tip</label>
+              <div className={styles.orderType}>
+                {[0.1, 0.15, 0.2].map((pct) => (
+                  <button
+                    key={pct}
+                    type="button"
+                    className={tipPct === pct ? styles.active : ""}
+                    onClick={() => setTipPct(tipPct === pct ? null : pct)}
+                  >
+                    {pct * 100}%
+                  </button>
+                ))}
+                <button
+                  type="button"
+                  className={tipPct === "custom" ? styles.active : ""}
+                  onClick={() => setTipPct(tipPct === "custom" ? null : "custom")}
+                >
+                  Custom
+                </button>
+              </div>
+              {tipPct === "custom" && (
+                <input
+                  type="text"
+                  inputMode="decimal"
+                  placeholder="0.00"
+                  value={tipCustom}
+                  onChange={(e) =>
+                    setTipCustom(e.target.value.replace(/[^\d.]/g, ""))
+                  }
+                  style={{ marginTop: 8 }}
+                />
+              )}
+            </div>
+
             <div className={styles.field}>
               <label>Notes (optional)</label>
               <textarea
@@ -388,7 +508,7 @@ export default function CheckoutPage() {
                 <StripeProvider clientSecret={...}><PaymentForm …/></StripeProvider>.
                 Props stay the same. */}
             <DemoPaymentForm
-              amount={total}
+              amount={grandTotal}
               contactValid={contactValid}
               onSuccess={handlePaymentSuccess}
               onError={handlePaymentError}

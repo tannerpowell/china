@@ -1,13 +1,14 @@
 'use client';
 
 import React, { useState, useMemo, useRef, useEffect } from 'react';
-import type { MenuItem, Category } from '@/lib/types';
+import type { MenuItem, Category, ModifierGroup } from '@/lib/types';
 import { T } from '@/components/T';
 import { MenuItemRow } from './MenuItemRow';
 
 interface MenuListProps {
   items: MenuItem[];
   categories: Category[];
+  modifierGroups: ModifierGroup[];
   selectedCategory: string;
   searchTerm: string;
   onItemHover: (item: MenuItem | null) => void;
@@ -22,6 +23,7 @@ interface MenuListProps {
 export function MenuList({
   items,
   categories,
+  modifierGroups,
   selectedCategory,
   searchTerm,
   onItemHover,
@@ -136,6 +138,7 @@ export function MenuList({
                 <MenuItemRow
                   key={item.id}
                   item={item}
+                  modifierGroups={modifierGroups}
                   isHovered={isHovered}
                   onHover={() => handleItemHover(item)}
                   onLeave={handleItemLeave}

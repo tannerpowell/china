@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Minus, Plus, Check, ShoppingBag } from 'lucide-react';
 import type { MenuItem, ModifierGroup, CartModifier, Category } from '@/lib/types';
 import { useCartStore } from '@/lib/cart-store';
+import { validateSelection, displayPrice, toDollars } from '@/lib/pricing';
 import { T } from '@/components/T';
 import styles from './MenuItemModal.module.css';
 
@@ -39,6 +40,7 @@ export function MenuItemModal({
   const [selectedModifiers, setSelectedModifiers] = useState<Record<string, string[]>>({});
   const [specialInstructions, setSpecialInstructions] = useState('');
   const [addedToCart, setAddedToCart] = useState(false);
+  const [missingRequired, setMissingRequired] = useState<string[]>([]);
 
   // Get modifier groups for this item
   const itemModifierGroups = item.modifierGroupIds
@@ -83,11 +85,19 @@ export function MenuItemModal({
 
       document.addEventListener('keydown', handleKeyDown);
 
-      // Reset state
+      // Reset state — required single-choice groups preselect their first
+      // option (cheapest variant for size-priced items).
+      const preselected: Record<string, string[]> = {};
+      for (const g of itemModifierGroups) {
+        if (g.min > 0 && g.selectionType === 'single' && g.options.length > 0) {
+          preselected[g.id] = [g.options[0].id];
+        }
+      }
       setQuantity(1);
-      setSelectedModifiers({});
+      setSelectedModifiers(preselected);
       setSpecialInstructions('');
       setAddedToCart(false);
+      setMissingRequired([]);
 
       setTimeout(() => {
         closeButtonRef.current?.focus();
@@ -119,9 +129,11 @@ export function MenuItemModal({
       if (isMulti) {
         if (current.includes(optionId)) {
           return { ...prev, [groupId]: current.filter((id) => id !== optionId) };
-        } else {
-          return { ...prev, [groupId]: [...current, optionId] };
         }
+        // Cap at the group's max — same rule the server enforces.
+        const group = itemModifierGroups.find((g) => g.id === groupId);
+        if (group && current.length >= group.max) return prev;
+        return { ...prev, [groupId]: [...current, optionId] };
       } else {
         return { ...prev, [groupId]: [optionId] };
       }
@@ -149,6 +161,17 @@ export function MenuItemModal({
 
   // Handle add to cart
   const handleAddToCart = () => {
+    // Required choices gate the add — the server enforces the same rules,
+    // this just fails fast and points at what's missing.
+    const check = validateSelection(item, itemModifierGroups, selectedModifiers);
+    if (!check.ok) {
+      setMissingRequired(
+        check.issues.filter((i) => i.kind === 'required').map((i) => i.groupTitle.replace(/\n.*/, '').trim())
+      );
+      return;
+    }
+    setMissingRequired([]);
+
     const cartModifiers: CartModifier[] = [];
     Object.entries(selectedModifiers).forEach(([groupId, optionIds]) => {
       const group = itemModifierGroups.find((g) => g.id === groupId);
@@ -270,14 +293,19 @@ export function MenuItemModal({
 
           {/* Price */}
           <div className={styles.price}>
-            {item.basePrice !== null ? (
-              <>
-                <span className={styles.priceCurrency}>$</span>
-                <span className={styles.priceAmount}>{item.basePrice.toFixed(2)}</span>
-              </>
-            ) : (
-              <span className={styles.priceMarket}><T id="menu.modalMp" /></span>
-            )}
+            {(() => {
+              const dp = displayPrice(item, itemModifierGroups);
+              if (!dp) {
+                return <span className={styles.priceMarket}><T id="menu.modalMp" /></span>;
+              }
+              return (
+                <>
+                  {dp.from && <span className={styles.priceFrom}><T id="menu.modalFrom" /> </span>}
+                  <span className={styles.priceCurrency}>$</span>
+                  <span className={styles.priceAmount}>{toDollars(dp.cents).toFixed(2)}</span>
+                </>
+              );
+            })()}
           </div>
 
           {/* Divider */}
@@ -346,6 +374,12 @@ export function MenuItemModal({
 
           {/* Spacer */}
           <div className={styles.spacer} />
+
+          {missingRequired.length > 0 && (
+            <p className={styles.requiredHint}>
+              <T id="menu.modalChooseHint" /> {missingRequired.join(', ')}
+            </p>
+          )}
 
           {/* Footer with quantity and add button */}
           <div className={styles.footer}>

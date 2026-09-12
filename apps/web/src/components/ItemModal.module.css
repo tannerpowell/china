@@ -160,6 +160,20 @@
   color: var(--color-ink-muted);
 }
 
+.modifierRequired {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-red);
+}
+
+.requiredHint {
+  flex-basis: 100%;
+  font-size: 0.85rem;
+  color: var(--color-red);
+  margin: 0 0 var(--space-sm);
+}
+
 .options {
   display: flex;
   flex-direction: column;
@@ -263,6 +277,7 @@
 /* Footer */
 .footer {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: var(--space-md);
   padding: var(--space-lg) var(--space-xl);

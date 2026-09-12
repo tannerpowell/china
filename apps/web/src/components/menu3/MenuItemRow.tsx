@@ -1,11 +1,13 @@
 'use client';
 
 import React, { forwardRef } from 'react';
-import type { MenuItem } from '@/lib/types';
+import type { MenuItem, ModifierGroup } from '@/lib/types';
+import { displayPrice, toDollars } from '@/lib/pricing';
 import { T } from '@/components/T';
 
 interface MenuItemRowProps {
   item: MenuItem;
+  modifierGroups: ModifierGroup[];
   isHovered: boolean;
   onHover: () => void;
   onLeave: () => void;
@@ -22,10 +24,12 @@ interface MenuItemRowProps {
  */
 export const MenuItemRow = forwardRef<HTMLButtonElement, MenuItemRowProps>(
   function MenuItemRow(
-    { item, isHovered, onHover, onLeave, onFocus, onBlur, onClick, className = '' },
+    { item, modifierGroups, isHovered, onHover, onLeave, onFocus, onBlur, onClick, className = '' },
     ref
   ) {
     const hasImage = item.images && item.images.length > 0;
+    const dp = displayPrice(item, modifierGroups);
+    const priceText = dp ? `$${toDollars(dp.cents).toFixed(2)}` : null;
 
     return (
       <button
@@ -37,7 +41,7 @@ export const MenuItemRow = forwardRef<HTMLButtonElement, MenuItemRowProps>(
         onFocus={onFocus}
         onBlur={onBlur}
         onClick={onClick}
-        aria-label={`${item.name}${item.basePrice != null ? `, $${item.basePrice.toFixed(2)}` : ''}`}
+        aria-label={`${item.name}${priceText ? `, ${dp!.from ? 'from ' : ''}${priceText}` : ''}`}
       >
         {/* Image indicator (subtle dot) */}
         {hasImage && (
@@ -77,10 +81,11 @@ export const MenuItemRow = forwardRef<HTMLButtonElement, MenuItemRowProps>(
 
         {/* Price */}
         <span className="menu3-item-price menu3-type-price">
-          {item.basePrice !== null ? (
+          {dp ? (
             <>
+              {dp.from && <span className="menu3-price-from"><T id="menu.modalFrom" /> </span>}
               <span className="menu3-price-dollar">$</span>
-              {item.basePrice.toFixed(2)}
+              {toDollars(dp.cents).toFixed(2)}
             </>
           ) : (
             <span className="menu3-price-mp"><T id="menu.mp" /></span>

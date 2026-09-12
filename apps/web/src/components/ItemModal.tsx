@@ -5,6 +5,7 @@ import { X, Minus, Plus, Flame, Leaf, Check, ShoppingBag } from "lucide-react";
 import type { MenuItem, CartModifier, ModifierGroup } from "@/lib/types";
 import { getModifierGroup } from "@/lib/menu";
 import { useCartStore } from "@/lib/cart-store";
+import { validateSelection, displayPrice, toDollars } from "@/lib/pricing";
 import styles from "./ItemModal.module.css";
 
 interface ItemModalProps {
@@ -22,19 +23,28 @@ export function ItemModal({ item, imagePath, isOpen, onClose }: ItemModalProps) 
   const [specialInstructions, setSpecialInstructions] = useState("");
   const [imageError, setImageError] = useState(false);
   const [addedToCart, setAddedToCart] = useState(false);
+  const [missingRequired, setMissingRequired] = useState<string[]>([]);
 
   // Load modifier groups for this item
   const modifierGroups: ModifierGroup[] = item.modifierGroupIds
     .map((id) => getModifierGroup(id))
     .filter((g): g is ModifierGroup => g !== undefined);
 
-  // Reset state when modal opens
+  // Reset state when modal opens. Required single-choice groups preselect
+  // their first option (cheapest variant for size-priced items).
   useEffect(() => {
     if (isOpen) {
+      const preselected: Record<string, string[]> = {};
+      for (const g of modifierGroups) {
+        if (g.min > 0 && g.selectionType === "single" && g.options.length > 0) {
+          preselected[g.id] = [g.options[0].id];
+        }
+      }
       setQuantity(1);
-      setSelectedModifiers({});
+      setSelectedModifiers(preselected);
       setSpecialInstructions("");
       setAddedToCart(false);
+      setMissingRequired([]);
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
@@ -42,6 +52,7 @@ export function ItemModal({ item, imagePath, isOpen, onClose }: ItemModalProps) 
     return () => {
       document.body.style.overflow = "";
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
   // Calculate price
@@ -69,12 +80,13 @@ export function ItemModal({ item, imagePath, isOpen, onClose }: ItemModalProps) 
       const current = prev[groupId] || [];
 
       if (isMulti) {
-        // Toggle selection for multi-select
+        // Toggle selection for multi-select, capped at the group's max
         if (current.includes(optionId)) {
           return { ...prev, [groupId]: current.filter((id) => id !== optionId) };
-        } else {
-          return { ...prev, [groupId]: [...current, optionId] };
         }
+        const group = modifierGroups.find((g) => g.id === groupId);
+        if (group && current.length >= group.max) return prev;
+        return { ...prev, [groupId]: [...current, optionId] };
       } else {
         // Single select - replace
         return { ...prev, [groupId]: [optionId] };
@@ -83,6 +95,17 @@ export function ItemModal({ item, imagePath, isOpen, onClose }: ItemModalProps) 
   };
 
   const handleAddToCart = () => {
+    // Required choices gate the add — the server enforces the same rules,
+    // this just fails fast and points at what's missing.
+    const check = validateSelection(item, modifierGroups, selectedModifiers);
+    if (!check.ok) {
+      setMissingRequired(
+        check.issues.filter((i) => i.kind === "required").map((i) => i.groupTitle)
+      );
+      return;
+    }
+    setMissingRequired([]);
+
     // Build cart modifiers
     const cartModifiers: CartModifier[] = [];
     Object.entries(selectedModifiers).forEach(([groupId, optionIds]) => {
@@ -165,7 +188,11 @@ export function ItemModal({ item, imagePath, isOpen, onClose }: ItemModalProps) 
               </div>
               {item.description && <p className={styles.description}>{item.description}</p>}
               <p className={styles.basePrice}>
-                {item.basePrice !== null ? `$${item.basePrice.toFixed(2)}` : "Price varies"}
+                {(() => {
+                  const dp = displayPrice(item, modifierGroups);
+                  if (!dp) return "Price varies";
+                  return dp.from ? `From $${toDollars(dp.cents).toFixed(2)}` : `$${toDollars(dp.cents).toFixed(2)}`;
+                })()}
               </p>
             </div>
 
@@ -176,6 +203,7 @@ export function ItemModal({ item, imagePath, isOpen, onClose }: ItemModalProps) 
                   <div key={group.id} className={styles.modifierGroup}>
                     <h3 className={styles.modifierTitle}>
                       {group.title.replace(/\n.*/, "").trim()}
+                      {group.min > 0 && <span className={styles.modifierRequired}>* required</span>}
                       <span className={styles.modifierType}>
                         {group.selectionType === "single" ? "Choose one" : `Choose up to ${group.max}`}
                       </span>
@@ -223,6 +251,11 @@ export function ItemModal({ item, imagePath, isOpen, onClose }: ItemModalProps) 
 
         {/* Footer */}
         <div className={styles.footer}>
+          {missingRequired.length > 0 && (
+            <p className={styles.requiredHint}>
+              Please choose: {missingRequired.join(", ")}
+            </p>
+          )}
           {/* Quantity */}
           <div className={styles.quantityWrapper}>
             <button

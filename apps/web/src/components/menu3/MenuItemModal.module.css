@@ -231,6 +231,21 @@
   color: var(--menu3-text-muted, #888);
 }
 
+.priceFrom {
+  font-family: 'Sen', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--menu3-text-muted, #888);
+  margin-right: 4px;
+}
+
+.requiredHint {
+  font-family: 'Sen', system-ui, sans-serif;
+  font-size: 13px;
+  color: var(--menu3-accent, #f74140);
+  margin: 0 0 12px;
+}
+
 /* Decorative divider */
 .divider {
   width: 48px;

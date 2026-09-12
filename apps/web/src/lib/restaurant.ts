@@ -77,3 +77,33 @@ export const restaurantHoursShort = [
   { days: "Sun–Thu", time: "11 a.m. – 9 p.m." },
   { days: "Fri–Sat", time: "11 a.m. – 9:30 p.m." },
 ] as const;
+
+// Structured hours for open/closed checks, evaluated in the restaurant's
+// timezone (America/Chicago). Indexed by JS weekday (0 = Sunday); values
+// are [open, close) in minutes after midnight.
+const HOURS_MIN: readonly (readonly [number, number])[] = [
+  [660, 1260], // Sun 11:00–21:00
+  [660, 1260], // Mon
+  [660, 1260], // Tue
+  [660, 1260], // Wed
+  [660, 1260], // Thu
+  [660, 1290], // Fri 11:00–21:30
+  [660, 1290], // Sat
+];
+
+export function isRestaurantOpen(now: Date = new Date()): boolean {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/Chicago",
+    weekday: "short",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  }).formatToParts(now);
+  const get = (t: string) => parts.find((p) => p.type === t)?.value ?? "";
+  const dayIdx = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(
+    get("weekday")
+  );
+  const mins = (Number(get("hour")) % 24) * 60 + Number(get("minute"));
+  const [open, close] = HOURS_MIN[dayIdx] ?? [0, 0];
+  return mins >= open && mins < close;
+}

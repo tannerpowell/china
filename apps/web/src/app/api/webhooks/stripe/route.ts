@@ -10,6 +10,27 @@ function getWebhookSecret(): string {
   return secret;
 }
 
+// Test-mode events must never reach a live integration (and vice versa).
+// Derived from the configured secret key — never logged.
+function expectLivemode(): boolean {
+  return (process.env.STRIPE_SECRET_KEY ?? '').startsWith('sk_live_');
+}
+
+// Returns an error string if the intent fails sanity checks, else null.
+function verifyIntentIntegrity(intent: Stripe.PaymentIntent): string | null {
+  if (intent.currency !== 'usd') {
+    return `unexpected currency ${intent.currency}`;
+  }
+  const expected = Number(intent.metadata?.totalCents ?? NaN);
+  if (!Number.isInteger(expected) || expected <= 0) {
+    return 'missing/invalid totalCents metadata';
+  }
+  if (intent.amount !== expected) {
+    return `amount ${intent.amount} != quoted ${expected}`;
+  }
+  return null;
+}
+
 export async function POST(request: NextRequest) {
   const body = await request.text();
   const signature = request.headers.get('stripe-signature');
@@ -33,19 +54,27 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  if (event.livemode !== expectLivemode()) {
+    console.error(`Webhook livemode mismatch: event.livemode=${event.livemode}`);
+    return NextResponse.json({ error: 'Livemode mismatch' }, { status: 400 });
+  }
+
   try {
     switch (event.type) {
       case 'payment_intent.succeeded': {
         const paymentIntent = event.data.object as Stripe.PaymentIntent;
-        console.log('Payment succeeded:', paymentIntent.id);
+        const problem = verifyIntentIntegrity(paymentIntent);
+        if (problem) {
+          // Don't ack — Stripe will retry; a mismatch means the charged
+          // amount doesn't match what we quoted and needs reconciliation.
+          console.error(`payment_intent.succeeded integrity check failed for ${paymentIntent.id}: ${problem}`);
+          return NextResponse.json({ error: 'Integrity check failed' }, { status: 400 });
+        }
+        console.log(`Payment succeeded: ${paymentIntent.id} (${paymentIntent.amount}¢, ${paymentIntent.metadata.itemCount} items)`);
 
-        // TODO: When you have a database, save the order here
-        // const { orderType, customerName, customerEmail, customerPhone } = paymentIntent.metadata;
-        // await saveOrder({ paymentIntentId: paymentIntent.id, ... });
-
-        // TODO: Send confirmation email
-        // await sendOrderConfirmationEmail(customerEmail, orderNumber);
-
+        // TODO: durable order record — transition pending → paid using
+        // metadata.orderHash to match the quoted snapshot. Idempotency:
+        // key on event.id (Stripe may redeliver).
         break;
       }
 
@@ -53,26 +82,28 @@ export async function POST(request: NextRequest) {
         const paymentIntent = event.data.object as Stripe.PaymentIntent;
         console.log('Payment failed:', paymentIntent.id);
 
-        // TODO: Handle failed payment (notify customer, etc.)
-
+        // TODO: mark the pending order failed; the cart stays client-side
+        // so the customer can retry.
         break;
       }
 
       case 'charge.refunded': {
         const charge = event.data.object as Stripe.Charge;
-        console.log('Charge refunded:', charge.id);
+        if (charge.currency !== 'usd') {
+          console.error(`charge.refunded unexpected currency ${charge.currency} for ${charge.id}`);
+          return NextResponse.json({ error: 'Integrity check failed' }, { status: 400 });
+        }
+        console.log(`Charge refunded: ${charge.id} (${charge.amount_refunded}¢)`);
 
-        // TODO: Update order status to refunded
-
+        // TODO: transition order → refunded (partial if amount_refunded < amount)
         break;
       }
 
       case 'charge.dispute.created': {
         const dispute = event.data.object as Stripe.Dispute;
-        console.log('Dispute created:', dispute.id);
+        console.log(`Dispute created: ${dispute.id} (${dispute.amount}¢ ${dispute.currency})`);
 
-        // TODO: Alert restaurant owner about dispute
-
+        // TODO: alert restaurant owner about dispute
         break;
       }
 

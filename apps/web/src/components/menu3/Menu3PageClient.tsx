@@ -142,6 +142,7 @@ export default function Menu3PageClient({
           <MenuList
             items={items}
             categories={categories}
+            modifierGroups={modifierGroups}
             selectedCategory={selectedCategory}
             searchTerm={searchTerm}
             onItemHover={setPeekItem}
@@ -153,7 +154,7 @@ export default function Menu3PageClient({
         {/* Right Pane - Peek Preview (Desktop only) */}
         <aside className="menu3-preview">
           <div className="menu3-preview-sticky">
-            <PeekPreview item={peekItem} />
+            <PeekPreview item={peekItem} modifierGroups={modifierGroups} />
           </div>
         </aside>
       </div>

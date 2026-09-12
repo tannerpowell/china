@@ -1,8 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { TAX_RATE, MAX_QTY_PER_LINE } from './pricing';
 import type { Cart, CartItem, CartModifier, MenuItem } from './types';
-
-const TAX_RATE = 0.0825; // 8.25% Texas sales tax
 
 interface CartStore extends Cart {
   // Actions
@@ -85,7 +84,7 @@ export const useCartStore = create<CartStore>()(
 
         set((state) => {
           const newItems = state.items.map((item) =>
-            item.id === itemId ? { ...item, quantity } : item
+            item.id === itemId ? { ...item, quantity: Math.min(quantity, MAX_QTY_PER_LINE) } : item
           );
           const totals = calculateTotals(newItems, state.taxRate);
           return {
@@ -109,6 +108,18 @@ export const useCartStore = create<CartStore>()(
     }),
     {
       name: 'china-island-cart',
+      version: 2,
+      // v2 added required modifier groups + size-priced items. A persisted
+      // v1 cart snapshots old menu data (null prices, old option ids) that
+      // no longer validates — drop it rather than carry a bad order.
+      migrate: () => ({
+        items: [],
+        subtotal: 0,
+        tax: 0,
+        taxRate: TAX_RATE,
+        total: 0,
+        itemCount: 0,
+      }),
       skipHydration: true,
     }
   )

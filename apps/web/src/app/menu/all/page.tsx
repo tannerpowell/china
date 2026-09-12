@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import type { MenuItem, ModifierGroup } from "@/lib/types";
 import Link from "next/link";
 import { getAllMenuData } from "@/lib/menu-sanity";
 import { JsonLd } from "@/components/JsonLd";
 import { T } from "@/components/T";
 import { breadcrumbJsonLd } from "@/lib/schema";
+import { displayPrice, toDollars } from "@/lib/pricing";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteSidebar } from "@/components/SiteSidebar";
 import {
@@ -23,6 +25,13 @@ export const metadata: Metadata = {
 
 function formatPrice(value: number): string {
   return `$${value.toFixed(2)}`;
+}
+
+// Items priced by a required variant (size, portion) show a floor price.
+function itemPriceText(item: MenuItem, groups: ModifierGroup[]): string | null {
+  const dp = displayPrice(item, groups);
+  if (!dp) return null;
+  return `${dp.from ? "From " : ""}${formatPrice(toDollars(dp.cents))}`;
 }
 
 export default async function FullMenuPage() {
@@ -79,7 +88,7 @@ export default async function FullMenuPage() {
             name: item.name,
             sectionSlug: section?.slug ?? "",
             sectionTitle: section?.title ?? "",
-            price: item.basePrice !== null ? formatPrice(item.basePrice) : null,
+            price: itemPriceText(item, modifierGroups),
             description: item.description,
             searchText: [
               item.name,
@@ -186,11 +195,7 @@ export default async function FullMenuPage() {
                       </h3>
                     <span className={styles.leader} aria-hidden="true" />
                     <span className={styles.price}>
-                      {item.basePrice !== null ? (
-                        formatPrice(item.basePrice)
-                      ) : (
-                        <T id="menu.mp" />
-                      )}
+                      {itemPriceText(item, modifierGroups) ?? <T id="menu.mp" />}
                     </span>
                     <DishAddButton item={item} />
                     </div>

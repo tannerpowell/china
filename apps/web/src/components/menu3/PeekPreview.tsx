@@ -2,11 +2,13 @@
 
 import React from 'react';
 import Image from 'next/image';
-import type { MenuItem } from '@/lib/types';
+import type { MenuItem, ModifierGroup } from '@/lib/types';
+import { displayPrice, toDollars } from '@/lib/pricing';
 import { T } from '@/components/T';
 
 interface PeekPreviewProps {
   item: MenuItem | null;
+  modifierGroups: ModifierGroup[];
 }
 
 /**
@@ -14,7 +16,7 @@ interface PeekPreviewProps {
  * Renders in the right pane (desktop).
  * Premium surface: radius 14-18px, faint border, layered shadow.
  */
-export function PeekPreview({ item }: PeekPreviewProps) {
+export function PeekPreview({ item, modifierGroups }: PeekPreviewProps) {
   if (!item) {
     // Show empty state
     return (
@@ -59,14 +61,19 @@ export function PeekPreview({ item }: PeekPreviewProps) {
 
         {/* Price */}
         <div className="menu3-peek-price menu3-type-price">
-          {item.basePrice !== null ? (
-            <>
-              <span className="menu3-peek-price-dollar">$</span>
-              {item.basePrice.toFixed(2)}
-            </>
-          ) : (
-            <span className="menu3-peek-price-mp"><T id="menu.modalMp" /></span>
-          )}
+          {(() => {
+            const dp = displayPrice(item, modifierGroups);
+            if (!dp) {
+              return <span className="menu3-peek-price-mp"><T id="menu.modalMp" /></span>;
+            }
+            return (
+              <>
+                {dp.from && <span className="menu3-peek-price-from"><T id="menu.modalFrom" /> </span>}
+                <span className="menu3-peek-price-dollar">$</span>
+                {toDollars(dp.cents).toFixed(2)}
+              </>
+            );
+          })()}
         </div>
 
         {/* Tags/Badges */}

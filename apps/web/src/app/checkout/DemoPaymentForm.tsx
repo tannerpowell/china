@@ -78,7 +78,7 @@ export function DemoPaymentForm({ amount, onSuccess, onError, contactValid }: De
     setErrorMessage(null);
 
     if (!contactValid) {
-      const msg = "Please complete name, email, and phone above first.";
+      const msg = "Please complete the contact (and delivery address) fields above first.";
       setErrorMessage(msg);
       onError(msg);
       return;

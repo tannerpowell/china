@@ -298,6 +298,17 @@
   text-align: center;
 }
 
+/* Closed-hours notice (informational — orders still allowed) */
+.closedNote {
+  padding: 12px 16px;
+  background: rgba(214, 158, 46, 0.12);
+  border: 1px solid rgba(214, 158, 46, 0.4);
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+
 /* Demo payment (DEMO ONLY — delete with DemoPaymentForm when Stripe lands) */
 .demoBadge {
   padding: 12px 16px;

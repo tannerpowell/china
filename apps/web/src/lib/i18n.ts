@@ -154,6 +154,8 @@ export const STR: Record<string, Entry> = {
   "menu.mp": { en: "MP", zh: "时价" },
   "menu.modalClose": { en: "Close modal", zh: "关闭窗口" },
   "menu.modalMp": { en: "Market Price", zh: "时价" },
+  "menu.modalFrom": { en: "From", zh: "起价" },
+  "menu.modalChooseHint": { en: "Please choose:", zh: "请选择：" },
   "menu.modalRequired": { en: "(Required)", zh: "（必选）" },
   "menu.modalOne": { en: "Choose one", zh: "选择一项" },
   "menu.modalUpTo": { en: "Choose up to", zh: "最多选择" },

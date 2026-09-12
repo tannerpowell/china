@@ -5,6 +5,7 @@
   "scripts": {
     "discover": "tsx discover_endpoints.ts",
     "scrape": "tsx scrape_menu.ts",
+    "fetch": "tsx fetch_fresh.ts",
     "normalize": "tsx utils/normalize.ts"
   },
   "dependencies": {
