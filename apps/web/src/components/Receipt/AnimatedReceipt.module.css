@@ -1,0 +1,272 @@
+/* AnimatedReceipt — thermal printer chrome. Theme-aware machine, paper
+   stays paper-white in every theme (real receipts don't do dark mode). */
+
+.root {
+  --paper: #fffdf6;
+  --paper-ink: #232323;
+  --paper-dim: #6b6b6b;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 360px;
+}
+
+/* --- Machine --- */
+.machine {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  /* Light chassis in light themes — a step darker than paper (#fffdf6)
+     so the receipt reads against it. Dark theme keeps the dark body. */
+  background: linear-gradient(180deg, #f1efe9, #e2ded4);
+  padding: 12px 12px 26px;
+  box-shadow:
+    0 20px 36px -20px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+:global(:root[data-theme="dark"]) .machine {
+  background: linear-gradient(180deg, #3a3a3e, #26262a);
+  box-shadow:
+    0 20px 36px -20px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+
+.machineHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.6);
+  padding: 0 4px 8px;
+}
+
+.machineTitle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Subtle in-machine replay affordance. */
+.replay {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: #9a9a9a;
+  background: transparent;
+  padding: 2px 4px;
+  white-space: nowrap;
+}
+
+.replay:hover {
+  color: #6b6b6b;
+}
+
+:global(:root[data-theme="dark"]) .replay {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+:global(:root[data-theme="dark"]) .replay:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+:global(:root[data-theme="dark"]) .machineHeader {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.screen {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 12px;
+  background: #101014;
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  box-shadow: inset 0 0 18px 2px rgba(0, 0, 0, 0.7);
+  padding: 12px 14px;
+  color: #e8e8ea;
+}
+
+.indicator {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.25);
+  border-top-color: #fff;
+  animation: receipt-spin 0.8s linear infinite;
+}
+
+.check {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--green);
+  line-height: 1;
+}
+
+.statusText {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #8be28b;
+  text-shadow: 0 0 8px rgba(139, 226, 139, 0.45);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Paper slot the receipt feeds out of. Light groove on the light
+   chassis, dark opening in dark mode. */
+.slot {
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  bottom: 10px;
+  height: 8px;
+  border-radius: 4px;
+  background: #efefef;
+  box-shadow:
+    inset 0 1px 3px rgba(0, 0, 0, 0.35),
+    0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+:global(:root[data-theme="dark"]) .slot {
+  background: #0c0c0e;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+/* --- Output mask + feed --- */
+.output {
+  position: relative;
+  z-index: 1;
+  width: calc(80% + 80px);
+  max-width: 100%;
+  /* Height is set from the measured paper + shadow room (see component);
+     30rem is only the pre-measure fallback so long receipts never clip. */
+  height: 30rem;
+  margin-top: -6px;
+  overflow: hidden;
+  /* Must exceed the feed's widest blur or the mask clips it hard. */
+  padding: 0 40px;
+}
+
+.feed {
+  position: relative;
+  transform: translateY(-102%);
+  opacity: 0;
+  /* Soft layered shadow. Tunable via --rcpt-y / --rcpt-blur / --rcpt-a
+     (see demo sliders). Blur radii must stay inside the output mask's
+     horizontal padding or the mask clips them into hard bands. */
+  filter:
+    drop-shadow(0 var(--rcpt-y, 5px) var(--rcpt-blur, 10px) rgba(0, 0, 0, var(--rcpt-a, 0.14)))
+    drop-shadow(0 calc(var(--rcpt-y, 5px) / 3) calc(var(--rcpt-blur, 10px) / 3) rgba(0, 0, 0, calc(var(--rcpt-a, 0.14) / 2)));
+}
+
+/* Parked (processing): hidden above. Fed: paper fully out. */
+.root.parked .feed {
+  transform: translateY(-102%);
+  opacity: 0;
+}
+
+/* Smooth: one eased motion desk to done. */
+.root.smooth.fed .feed {
+  animation: receipt-feed-smooth 2.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+/* Stepped: hold/advance pairs like a real dot-matrix feed. */
+.root.stepped.fed .feed {
+  animation: receipt-feed-stepped 2.2s linear forwards;
+}
+
+@keyframes receipt-feed-smooth {
+  from {
+    transform: translateY(-102%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes receipt-feed-stepped {
+  0% { transform: translateY(-102%); opacity: 0; }
+  2% { transform: translateY(-102%); opacity: 1; }
+  8% { transform: translateY(-92%); opacity: 1; }
+  13% { transform: translateY(-92%); opacity: 1; }
+  19% { transform: translateY(-82%); opacity: 1; }
+  24% { transform: translateY(-82%); opacity: 1; }
+  30% { transform: translateY(-71%); opacity: 1; }
+  35% { transform: translateY(-71%); opacity: 1; }
+  41% { transform: translateY(-59%); opacity: 1; }
+  46% { transform: translateY(-59%); opacity: 1; }
+  52% { transform: translateY(-46%); opacity: 1; }
+  57% { transform: translateY(-46%); opacity: 1; }
+  63% { transform: translateY(-33%); opacity: 1; }
+  68% { transform: translateY(-33%); opacity: 1; }
+  74% { transform: translateY(-21%); opacity: 1; }
+  79% { transform: translateY(-21%); opacity: 1; }
+  85% { transform: translateY(-10%); opacity: 1; }
+  90% { transform: translateY(-10%); opacity: 1; }
+  95% { transform: translateY(-3%); opacity: 1; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+/* No animation: paper pops in with no feed — but ONLY once fed, so
+   replaying still parks (hides) the paper during "processing" and the
+   appearance is actually visible. (An unscoped .noAnim rule would keep
+   the paper visible in every stage and Replay would seem to do nothing.) */
+.root.stepped.fed.noAnim .feed,
+.root.smooth.fed.noAnim .feed {
+  animation: none;
+  transform: translateY(0);
+  opacity: 1;
+}
+
+@keyframes receipt-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* --- Paper --- */
+.paper {
+  position: relative;
+  background: var(--paper);
+  color: var(--paper-ink);
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 12.5px;
+  line-height: 1.65;
+  padding: 26px 22px 30px;
+}
+
+/* Motion-sensitive users: paper appears in place, spinner rests. */
+@media (prefers-reduced-motion: reduce) {
+  .root .feed {
+    animation: none;
+    transform: translateY(0);
+    opacity: 1;
+  }
+  .spinner {
+    animation: none;
+    border-top-color: rgba(255, 255, 255, 0.25);
+  }
+}

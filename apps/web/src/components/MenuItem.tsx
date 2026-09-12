@@ -2,7 +2,9 @@
 
 import { useState, useRef } from "react";
 import { Flame, Leaf, Heart } from "lucide-react";
-import type { MenuItem as MenuItemType } from "@/lib/types";
+import type { MenuItem as MenuItemType, ModifierGroup } from "@/lib/types";
+import { getModifierGroup } from "@/lib/menu";
+import { displayPrice, toDollars } from "@/lib/pricing";
 import { ItemModal } from "./ItemModal";
 import styles from "./MenuItem.module.css";
 
@@ -36,7 +38,13 @@ export function MenuItem({ item, imagePath }: MenuItemProps) {
     setShowModal(true);
   };
 
-  const displayPrice = item.basePrice !== null ? `$${item.basePrice.toFixed(2)}` : "Select options";
+  const itemGroups = item.modifierGroupIds
+    .map((id) => getModifierGroup(id))
+    .filter((g): g is ModifierGroup => g !== undefined);
+  const dp = displayPrice(item, itemGroups);
+  const displayPriceText = dp
+    ? `${dp.from ? "From " : ""}$${toDollars(dp.cents).toFixed(2)}`
+    : "Select options";
 
   return (
     <>
@@ -55,7 +63,7 @@ export function MenuItem({ item, imagePath }: MenuItemProps) {
           <div className={styles.nameRow}>
             <h3 className={styles.name}>{item.name}</h3>
             <span className={styles.dots} />
-            <span className={styles.price}>{displayPrice}</span>
+            <span className={styles.price}>{displayPriceText}</span>
           </div>
 
           {/* Tags */}
@@ -98,7 +106,7 @@ export function MenuItem({ item, imagePath }: MenuItemProps) {
             </div>
             <div className={styles.peekContent}>
               <span className={styles.peekName}>{item.name}</span>
-              <span className={styles.peekPrice}>{displayPrice}</span>
+              <span className={styles.peekPrice}>{displayPriceText}</span>
             </div>
             <div className={styles.peekHint}>Click to customize</div>
           </div>

@@ -1,0 +1,6 @@
+# Re-include the menu fallback JSON: root .gitignore excludes all `data/`
+# dirs, but the site statically imports this file at build time.
+# (The directory itself must be re-included before the file — gitignore
+# cannot re-include a file inside an excluded directory.)
+!apps/web/src/data/
+!apps/web/src/data/menu.normalized.json

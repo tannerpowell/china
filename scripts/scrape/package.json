@@ -5,11 +5,12 @@
   "scripts": {
     "discover": "tsx discover_endpoints.ts",
     "scrape": "tsx scrape_menu.ts",
+    "fetch": "tsx fetch_fresh.ts",
     "normalize": "tsx utils/normalize.ts"
   },
   "dependencies": {
-    "playwright": "^1.57.0",
-    "cheerio": "^1.1.2",
-    "tsx": "^4.21.0"
+    "cheerio": "^1.2.0",
+    "playwright": "1.63.0",
+    "tsx": "^4.23.13"
   }
 }

@@ -5,7 +5,7 @@ import { ArrowRight, MapPin, Phone, Clock } from "lucide-react";
 import styles from "./page.module.css";
 import { useState, useEffect } from "react";
 
-// Hours: Mon-Sat 11am-9pm, Sun 12pm-8pm
+// Hours: Sun–Thu 11am–9pm, Fri–Sat 11am–9:30pm
 // Uses restaurant's local timezone (defaults to America/Chicago)
 const RESTAURANT_TIMEZONE = process.env.NEXT_PUBLIC_RESTAURANT_TIMEZONE || "America/Chicago";
 
@@ -25,9 +25,9 @@ function getOpenStatus(): { isOpen: boolean; label: string } {
   const minute = parseInt(parts.find(p => p.type === "minute")?.value || "0", 10);
   const currentTime = hour + minute / 60;
 
-  const isSunday = weekday === "Sun";
-  const openHour = isSunday ? 12 : 11;
-  const closeHour = isSunday ? 20 : 21; // 8pm = 20, 9pm = 21
+  const isWeekend = weekday === "Fri" || weekday === "Sat";
+  const openHour = 11;
+  const closeHour = isWeekend ? 21.5 : 21; // 9pm Sun–Thu, 9:30pm Fri–Sat
 
   if (currentTime >= openHour && currentTime < closeHour) {
     return { isOpen: true, label: "Open Now" };
@@ -35,7 +35,7 @@ function getOpenStatus(): { isOpen: boolean; label: string } {
 
   // Calculate when we open next
   if (currentTime < openHour) {
-    return { isOpen: false, label: `Opens at ${isSunday ? "12pm" : "11am"}` };
+    return { isOpen: false, label: "Opens at 11am" };
   }
 
   return { isOpen: false, label: "Closed" };
@@ -109,8 +109,8 @@ export default function Home() {
             </div>
             <h3 className={styles.infoTitle}>Hours</h3>
             <p className={styles.infoText}>
-              Mon–Sat: 11am–9pm<br />
-              Sunday: 12pm–8pm
+              Sun–Thu: 11am–9pm<br />
+              Fri–Sat: 11am–9:30pm
             </p>
             <span className={`${styles.infoStatus} ${openStatus.isOpen ? "" : styles.infoStatusClosed}`}>
               <span className={styles.statusDot} />

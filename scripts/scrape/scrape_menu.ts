@@ -1,90 +1,13 @@
 import { chromium } from "playwright";
-import * as cheerio from "cheerio";
 import { log } from "./utils/logger.js";
 import { writeJson, ensureDir } from "./utils/storage.js";
-import { slugify } from "./utils/slugify.js";
-import type { ModifierOption, ModifierGroup } from "./scrape_item_modal.js";
+import { parseApiResponse } from "./utils/parse_modal.js";
 
 const MENU_URL = process.env.MENU_URL ?? "http://www.chinaislandasiangrill.com/menu.asp";
 const CART_URL = process.env.CART_URL ?? "https://us.chinesemenu.com/order/shoppingcart.htm";
 const RID = "301196398"; // Restaurant ID from discovery
 
 type ItemIndexEntry = { itemId: number; nameFromList: string; categoryFromList: string | null; sourceUrl: string };
-
-function parseApiResponse(html: string) {
-  const $ = cheerio.load(html);
-
-  // Item name from h6.t
-  let modalItemName = $("h6.t").first().text().trim();
-  // Remove trailing images text
-  modalItemName = modalItemName.replace(/\s*$/, "").trim();
-
-  // Base price
-  let basePrice: number | null = null;
-  const priceText = $(".baseprice").text();
-  const priceMatch = priceText.match(/\$\s*([0-9]+(?:\.[0-9]{1,2})?)/);
-  if (priceMatch) basePrice = Number(priceMatch[1]);
-
-  // Likes
-  let likes: number | null = null;
-  const likeText = $("p").text();
-  const likeMatch = likeText.match(/([0-9,]+)\s+people\s+like/i);
-  if (likeMatch) likes = Number(likeMatch[1].replace(/,/g, ""));
-
-  // Modifier groups
-  const modifierGroups: ModifierGroup[] = [];
-
-  // Spicy options (special case - directly under choosemain)
-  const spicyOptions: ModifierOption[] = [];
-  $('input[name="spicy"]').each((_, el) => {
-    const $el = $(el);
-    const $label = $el.closest("label");
-    const label = $label.text().trim();
-    if (label) {
-      spicyOptions.push({ label, priceDelta: 0, inputType: "radio" });
-    }
-  });
-  if (spicyOptions.length > 0) {
-    const spicyTitle = $("strong.t").first().text().trim() || "How Spicy?";
-    modifierGroups.push({ title: spicyTitle, selectionType: "single", options: spicyOptions });
-  }
-
-  // Side order groups
-  $(".sideOrderList").each((_, group) => {
-    const $group = $(group);
-    const title = $group.find("h3").first().text().trim() || "Options";
-    const options: ModifierOption[] = [];
-
-    $group.find("input[type='radio'], input[type='checkbox']").each((_, input) => {
-      const $input = $(input);
-      const $label = $input.closest("label");
-      const inputType = ($input.attr("type") || "radio") as "radio" | "checkbox";
-
-      // Get full label text and parse price delta
-      let labelText = $label.text().trim();
-      let priceDelta = 0;
-      const deltaMatch = labelText.match(/\(\s*\$\s*([0-9]+(?:\.[0-9]{1,2})?)\s*\)/);
-      if (deltaMatch) {
-        priceDelta = Number(deltaMatch[1]);
-        labelText = labelText.replace(deltaMatch[0], "").replace(/\s*:\s*$/, "").trim();
-      }
-
-      if (labelText) {
-        options.push({ label: labelText, priceDelta, inputType });
-      }
-    });
-
-    if (options.length > 0) {
-      const selectionType = options.some(o => o.inputType === "checkbox") ? "multi" : "single";
-      modifierGroups.push({ title, selectionType, options });
-    }
-  });
-
-  const hasSpecialInstructions = html.includes("Special Instructions");
-  const hasQty = html.includes("QTY:");
-
-  return { modalItemName, basePrice, likes, modifierGroups, hasSpecialInstructions, hasQty, imageUrls: [] as string[] };
-}
 
 async function main() {
   ensureDir("data/raw");

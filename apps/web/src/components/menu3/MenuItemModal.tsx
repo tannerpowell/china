@@ -5,6 +5,8 @@ import Image from 'next/image';
 import { Minus, Plus, Check, ShoppingBag } from 'lucide-react';
 import type { MenuItem, ModifierGroup, CartModifier, Category } from '@/lib/types';
 import { useCartStore } from '@/lib/cart-store';
+import { validateSelection, displayPrice, toDollars } from '@/lib/pricing';
+import { T } from '@/components/T';
 import styles from './MenuItemModal.module.css';
 
 interface MenuItemModalProps {
@@ -38,6 +40,7 @@ export function MenuItemModal({
   const [selectedModifiers, setSelectedModifiers] = useState<Record<string, string[]>>({});
   const [specialInstructions, setSpecialInstructions] = useState('');
   const [addedToCart, setAddedToCart] = useState(false);
+  const [missingRequired, setMissingRequired] = useState<string[]>([]);
 
   // Get modifier groups for this item
   const itemModifierGroups = item.modifierGroupIds
@@ -82,11 +85,19 @@ export function MenuItemModal({
 
       document.addEventListener('keydown', handleKeyDown);
 
-      // Reset state
+      // Reset state — required single-choice groups preselect their first
+      // option (cheapest variant for size-priced items).
+      const preselected: Record<string, string[]> = {};
+      for (const g of itemModifierGroups) {
+        if (g.min > 0 && g.selectionType === 'single' && g.options.length > 0) {
+          preselected[g.id] = [g.options[0].id];
+        }
+      }
       setQuantity(1);
-      setSelectedModifiers({});
+      setSelectedModifiers(preselected);
       setSpecialInstructions('');
       setAddedToCart(false);
+      setMissingRequired([]);
 
       setTimeout(() => {
         closeButtonRef.current?.focus();
@@ -118,9 +129,11 @@ export function MenuItemModal({
       if (isMulti) {
         if (current.includes(optionId)) {
           return { ...prev, [groupId]: current.filter((id) => id !== optionId) };
-        } else {
-          return { ...prev, [groupId]: [...current, optionId] };
         }
+        // Cap at the group's max — same rule the server enforces.
+        const group = itemModifierGroups.find((g) => g.id === groupId);
+        if (group && current.length >= group.max) return prev;
+        return { ...prev, [groupId]: [...current, optionId] };
       } else {
         return { ...prev, [groupId]: [optionId] };
       }
@@ -148,6 +161,17 @@ export function MenuItemModal({
 
   // Handle add to cart
   const handleAddToCart = () => {
+    // Required choices gate the add — the server enforces the same rules,
+    // this just fails fast and points at what's missing.
+    const check = validateSelection(item, itemModifierGroups, selectedModifiers);
+    if (!check.ok) {
+      setMissingRequired(
+        check.issues.filter((i) => i.kind === 'required').map((i) => i.groupTitle.replace(/\n.*/, '').trim())
+      );
+      return;
+    }
+    setMissingRequired([]);
+
     const cartModifiers: CartModifier[] = [];
     Object.entries(selectedModifiers).forEach(([groupId, optionIds]) => {
       const group = itemModifierGroups.find((g) => g.id === groupId);
@@ -208,6 +232,8 @@ export function MenuItemModal({
           onClick={onClose}
           className={styles.closeBtn}
           aria-label="Close modal"
+          data-aria-en="Close modal"
+          data-aria-zh="关闭窗口"
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
             <path d="M18 6 6 18M6 6l12 12" />
@@ -267,14 +293,19 @@ export function MenuItemModal({
 
           {/* Price */}
           <div className={styles.price}>
-            {item.basePrice !== null ? (
-              <>
-                <span className={styles.priceCurrency}>$</span>
-                <span className={styles.priceAmount}>{item.basePrice.toFixed(2)}</span>
-              </>
-            ) : (
-              <span className={styles.priceMarket}>Market Price</span>
-            )}
+            {(() => {
+              const dp = displayPrice(item, itemModifierGroups);
+              if (!dp) {
+                return <span className={styles.priceMarket}><T id="menu.modalMp" /></span>;
+              }
+              return (
+                <>
+                  {dp.from && <span className={styles.priceFrom}><T id="menu.modalFrom" /> </span>}
+                  <span className={styles.priceCurrency}>$</span>
+                  <span className={styles.priceAmount}>{toDollars(dp.cents).toFixed(2)}</span>
+                </>
+              );
+            })()}
           </div>
 
           {/* Divider */}
@@ -294,9 +325,9 @@ export function MenuItemModal({
                 <div key={group.id} className={styles.modifierGroup}>
                   <h3 className={styles.modifierTitle}>
                     {group.title.replace(/\n.*/, '').trim()}
-                    {group.min > 0 && <span className={styles.required}>(Required)</span>}
+                    {group.min > 0 && <span className={styles.required}><T id="menu.modalRequired" /></span>}
                     <span className={styles.modifierType}>
-                      {group.selectionType === 'single' ? 'Choose one' : `Choose up to ${group.max}`}
+                      {group.selectionType === 'single' ? <T id="menu.modalOne" /> : <><T id="menu.modalUpTo" /> {group.max}</>}
                     </span>
                   </h3>
                   <div className={styles.options}>
@@ -329,10 +360,12 @@ export function MenuItemModal({
 
           {/* Special instructions */}
           <div className={styles.instructions}>
-            <label className={styles.instructionsLabel}>Special Instructions</label>
+            <label className={styles.instructionsLabel}><T id="menu.modalNotes" /></label>
             <textarea
               className={styles.instructionsInput}
               placeholder="Any allergies or special requests?"
+              data-ph-en="Any allergies or special requests?"
+              data-ph-zh="有过敏或特殊要求请注明"
               value={specialInstructions}
               onChange={(e) => setSpecialInstructions(e.target.value)}
               rows={2}
@@ -341,6 +374,12 @@ export function MenuItemModal({
 
           {/* Spacer */}
           <div className={styles.spacer} />
+
+          {missingRequired.length > 0 && (
+            <p className={styles.requiredHint}>
+              <T id="menu.modalChooseHint" /> {missingRequired.join(', ')}
+            </p>
+          )}
 
           {/* Footer with quantity and add button */}
           <div className={styles.footer}>
@@ -351,8 +390,10 @@ export function MenuItemModal({
                 onClick={() => setQuantity(Math.max(1, quantity - 1))}
                 disabled={quantity <= 1}
                 aria-label="Decrease quantity"
+                data-aria-en="Decrease quantity"
+                data-aria-zh="减少数量"
               >
-                <Minus size={18} />
+                <Minus size={18} aria-hidden="true" />
               </button>
               <span className={styles.quantityValue}>{quantity}</span>
               <button
@@ -360,8 +401,10 @@ export function MenuItemModal({
                 className={styles.quantityButton}
                 onClick={() => setQuantity(quantity + 1)}
                 aria-label="Increase quantity"
+                data-aria-en="Increase quantity"
+                data-aria-zh="增加数量"
               >
-                <Plus size={18} />
+                <Plus size={18} aria-hidden="true" />
               </button>
             </div>
 
@@ -374,12 +417,12 @@ export function MenuItemModal({
               {addedToCart ? (
                 <>
                   <Check size={20} />
-                  Added!
+                  <T id="menu.modalAdded" />
                 </>
               ) : (
                 <>
                   <ShoppingBag size={20} />
-                  Add to Order
+                  <T id="menu.modalAdd" />
                   <span className={styles.addButtonPrice}>${totalPrice.toFixed(2)}</span>
                 </>
               )}
