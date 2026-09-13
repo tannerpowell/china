@@ -26,6 +26,15 @@ bun install
 ```bash
 bun run dev
 ```
+The `dev` script runs Next through [portless](https://github.com/vercel-labs/portless),
+which serves the app at a stable `https://china-island.localhost` instead of a port number.
+
+One-time setup:
+```bash
+npm install -g portless     # the CLI
+sudo portless service install   # start the HTTPS proxy on :443 and run it at login
+```
+(Or `portless proxy start` for a one-off proxy. Custom name lives in `apps/web/portless.json`.)
 
 ### Scrape (if needed)
 ```bash
